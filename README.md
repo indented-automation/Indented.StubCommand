@@ -1,0 +1,1 @@
+# Indented.StubCommand
