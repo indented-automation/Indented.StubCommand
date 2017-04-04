@@ -26,6 +26,10 @@ function New-StubType {
     }
 
     if ($Type.BaseType -eq [Enum]) {
+        if ($Type.CustomAttributes.Count -gt 0 -and $Type.CustomAttributes.Where{ $_.AttributeType -eq [FlagsAttribute] }) {
+            $typeDefinition.AppendLine('[Flags]')
+        }
+
         $underlyingType = [Enum]::GetUnderlyingType($Type)
         $typeName = switch ($underlyingType.Name) {
             'Byte'   { 'byte' }
