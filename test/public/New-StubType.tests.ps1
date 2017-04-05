@@ -6,7 +6,7 @@ InModuleScope Indented.StubCommand {
                 $stub = New-StubType $Script:Type
             }
     
-            [String]$guid = [Guid]::NewGuid() -replace '-'
+            [String]$guid = 'z' + ([Guid]::NewGuid() -replace '-')
             $Script:TypeDefinition = '
                 public enum {0} : int
                 {{
@@ -14,17 +14,17 @@ InModuleScope Indented.StubCommand {
                     Two = 2
                 }}
             ' -f $guid
-            $Script:Type = $guid -as [Type]
+            $Script:Type = $guid
 
             It 'Generates a type definition for an existing enum' {
                 $stub | Should -Match $guid
                 $stub | Should -Match int
-                $stub | Should -Match 'One = 1'
+                $stub | Should -Match 'One = 1,'
             }
         }
 
         Context 'Class' {
-
+            
         }
     }
 }

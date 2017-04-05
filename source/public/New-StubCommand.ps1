@@ -2,13 +2,9 @@ using namespace System.Management.Automation
 
 function New-StubCommand {
     # .SYNOPSIS
-    #   A function which creates a partial copy of a command.
+    #   Create a new partial copy of a command.
     # .DESCRIPTION
-    #   Built to resolve issues caused by lack of module portability and a need to expose commands to build services for testing with Pester.
-    #
-    #   A stub module file can be created on a system which supports the command set. The stub module should be loaded place of the real module (where required for testing).
-    #
-    #   This allows a pester mock to be created which respects the original parameter configuration without having a full copy of the original module.
+    #   New-StubCommand recreates a command as a function with param block and dynamic param block (if used).
     # .INPUTS
     #   System.Management.Automation.CommandInfo
     # .OUTPUTS
@@ -20,7 +16,7 @@ function New-StubCommand {
     #     03/04/2017 - Chris Dent - Created.
 
     [CmdletBinding()]
-    param(
+    param (
         [Parameter(ValueFromPipeline = $true)]
         [CommandInfo]$CommandInfo
     )
@@ -37,6 +33,12 @@ function New-StubCommand {
                 $null = $script.AppendLine([ProxyCommand]::GetCmdletBindingAttribute($CommandInfo))
             }
 
+            # Write OutputType
+            foreach ($outputType in $CommandInfo.OutputType) {
+                $null = $script.AppendFormat('[OutputType([{0}])]', $outputType.Name).
+                                AppendLine()
+            }
+
             # Write param
             if ($CommandInfo.CmdletBinding -or $CommandInfo.Parameters.Count -gt 0) {
                 $null = $script.Append('param (')
@@ -45,13 +47,17 @@ function New-StubCommand {
                     foreach ($line in $param -split '\r?\n') {
                         $null = $script.AppendLine($line.Trim())
                     }
+                } else {
+                    $null = $script.Append(' ')
                 }
 
                 $null = $script.AppendLine(')')
             }
 
             # Write dynamic params
-            $null = $script.AppendScript((New-StubDynamicParam $CommandInfo))
+            if ($dynamicParams = New-StubDynamicParam $CommandInfo) {
+                $null = $script.AppendScript($dynamicParams)
+            }
 
             $null = $script.AppendLine('}')
             

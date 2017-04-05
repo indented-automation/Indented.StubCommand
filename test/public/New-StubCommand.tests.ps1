@@ -2,17 +2,9 @@ InModuleScope Indented.StubCommand {
     Describe New-StubCommand {
         Mock New-StubDynamicParam
     
-        Context 'Default' {
+        Context 'CmdletBinding' {
             BeforeEach {
                 $stub = New-StubCommand (Get-Command Test-Function)
-            }
-
-            function Test-Function { }
-
-            It 'Supports functions which do not declare param' {
-                $stub | Should -Match 'function Test-Function \{'
-                $stub | Should -Not -Match 'CmdletBinding'
-                $stub | Should -Not -Match 'param'
             }
 
             function Test-Function {
@@ -33,6 +25,45 @@ InModuleScope Indented.StubCommand {
             It 'Supports commands with an empty param block and a CmdletBinding declaration' {
                 $stub | Should -Match 'CmdletBinding'
                 $stub | Should -Match 'param'
+            }
+        }
+    
+        Context 'OutputType' {
+            BeforeEach {
+                $stub = New-StubCommand (Get-Command Test-Function)
+            }
+
+            function Test-Function {
+                [OutputType([String])]
+                param( )
+            }
+
+            It 'Supports functions which declare an OutputType' {
+                $stub | Should -Match 'OutputType'
+            }
+
+            function Test-Function {
+                [OutputType([String], [Int32])]
+                param( )
+            }
+
+            It 'Supports functions which declare more than one OutputType' {
+                $stub | Should -Match 'OutputType\(\[System\.String'
+                $stub | Should -Match 'OutputType\(\[System\.Int32'
+            }
+        }
+
+        Context 'Param block' {
+            BeforeEach {
+                $stub = New-StubCommand (Get-Command Test-Function)
+            }
+
+            function Test-Function { }
+
+            It 'Supports functions which do not declare param' {
+                $stub | Should -Match 'function Test-Function \{'
+                $stub | Should -Not -Match 'CmdletBinding'
+                $stub | Should -Not -Match 'param'
             }
 
             function Test-Function {
@@ -74,6 +105,12 @@ InModuleScope Indented.StubCommand {
             It 'Supports strongly typed parameters' {
                 $stub | Should -Match 'string'
                 $stub | Should -Match 'Value'
+            }
+        }
+
+        Context 'Dynamic Param' {
+            BeforeEach {
+                $stub = New-StubCommand (Get-Command Test-Function)
             }
 
             function Test-Function {

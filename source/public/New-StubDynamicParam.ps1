@@ -16,7 +16,7 @@ function New-StubDynamicParam {
     #     04/04/2017 - Chris Dent - Created.
 
     [CmdletBinding()]
-    param(
+    param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [CommandInfo]$CommandInfo
     )
@@ -26,7 +26,6 @@ function New-StubDynamicParam {
 
         $dynamicParams = $CommandInfo.Parameters.Values.Where{ $_.IsDynamic }
         if ($dynamicParams.Count -gt 0) {
-
             $null = $script.AppendLine().
                             AppendLine('dynamicparam {').
                             AppendLine('$parameters = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary').

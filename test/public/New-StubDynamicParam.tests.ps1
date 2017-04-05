@@ -13,21 +13,23 @@ InModuleScope Indented.StubCommand {
             }
         }
 
-        Context 'Default' {
-            BeforeEach {
-                $block = (New-StubDynamicParam (Get-Command Test-Function)).Trim() -replace '^dynamicparam \{|\}$'
-                $params = & ([ScriptBlock]::Create($block))
-                $testParam = $params['TestParameter']
-                $testAttribute = $testParam.Attributes[0]
-            }
-
+        BeforeEach {
+            $block = (New-StubDynamicParam (Get-Command Test-Function)).Trim() -replace '^dynamicparam \{|\}$'
+            $params = & ([ScriptBlock]::Create($block))
+            $testParam = $params['TestParameter']
+            $testAttribute = $testParam.Attributes[0]
+        }
+        
+        Context 'No attributes' {
             $Script:attributes = { @() }
 
             It 'Creates an entry for a bare attribute' {
                 $params.ContainsKey('TestParameter') | Should -Be $true
                 $testParam.Attributes.Count | Should -Be 0
             }
+        }
 
+        Context 'Parameter attribute' {
             $Script:attributes = {
                 New-Object Parameter
             }
