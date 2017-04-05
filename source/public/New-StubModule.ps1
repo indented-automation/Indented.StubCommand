@@ -22,44 +22,57 @@ function New-StubModule {
     param (
         # The name of a module to recreate.
         [Parameter(Mandatory = $true)]
-        [String]$Module,
+        [String]$FromModule,
 
-        # Save the new definition in the specified path.
+        # Save the new definition in the specified directory.
+        [ValidateScript( { Test-Path $_ -PathType Container } )]
         [String]$Path
     )
 
-    if ($Path -ne '' -and (Test-Path $Path -PathType Leaf)) {
-        Remove-Item $Path -Force
-    }
+    try {
+        if (Test-Path $FromModule) {
+            $FromModule = Import-Module $FromModule -PassThru |
+                Select-Object -ExpandProperty Name
+        }
 
-    # Types
+        # Support wildcards in the FromModule parameter.
+        Get-Command -Module $FromModule | Group-Object Source | ForEach-Object {
+            $moduleName = $_.Name
 
-    $parameterTypes = Get-Command -Module $Module |
-        ForEach-Object { $_.Parameters.Values } |
-        Select-Object -ExpandProperty ParameterType -Unique
-    $outputTypes = Get-Command -Module $Module |
-        ForEach-Object { $_.OutputType.Type } |
-        Select-Object -Unique
-    $parameterTypes + $outputTypes |
-        Where-Object BaseType -ne ([Array]) |
-        Group-Object { $_.Assembly.FullName } |
-        Where-Object { TestIsForeignAssembly $_.Name } |
-        ForEach-Object { $_.Group } |
-        New-StubType |
-        ForEach-Object {
-            if ($Path -eq '') {
-                $_
+            # Header
+
+            '# Name: {0}' -f $moduleName
+            '# Version: {0}' -f $_.Version
+            '# CreatedOn: {0}' -f (Get-Date -Format 'u')
+            
+            # Types
+
+            $parameterTypes = $_.Group |
+                ForEach-Object { $_.Parameters.Values } |
+                Select-Object -ExpandProperty ParameterType
+
+            $outputTypes = $_.Group |
+                ForEach-Object { $_.OutputType.Type }
+
+            $parameterTypes + $outputTypes |
+                Where-Object BaseType -ne ([Array]) |
+                Select-Object -Unique |
+                Group-Object { $_.Assembly.FullName } |
+                Where-Object { TestIsForeignAssembly $_.Name } |
+                ForEach-Object { $_.Group } |
+                New-StubType
+
+            # Commands
+            $_.Group | New-StubCommand
+
+        } | ForEach-Object {
+            if ($psboundparameters.ContainsKey('Path')) {
+                $_ | Out-File (Join-Path $Path ('{0}.psm1' -f $moduleName)) -Encoding UTF8
             } else {
-                $_ | Out-File $Path -Append
+                $_
             }
         }
-
-    # Commands
-    Get-Command -Module $Module | New-StubCommand | ForEach-Object {
-        if ($Path -eq '') {
-            $_
-        } else {
-            $_ | Out-File $Path -Append
-        }
+    } catch {
+        throw
     }
 }

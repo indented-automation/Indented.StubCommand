@@ -23,11 +23,15 @@ InModuleScope Indented.StubCommand {
                 $result | Should Be $true
             }
 
-            $script:assemblyList = 'TestAssembly', 'KnownAssembly1', 'KnownAssembly2'
+            $Script:assemblyList = 'TestAssembly', 'KnownAssembly1', 'KnownAssembly2'
 
             It 'Returns false if the assembly is in the list' {
                 $result | Should Be $false
             }
+
+            # Ensure the assemblyList is re-built after this test completes.
+            # Tests are not executed in isolation.
+            $Script:assemblyList = $null
         }
     }
 }
