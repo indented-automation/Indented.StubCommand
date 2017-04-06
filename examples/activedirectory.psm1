@@ -1,6 +1,6 @@
-﻿# Name: activedirectory
+﻿# Name: ActiveDirectory
 # Version: 1.0.0.0
-# CreatedOn: 2017-04-06 13:18:42Z
+# CreatedOn: 2017-04-06 14:29:38Z
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADComputer" -as [Type])) {
     Add-Type '
@@ -1930,7 +1930,7 @@ function New-ADComputer {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[System.DateTime]], $attributes)
         $parameters.Add("AccountExpirationDate", $parameter)
         
         # AccountNotDelegated
@@ -1940,7 +1940,7 @@ function New-ADComputer {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("AccountNotDelegated", $parameter)
         
         # AccountPassword
@@ -1960,7 +1960,7 @@ function New-ADComputer {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AllowReversiblePasswordEncryption", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AllowReversiblePasswordEncryption", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("AllowReversiblePasswordEncryption", $parameter)
         
         # CannotChangePassword
@@ -1970,7 +1970,7 @@ function New-ADComputer {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("CannotChangePassword", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("CannotChangePassword", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("CannotChangePassword", $parameter)
         
         # Certificates
@@ -1990,7 +1990,7 @@ function New-ADComputer {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ChangePasswordAtLogon", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ChangePasswordAtLogon", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ChangePasswordAtLogon", $parameter)
         
         # Description
@@ -2030,7 +2030,7 @@ function New-ADComputer {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("Enabled", $parameter)
         
         # HomePage
@@ -2125,7 +2125,7 @@ function New-ADComputer {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNeverExpires", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNeverExpires", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("PasswordNeverExpires", $parameter)
         
         # PasswordNotRequired
@@ -2135,7 +2135,7 @@ function New-ADComputer {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNotRequired", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNotRequired", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("PasswordNotRequired", $parameter)
         
         # SAMAccountName
@@ -2165,7 +2165,7 @@ function New-ADComputer {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("TrustedForDelegation", $parameter)
         
         # UserPrincipalName
@@ -2220,7 +2220,7 @@ function New-ADFineGrainedPasswordPolicy {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ComplexityEnabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ComplexityEnabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ComplexityEnabled", $parameter)
         
         # Description
@@ -2250,7 +2250,7 @@ function New-ADFineGrainedPasswordPolicy {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutDuration", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutDuration", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("LockoutDuration", $parameter)
         
         # LockoutObservationWindow
@@ -2260,7 +2260,7 @@ function New-ADFineGrainedPasswordPolicy {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutObservationWindow", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutObservationWindow", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("LockoutObservationWindow", $parameter)
         
         # LockoutThreshold
@@ -2270,7 +2270,7 @@ function New-ADFineGrainedPasswordPolicy {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutThreshold", [System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutThreshold", [System.Nullable`1[System.Int32]], $attributes)
         $parameters.Add("LockoutThreshold", $parameter)
         
         # MaxPasswordAge
@@ -2280,7 +2280,7 @@ function New-ADFineGrainedPasswordPolicy {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MaxPasswordAge", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MaxPasswordAge", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("MaxPasswordAge", $parameter)
         
         # MinPasswordAge
@@ -2290,7 +2290,7 @@ function New-ADFineGrainedPasswordPolicy {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordAge", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordAge", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("MinPasswordAge", $parameter)
         
         # MinPasswordLength
@@ -2300,7 +2300,7 @@ function New-ADFineGrainedPasswordPolicy {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordLength", [System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordLength", [System.Nullable`1[System.Int32]], $attributes)
         $parameters.Add("MinPasswordLength", $parameter)
         
         # Name
@@ -2322,7 +2322,7 @@ function New-ADFineGrainedPasswordPolicy {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordHistoryCount", [System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordHistoryCount", [System.Nullable`1[System.Int32]], $attributes)
         $parameters.Add("PasswordHistoryCount", $parameter)
         
         # Precedence
@@ -2334,7 +2334,7 @@ function New-ADFineGrainedPasswordPolicy {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Precedence", [System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Precedence", [System.Nullable`1[System.Int32]], $attributes)
         $parameters.Add("Precedence", $parameter)
         
         # ProtectedFromAccidentalDeletion
@@ -2344,7 +2344,7 @@ function New-ADFineGrainedPasswordPolicy {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ProtectedFromAccidentalDeletion", $parameter)
         
         # ReversibleEncryptionEnabled
@@ -2354,7 +2354,7 @@ function New-ADFineGrainedPasswordPolicy {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ReversibleEncryptionEnabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ReversibleEncryptionEnabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ReversibleEncryptionEnabled", $parameter)
         
         return $parameters
@@ -2409,7 +2409,7 @@ function New-ADGroup {
         $attribute = New-Object System.Management.Automation.ValidateNotNullAttribute
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("GroupScope", [System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADGroupScope, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("GroupScope", [System.Nullable`1[Microsoft.ActiveDirectory.Management.ADGroupScope]], $attributes)
         $parameters.Add("GroupScope", $parameter)
         
         # GroupCategory
@@ -2422,7 +2422,7 @@ function New-ADGroup {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("GroupCategory", [System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADGroupCategory, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("GroupCategory", [System.Nullable`1[Microsoft.ActiveDirectory.Management.ADGroupCategory]], $attributes)
         $parameters.Add("GroupCategory", $parameter)
         
         # HomePage
@@ -2559,7 +2559,7 @@ function New-ADObject {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ProtectedFromAccidentalDeletion", $parameter)
         
         # Type
@@ -2695,7 +2695,7 @@ function New-ADOrganizationalUnit {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ProtectedFromAccidentalDeletion", $parameter)
         
         # State
@@ -2775,7 +2775,7 @@ function New-ADServiceAccount {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[System.DateTime]], $attributes)
         $parameters.Add("AccountExpirationDate", $parameter)
         
         # AccountNotDelegated
@@ -2785,7 +2785,7 @@ function New-ADServiceAccount {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("AccountNotDelegated", $parameter)
         
         # AccountPassword
@@ -2835,7 +2835,7 @@ function New-ADServiceAccount {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("Enabled", $parameter)
         
         # HomePage
@@ -2890,7 +2890,7 @@ function New-ADServiceAccount {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("TrustedForDelegation", $parameter)
         
         return $parameters
@@ -2975,7 +2975,7 @@ function New-ADUser {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[System.DateTime]], $attributes)
         $parameters.Add("AccountExpirationDate", $parameter)
         
         # AccountNotDelegated
@@ -2985,7 +2985,7 @@ function New-ADUser {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("AccountNotDelegated", $parameter)
         
         # AccountPassword
@@ -3005,7 +3005,7 @@ function New-ADUser {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AllowReversiblePasswordEncryption", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AllowReversiblePasswordEncryption", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("AllowReversiblePasswordEncryption", $parameter)
         
         # CannotChangePassword
@@ -3015,7 +3015,7 @@ function New-ADUser {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("CannotChangePassword", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("CannotChangePassword", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("CannotChangePassword", $parameter)
         
         # Certificates
@@ -3035,7 +3035,7 @@ function New-ADUser {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ChangePasswordAtLogon", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ChangePasswordAtLogon", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ChangePasswordAtLogon", $parameter)
         
         # City
@@ -3125,7 +3125,7 @@ function New-ADUser {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("Enabled", $parameter)
         
         # Fax
@@ -3275,7 +3275,7 @@ function New-ADUser {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNeverExpires", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNeverExpires", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("PasswordNeverExpires", $parameter)
         
         # PasswordNotRequired
@@ -3285,7 +3285,7 @@ function New-ADUser {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNotRequired", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNotRequired", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("PasswordNotRequired", $parameter)
         
         # POBox
@@ -3365,7 +3365,7 @@ function New-ADUser {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("SmartcardLogonRequired", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("SmartcardLogonRequired", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("SmartcardLogonRequired", $parameter)
         
         # State
@@ -3415,7 +3415,7 @@ function New-ADUser {
         $attribute.ValueFromPipelineByPropertyName = $True
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("TrustedForDelegation", $parameter)
         
         # Type
@@ -4330,7 +4330,7 @@ function Set-ADAccountExpiration {
         $attribute.Position = 2
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("DateTime", [System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("DateTime", [System.Nullable`1[System.DateTime]], $attributes)
         $parameters.Add("DateTime", $parameter)
         
         return $parameters
@@ -4466,7 +4466,7 @@ function Set-ADComputer {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[System.DateTime]], $attributes)
         $parameters.Add("AccountExpirationDate", $parameter)
         
         # AccountNotDelegated
@@ -4476,7 +4476,7 @@ function Set-ADComputer {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("AccountNotDelegated", $parameter)
         
         # AllowReversiblePasswordEncryption
@@ -4486,7 +4486,7 @@ function Set-ADComputer {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AllowReversiblePasswordEncryption", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AllowReversiblePasswordEncryption", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("AllowReversiblePasswordEncryption", $parameter)
         
         # CannotChangePassword
@@ -4496,7 +4496,7 @@ function Set-ADComputer {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("CannotChangePassword", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("CannotChangePassword", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("CannotChangePassword", $parameter)
         
         # Certificates
@@ -4516,7 +4516,7 @@ function Set-ADComputer {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ChangePasswordAtLogon", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ChangePasswordAtLogon", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ChangePasswordAtLogon", $parameter)
         
         # Description
@@ -4556,7 +4556,7 @@ function Set-ADComputer {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("Enabled", $parameter)
         
         # HomePage
@@ -4636,7 +4636,7 @@ function Set-ADComputer {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNeverExpires", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNeverExpires", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("PasswordNeverExpires", $parameter)
         
         # PasswordNotRequired
@@ -4646,7 +4646,7 @@ function Set-ADComputer {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNotRequired", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNotRequired", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("PasswordNotRequired", $parameter)
         
         # SAMAccountName
@@ -4676,7 +4676,7 @@ function Set-ADComputer {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("TrustedForDelegation", $parameter)
         
         # UserPrincipalName
@@ -4728,7 +4728,7 @@ function Set-ADDefaultDomainPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ComplexityEnabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ComplexityEnabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ComplexityEnabled", $parameter)
         
         # LockoutDuration
@@ -4738,7 +4738,7 @@ function Set-ADDefaultDomainPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutDuration", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutDuration", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("LockoutDuration", $parameter)
         
         # LockoutObservationWindow
@@ -4748,7 +4748,7 @@ function Set-ADDefaultDomainPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutObservationWindow", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutObservationWindow", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("LockoutObservationWindow", $parameter)
         
         # LockoutThreshold
@@ -4758,7 +4758,7 @@ function Set-ADDefaultDomainPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutThreshold", [System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutThreshold", [System.Nullable`1[System.Int32]], $attributes)
         $parameters.Add("LockoutThreshold", $parameter)
         
         # MaxPasswordAge
@@ -4768,7 +4768,7 @@ function Set-ADDefaultDomainPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MaxPasswordAge", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MaxPasswordAge", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("MaxPasswordAge", $parameter)
         
         # MinPasswordAge
@@ -4778,7 +4778,7 @@ function Set-ADDefaultDomainPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordAge", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordAge", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("MinPasswordAge", $parameter)
         
         # MinPasswordLength
@@ -4788,7 +4788,7 @@ function Set-ADDefaultDomainPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordLength", [System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordLength", [System.Nullable`1[System.Int32]], $attributes)
         $parameters.Add("MinPasswordLength", $parameter)
         
         # PasswordHistoryCount
@@ -4798,7 +4798,7 @@ function Set-ADDefaultDomainPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordHistoryCount", [System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordHistoryCount", [System.Nullable`1[System.Int32]], $attributes)
         $parameters.Add("PasswordHistoryCount", $parameter)
         
         # ReversibleEncryptionEnabled
@@ -4808,7 +4808,7 @@ function Set-ADDefaultDomainPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ReversibleEncryptionEnabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ReversibleEncryptionEnabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ReversibleEncryptionEnabled", $parameter)
         
         return $parameters
@@ -4874,7 +4874,7 @@ function Set-ADDomain {
         $attribute = New-Object System.Management.Automation.ParameterAttribute
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LastLogonReplicationInterval", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LastLogonReplicationInterval", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("LastLogonReplicationInterval", $parameter)
         
         # AllowedDNSSuffixes
@@ -5002,7 +5002,7 @@ function Set-ADFineGrainedPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ComplexityEnabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ComplexityEnabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ComplexityEnabled", $parameter)
         
         # Description
@@ -5032,7 +5032,7 @@ function Set-ADFineGrainedPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutDuration", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutDuration", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("LockoutDuration", $parameter)
         
         # LockoutObservationWindow
@@ -5042,7 +5042,7 @@ function Set-ADFineGrainedPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutObservationWindow", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutObservationWindow", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("LockoutObservationWindow", $parameter)
         
         # LockoutThreshold
@@ -5052,7 +5052,7 @@ function Set-ADFineGrainedPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutThreshold", [System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("LockoutThreshold", [System.Nullable`1[System.Int32]], $attributes)
         $parameters.Add("LockoutThreshold", $parameter)
         
         # MaxPasswordAge
@@ -5062,7 +5062,7 @@ function Set-ADFineGrainedPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MaxPasswordAge", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MaxPasswordAge", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("MaxPasswordAge", $parameter)
         
         # MinPasswordAge
@@ -5072,7 +5072,7 @@ function Set-ADFineGrainedPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordAge", [System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordAge", [System.Nullable`1[System.TimeSpan]], $attributes)
         $parameters.Add("MinPasswordAge", $parameter)
         
         # MinPasswordLength
@@ -5082,7 +5082,7 @@ function Set-ADFineGrainedPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordLength", [System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("MinPasswordLength", [System.Nullable`1[System.Int32]], $attributes)
         $parameters.Add("MinPasswordLength", $parameter)
         
         # PasswordHistoryCount
@@ -5092,7 +5092,7 @@ function Set-ADFineGrainedPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordHistoryCount", [System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordHistoryCount", [System.Nullable`1[System.Int32]], $attributes)
         $parameters.Add("PasswordHistoryCount", $parameter)
         
         # Precedence
@@ -5102,7 +5102,7 @@ function Set-ADFineGrainedPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Precedence", [System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Precedence", [System.Nullable`1[System.Int32]], $attributes)
         $parameters.Add("Precedence", $parameter)
         
         # ProtectedFromAccidentalDeletion
@@ -5112,7 +5112,7 @@ function Set-ADFineGrainedPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ProtectedFromAccidentalDeletion", $parameter)
         
         # ReversibleEncryptionEnabled
@@ -5122,7 +5122,7 @@ function Set-ADFineGrainedPasswordPolicy {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ReversibleEncryptionEnabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ReversibleEncryptionEnabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ReversibleEncryptionEnabled", $parameter)
         
         return $parameters
@@ -5310,7 +5310,7 @@ function Set-ADGroup {
         $attribute = New-Object System.Management.Automation.ValidateNotNullAttribute
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("GroupScope", [System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADGroupScope, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("GroupScope", [System.Nullable`1[Microsoft.ActiveDirectory.Management.ADGroupScope]], $attributes)
         $parameters.Add("GroupScope", $parameter)
         
         # GroupCategory
@@ -5323,7 +5323,7 @@ function Set-ADGroup {
         $attribute = New-Object System.Management.Automation.ValidateNotNullAttribute
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("GroupCategory", [System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADGroupCategory, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("GroupCategory", [System.Nullable`1[Microsoft.ActiveDirectory.Management.ADGroupCategory]], $attributes)
         $parameters.Add("GroupCategory", $parameter)
         
         # HomePage
@@ -5445,7 +5445,7 @@ function Set-ADObject {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ProtectedFromAccidentalDeletion", $parameter)
         
         return $parameters
@@ -5567,7 +5567,7 @@ function Set-ADOrganizationalUnit {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ProtectedFromAccidentalDeletion", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ProtectedFromAccidentalDeletion", $parameter)
         
         # State
@@ -5669,7 +5669,7 @@ function Set-ADServiceAccount {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[System.DateTime]], $attributes)
         $parameters.Add("AccountExpirationDate", $parameter)
         
         # AccountNotDelegated
@@ -5679,7 +5679,7 @@ function Set-ADServiceAccount {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("AccountNotDelegated", $parameter)
         
         # Certificates
@@ -5719,7 +5719,7 @@ function Set-ADServiceAccount {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("Enabled", $parameter)
         
         # HomePage
@@ -5759,7 +5759,7 @@ function Set-ADServiceAccount {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("TrustedForDelegation", $parameter)
         
         return $parameters
@@ -5831,7 +5831,7 @@ function Set-ADUser {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountExpirationDate", [System.Nullable`1[System.DateTime]], $attributes)
         $parameters.Add("AccountExpirationDate", $parameter)
         
         # AccountNotDelegated
@@ -5841,7 +5841,7 @@ function Set-ADUser {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AccountNotDelegated", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("AccountNotDelegated", $parameter)
         
         # AllowReversiblePasswordEncryption
@@ -5851,7 +5851,7 @@ function Set-ADUser {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AllowReversiblePasswordEncryption", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("AllowReversiblePasswordEncryption", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("AllowReversiblePasswordEncryption", $parameter)
         
         # CannotChangePassword
@@ -5861,7 +5861,7 @@ function Set-ADUser {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("CannotChangePassword", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("CannotChangePassword", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("CannotChangePassword", $parameter)
         
         # Certificates
@@ -5881,7 +5881,7 @@ function Set-ADUser {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ChangePasswordAtLogon", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("ChangePasswordAtLogon", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("ChangePasswordAtLogon", $parameter)
         
         # City
@@ -5991,7 +5991,7 @@ function Set-ADUser {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("Enabled", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("Enabled", $parameter)
         
         # Fax
@@ -6141,7 +6141,7 @@ function Set-ADUser {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNeverExpires", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNeverExpires", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("PasswordNeverExpires", $parameter)
         
         # PasswordNotRequired
@@ -6151,7 +6151,7 @@ function Set-ADUser {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNotRequired", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("PasswordNotRequired", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("PasswordNotRequired", $parameter)
         
         # POBox
@@ -6220,7 +6220,7 @@ function Set-ADUser {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("SmartcardLogonRequired", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("SmartcardLogonRequired", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("SmartcardLogonRequired", $parameter)
         
         # State
@@ -6270,7 +6270,7 @@ function Set-ADUser {
         $attribute.ParameterSetName = "Identity"
         $attributes.Add($attribute)
         
-        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]], $attributes)
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("TrustedForDelegation", [System.Nullable`1[System.Boolean]], $attributes)
         $parameters.Add("TrustedForDelegation", $parameter)
         
         # UserPrincipalName

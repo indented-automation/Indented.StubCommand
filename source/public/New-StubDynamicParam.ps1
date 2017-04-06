@@ -88,7 +88,7 @@ function New-StubDynamicParam {
                     $null = $script.AppendLine('$attributes.Add($attribute)').
                                     AppendLine()
                 }
-                $null = $script.AppendFormat('$parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("{0}", [{1}], $attributes)', $dynamicParam.Name, $dynamicParam.ParameterType.FullName).
+                $null = $script.AppendFormat('$parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("{0}", [{1}], $attributes)', $dynamicParam.Name, $dynamicParam.ParameterType.ToString()).
                                 AppendLine().
                                 AppendFormat('$parameters.Add("{0}", $parameter)', $dynamicParam.Name).
                                 AppendLine().
