@@ -48,7 +48,7 @@ function New-StubModule {
             # Header
 
             '# Name: {0}' -f $moduleName
-            '# Version: {0}' -f $_.Version
+            '# Version: {0}' -f (Get-Module $moduleName).Version
             '# CreatedOn: {0}' -f (Get-Date -Format 'u')
             ''
             

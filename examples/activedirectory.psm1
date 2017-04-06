@@ -1,6 +1,6 @@
 ﻿# Name: activedirectory
-# Version: 
-# CreatedOn: 2017-04-06 11:37:02Z
+# Version: 1.0.0.0
+# CreatedOn: 2017-04-06 11:42:34Z
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADComputer" -as [Type])) {
     Add-Type '

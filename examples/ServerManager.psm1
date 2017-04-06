@@ -1,6 +1,7 @@
 # Name: ServerManager
-# Version: 
-# CreatedOn: 2017-04-05 17:15:49Z
+# Version: 2.0.0.0
+# CreatedOn: 2017-04-06 11:44:25Z
+
 function Add-WindowsFeature {
     param (
         [Parameter(ParameterSetName='ComponentNamesAndVhdPath', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
