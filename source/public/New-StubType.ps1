@@ -83,7 +83,8 @@ function New-StubType {
                 $null = $script.AppendLine('}')
             }
 
-            $null = $script.AppendLine("'")
+            $null = $script.AppendLine("'").
+                            AppendLine('}')
 
             return $script.ToString()
         }

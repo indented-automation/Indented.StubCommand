@@ -62,7 +62,13 @@ function New-StubModule {
                 ForEach-Object { $_.OutputType.Type }
 
             $parameterTypes + $outputTypes |
-                Where-Object BaseType -ne ([Array]) |
+                ForEach-Object {
+                    if ($_.BaseType -eq ([Array])) {
+                        $_.GetElementType()
+                    } else {
+                        $_
+                    }
+                } |
                 Select-Object -Unique |
                 Group-Object { $_.Assembly.FullName } |
                 Where-Object { TestIsForeignAssembly $_.Name } |

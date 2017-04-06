@@ -1,6 +1,18 @@
 # Name: ServerManager
 # Version: 2.0.0.0
-# CreatedOn: 2017-04-06 11:44:25Z
+# CreatedOn: 2017-04-06 14:41:00Z
+
+if (-not ("Microsoft.Windows.ServerManager.Commands.Feature" -as [Type])) {
+    Add-Type '
+    namespace Microsoft.Windows.ServerManager.Commands
+    {
+        public class Feature
+        {
+            public Feature(object value) { }
+        }
+    }
+    '
+}
 
 function Add-WindowsFeature {
     param (
@@ -240,3 +252,4 @@ function Uninstall-WindowsFeature {
         ${LogPath}
     )
 }
+

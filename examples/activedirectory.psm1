@@ -1,6 +1,6 @@
 ﻿# Name: ActiveDirectory
 # Version: 1.0.0.0
-# CreatedOn: 2017-04-06 14:29:38Z
+# CreatedOn: 2017-04-06 14:41:42Z
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADComputer" -as [Type])) {
     Add-Type '
@@ -12,6 +12,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADComputer" -as [Type])) {
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADAuthType" -as [Type])) {
     Add-Type '
@@ -24,6 +25,19 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADAuthType" -as [Type])) {
         }
     }
     '
+}
+
+if (-not ("Microsoft.ActiveDirectory.Management.ADServiceAccount" -as [Type])) {
+    Add-Type '
+    namespace Microsoft.ActiveDirectory.Management
+    {
+        public class ADServiceAccount
+        {
+            public ADServiceAccount(object value) { }
+        }
+    }
+    '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADDomainController" -as [Type])) {
     Add-Type '
@@ -35,28 +49,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADDomainController" -as [Type]))
         }
     }
     '
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADFineGrainedPasswordPolicy" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADFineGrainedPasswordPolicy
-        {
-            public ADFineGrainedPasswordPolicy(object value) { }
-        }
-    }
-    '
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADGroup" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADGroup
-        {
-            public ADGroup(object value) { }
-        }
-    }
-    '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADPrincipal" -as [Type])) {
     Add-Type '
@@ -68,6 +61,31 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADPrincipal" -as [Type])) {
         }
     }
     '
+}
+
+if (-not ("Microsoft.ActiveDirectory.Management.ADFineGrainedPasswordPolicy" -as [Type])) {
+    Add-Type '
+    namespace Microsoft.ActiveDirectory.Management
+    {
+        public class ADFineGrainedPasswordPolicy
+        {
+            public ADFineGrainedPasswordPolicy(object value) { }
+        }
+    }
+    '
+}
+
+if (-not ("Microsoft.ActiveDirectory.Management.ADGroup" -as [Type])) {
+    Add-Type '
+    namespace Microsoft.ActiveDirectory.Management
+    {
+        public class ADGroup
+        {
+            public ADGroup(object value) { }
+        }
+    }
+    '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADAccount" -as [Type])) {
     Add-Type '
@@ -79,6 +97,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADAccount" -as [Type])) {
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADOptionalFeature" -as [Type])) {
     Add-Type '
@@ -90,6 +109,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADOptionalFeature" -as [Type])) 
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADOptionalFeatureScope" -as [Type])) {
     Add-Type '
@@ -103,6 +123,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADOptionalFeatureScope" -as [Typ
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADEntity" -as [Type])) {
     Add-Type '
@@ -114,6 +135,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADEntity" -as [Type])) {
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADSearchScope" -as [Type])) {
     Add-Type '
@@ -127,6 +149,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADSearchScope" -as [Type])) {
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADDefaultDomainPasswordPolicy" -as [Type])) {
     Add-Type '
@@ -138,6 +161,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADDefaultDomainPasswordPolicy" -
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.Commands.ADCurrentDomainType" -as [Type])) {
     Add-Type '
@@ -150,6 +174,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.Commands.ADCurrentDomainType" -a
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADDomain" -as [Type])) {
     Add-Type '
@@ -161,6 +186,24 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADDomain" -as [Type])) {
         }
     }
     '
+}
+
+if (-not ("Microsoft.ActiveDirectory.Management.Commands.ADDiscoverableService" -as [Type])) {
+    Add-Type '
+    namespace Microsoft.ActiveDirectory.Management.Commands
+    {
+        public enum ADDiscoverableService : int
+        {
+            PrimaryDC = 1,
+            GlobalCatalog = 2,
+            KDC = 3,
+            TimeService = 4,
+            ReliableTimeService = 5,
+            ADWS = 6
+        }
+    }
+    '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.Commands.ADMinimumDirectoryServiceVersion" -as [Type])) {
     Add-Type '
@@ -173,6 +216,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.Commands.ADMinimumDirectoryServi
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADForest" -as [Type])) {
     Add-Type '
@@ -184,6 +228,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADForest" -as [Type])) {
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.Commands.ADCurrentForestType" -as [Type])) {
     Add-Type '
@@ -196,6 +241,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.Commands.ADCurrentForestType" -a
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADObject" -as [Type])) {
     Add-Type '
@@ -207,6 +253,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADObject" -as [Type])) {
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADOrganizationalUnit" -as [Type])) {
     Add-Type '
@@ -218,17 +265,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADOrganizationalUnit" -as [Type]
         }
     }
     '
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADServiceAccount" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADServiceAccount
-        {
-            public ADServiceAccount(object value) { }
-        }
-    }
-    '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADUser" -as [Type])) {
     Add-Type '
@@ -240,6 +277,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADUser" -as [Type])) {
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADDirectoryServer" -as [Type])) {
     Add-Type '
@@ -251,6 +289,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADDirectoryServer" -as [Type])) 
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADSite" -as [Type])) {
     Add-Type '
@@ -262,6 +301,23 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADSite" -as [Type])) {
         }
     }
     '
+}
+
+if (-not ("Microsoft.ActiveDirectory.Management.ADOperationMasterRole" -as [Type])) {
+    Add-Type '
+    namespace Microsoft.ActiveDirectory.Management
+    {
+        public enum ADOperationMasterRole : int
+        {
+            PDCEmulator = 0,
+            RIDMaster = 1,
+            InfrastructureMaster = 2,
+            SchemaMaster = 3,
+            DomainNamingMaster = 4
+        }
+    }
+    '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADDomainMode" -as [Type])) {
     Add-Type '
@@ -278,6 +334,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADDomainMode" -as [Type])) {
         }
     }
     '
+}
 
 if (-not ("Microsoft.ActiveDirectory.Management.ADForestMode" -as [Type])) {
     Add-Type '
@@ -294,6 +351,7 @@ if (-not ("Microsoft.ActiveDirectory.Management.ADForestMode" -as [Type])) {
         }
     }
     '
+}
 
 function Add-ADComputerServiceAccount {
     param (
