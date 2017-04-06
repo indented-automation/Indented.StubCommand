@@ -38,9 +38,115 @@ A list of known assemblies is included with this module. If a type is defined wi
 
 A stub module creates stub commands and types from the content of a module.
 
-## Command examples
+## Command example
 
+The following command can be used to create a stub of the Test-Path command.
+```powershell
+New-StubCommand (Get-Command Test-Path)
+```
+The generated stub is shown below.
+```powershell
+function Test-Path {
+    [OutputType([System.Boolean])]
+    param (
+        [Parameter(ParameterSetName='Path', Mandatory=$true, Position=0, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
+        [string[]]
+        ${Path},
+        
+        [Parameter(ParameterSetName='LiteralPath', Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
+        [Alias('PSPath')]
+        [string[]]
+        ${LiteralPath},
+        
+        [string]
+        ${Filter},
+        
+        [string[]]
+        ${Include},
+        
+        [string[]]
+        ${Exclude},
+        
+        [Alias('Type')]
+        [Microsoft.PowerShell.Commands.TestPathType]
+        ${PathType},
+        
+        [switch]
+        ${IsValid},
+        
+        [Parameter(ValueFromPipelineByPropertyName=$true)]
+        [pscredential]
+        [System.Management.Automation.CredentialAttribute()]
+        ${Credential}
+    )
+    
+    dynamicparam {
+        $parameters = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
+        
+        # OlderThan
+        $attributes = New-Object System.Collections.Generic.List[Attribute]
+        
+        $attribute = New-Object System.Management.Automation.ParameterAttribute
+        $attributes.Add($attribute)
+        
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("OlderThan", [System.Nullable`1[System.DateTime]], $attributes)
+        $parameters.Add("OlderThan", $parameter)
+        
+        # NewerThan
+        $attributes = New-Object System.Collections.Generic.List[Attribute]
+        
+        $attribute = New-Object System.Management.Automation.ParameterAttribute
+        $attributes.Add($attribute)
+        
+        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("NewerThan", [System.Nullable`1[System.DateTime]], $attributes)
+        $parameters.Add("NewerThan", $parameter)
+        
+        return $parameters
+    }
+    
+}
+```
 
+## Type example
+
+The following command re-creates the TestPathType enumeration.
+```powershell
+New-StubType "Microsoft.PowerShell.Commands.TestPathType"
+```
+With the generated enum:
+```powershell
+if (-not ("Microsoft.PowerShell.Commands.TestPathType" -as [Type])) {
+    Add-Type '
+    namespace Microsoft.PowerShell.Commands
+    {
+        public enum TestPathType : int
+        {
+            Any = 0,
+            Container = 1,
+            Leaf = 2
+        }
+    }
+    '
+}
+```
+Stub types are created using the same command.
+```powershell
+New-StubType [IPAddress]
+```
+The result is an empty class.
+```powershell
+if (-not ("System.Net.IPAddress" -as [Type])) {
+    Add-Type '
+    namespace System.Net
+    {
+        public class IPAddress
+        {
+            public IPAddress(object value) { }
+        }
+    }
+    '
+}
+```
 
 ## Module examples
 
