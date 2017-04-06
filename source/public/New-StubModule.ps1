@@ -25,11 +25,12 @@ function New-StubModule {
         [String]$FromModule,
 
         # Save the new definition in the specified directory.
-        [ValidateScript( { Test-Path $_ -PathType Container } )]
         [String]$Path
     )
 
     try {
+        $errorAction = 'Stop'
+
         if (Test-Path $FromModule) {
             $FromModule = Import-Module $FromModule -PassThru |
                 Select-Object -ExpandProperty Name
@@ -39,11 +40,17 @@ function New-StubModule {
         Get-Command -Module $FromModule | Group-Object Source | ForEach-Object {
             $moduleName = $_.Name
 
+            if ($psboundparameters.ContainsKey('Path')) {
+                $filePath = Join-Path $Path ('{0}.psm1' -f $moduleName)
+                $null = New-Item $filePath -ItemType File -Force
+            }
+
             # Header
 
             '# Name: {0}' -f $moduleName
             '# Version: {0}' -f $_.Version
             '# CreatedOn: {0}' -f (Get-Date -Format 'u')
+            ''
             
             # Types
 
@@ -64,10 +71,9 @@ function New-StubModule {
 
             # Commands
             $_.Group | New-StubCommand
-
         } | ForEach-Object {
             if ($psboundparameters.ContainsKey('Path')) {
-                $_ | Out-File (Join-Path $Path ('{0}.psm1' -f $moduleName)) -Encoding UTF8
+                $_ | Out-File $filePath -Encoding UTF8 -Append
             } else {
                 $_
             }

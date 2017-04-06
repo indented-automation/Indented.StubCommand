@@ -1,63 +1,78 @@
 InModuleScope Indented.StubCommand {
     Describe New-StubModule {
-        Mock New-StubType {
-            Write-Host "Called for $Type"
-        }
+        Mock New-StubType
         Mock New-StubCommand
 
         BeforeAll {
-            '
-            Add-Type "
-                namespace Some.Name
-                {
-                    public class ClassName
-                    {
-                        public string Value;
+            [String]$guid = 'z' + ([Guid]::NewGuid() -replace '-')
+            $script = New-Object ScriptBuilder
 
-                        public ClassName()
-                        {
+            $null = $script.AppendLine('Add-Type "').
+                            AppendLine('namespace Some.Name').
+                            AppendLine('{').
+                            AppendFormat('public enum {0}enum : int', $guid).
+                            AppendLine().
+                            AppendLine('{').
+                            AppendLine('One = 1,').
+                            AppendLine('Two = 2').
+                            AppendLine('}').
+                            AppendLine().
+                            AppendFormat('public class {0}', $guid).
+                            AppendLine().
+                            AppendLine('{').
+                            AppendLine('public string Value;').
+                            AppendFormat('public {0}()', $guid).
+                            AppendLine(' { }').
+                            AppendLine('}').
+                            AppendLine('}').
+                            AppendLine('"').
+                            AppendLine().
+                            AppendLine('function Test-Function {').
+                            AppendLine('param (').
+                            AppendLine('[String]$One,').
+                            AppendLine().
+                            AppendFormat('[Some.Name.{0}]$Two,', $guid).
+                            AppendLine().
+                            AppendLine().
+                            AppendFormat('[Some.Name.{0}enum]$Three', $guid).
+                            AppendLine().
+                            AppendLine(')').
+                            AppendLine('}')
 
-                        }
-                    }
-                }
-            "
-
-            function First {
-                param(
-                    [String]$One,
-
-                    [Some.Name.ClassName]$Two
-                )
-            }
-
-            function Second {
-                param(
-                    [String]$One,
-
-                    [String]$Two
-                )
-            }
-            ' | Out-File 'TestDrive:\Module.psm1'
+            $script.ToString() | Out-File 'TestDrive:\TestModule.psm1'
         }
 
-        Context 'Type conversion' {
+        Context 'Conversion' {
             BeforeEach {
-                $stub = New-StubModule -FromModule 'TestDrive:\Module.psm1'
+                New-StubModule -FromModule 'TestDrive:\TestModule.psm1'
             }
 
-            It 'Creates stub types for each class' {
-                Assert-MockCalled New-StubType -Times 1 -Exactly
-                $stub | Should -Match 'namespace Some\.Name'
-                $stub | Should -Match 'public class ClassName'
+            It 'Creates stub types for each class or enum' {
+                Assert-MockCalled New-StubType -Times 2 -Exactly -Scope It
             }
-        }
 
-        Context 'Enum handing' {
-            
+            It 'Creates a stub function for each command' {
+                Assert-MockCalled New-StubCommand -Times 1 -Exactly -Scope It
+            }
         }
 
         Context 'Save to file' {
+            Mock New-StubCommand {
+                'function Test-Function { }'
+            }
 
+            BeforeEach {
+                New-StubModule -FromModule 'TestDrive:\TestModule.psm1' -Path 'TestDrive:\Stub'
+            }
+
+            It 'Creates the output file' {
+                { New-StubModule -FromModule 'TestDrive:\TestModule.psm1' -Path 'TestDrive:\Stub' } | Should -Not -Throw
+                'TestDrive:\Stub\TestModule.psm1' | Should -Exist
+            }
+
+            It 'Creates a header in the file' {
+                'TestDrive:\Stub\TestModule.psm1' | Should -Contain 'Name: TestModule'
+            }
         }
     }
 }
