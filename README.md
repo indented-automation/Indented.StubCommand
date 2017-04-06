@@ -11,6 +11,10 @@ A stub might be used where:
 1. A development environment cannot (or should not) install a command or module.
 2. A build server cannot (or should not) install a command or module required.
 
+## Installation
+```
+Install-Module -Name Indented.StubCommand 
+```
 ## Stub commands
 
 The stub command includes the following:
