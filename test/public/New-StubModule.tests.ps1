@@ -4,24 +4,24 @@ InModuleScope Indented.StubCommand {
         Mock New-StubCommand
 
         BeforeAll {
-            [String]$guid = 'z' + ([Guid]::NewGuid() -replace '-')
+            [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
             $script = New-Object ScriptBuilder
 
             $null = $script.AppendLine('Add-Type "').
                             AppendLine('namespace Some.Name').
                             AppendLine('{').
-                            AppendFormat('public enum {0}enum : int', $guid).
+                            AppendFormat('public enum {0}enum : int', $typeName).
                             AppendLine().
                             AppendLine('{').
                             AppendLine('One = 1,').
                             AppendLine('Two = 2').
                             AppendLine('}').
                             AppendLine().
-                            AppendFormat('public class {0}', $guid).
+                            AppendFormat('public class {0}', $typeName).
                             AppendLine().
                             AppendLine('{').
                             AppendLine('public string Value;').
-                            AppendFormat('public {0}()', $guid).
+                            AppendFormat('public {0}()', $typeName).
                             AppendLine(' { }').
                             AppendLine('}').
                             AppendLine('}').
@@ -31,10 +31,10 @@ InModuleScope Indented.StubCommand {
                             AppendLine('param (').
                             AppendLine('[String]$One,').
                             AppendLine().
-                            AppendFormat('[Some.Name.{0}]$Two,', $guid).
+                            AppendFormat('[Some.Name.{0}]$Two,', $typeName).
                             AppendLine().
                             AppendLine().
-                            AppendFormat('[Some.Name.{0}enum]$Three', $guid).
+                            AppendFormat('[Some.Name.{0}enum]$Three', $typeName).
                             AppendLine().
                             AppendLine(')').
                             AppendLine('}')

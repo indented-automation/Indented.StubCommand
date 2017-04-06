@@ -109,6 +109,10 @@ InModuleScope Indented.StubCommand {
         }
 
         Context 'Dynamic Param' {
+            Mock New-StubDynamicParam {
+                'dynamicparam { }'
+            }
+
             BeforeEach {
                 $stub = New-StubCommand (Get-Command Test-Function)
             }
