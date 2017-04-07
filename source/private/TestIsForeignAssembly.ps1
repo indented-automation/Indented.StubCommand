@@ -17,17 +17,22 @@ function TestIsForeignAssembly {
     #   Author: Chris Dent
     #
     #   Change log:
+    #     07/04/2017 - Chris Dent - Improved use of script level variable.
     #     05/04/2017 - Chris Dent - Created.
 
     param (
-        [String]$AssemblyName
+        # The assembly name to test against the list.
+        [String]$AssemblyName,
+
+        # A static list of assemblies read from var\assemblyList.
+        [String[]]$AssemblyList = $Script:assemblyList
     )
 
-    if (-not $Script:assemblyList) {
-        $Script:assemblyList = Get-Content "$psscriptroot\var\assemblyList.txt"
+    if ($null -eq $AssemblyList) {
+        $AssemblyList = $Script:assemblyList = Get-Content "$psscriptroot\var\assemblyList.txt"
     }
 
-    if ($Script:assemblyList -contains $AssemblyName) {
+    if ($AssemblyList -contains $AssemblyName) {
         return $false
     }
     return $true
