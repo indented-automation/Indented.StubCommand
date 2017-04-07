@@ -8,7 +8,7 @@ InModuleScope Indented.StubCommand {
             }
 
             function Test-Function {
-                param( )
+                param ( )
             }
 
             It 'Supports functions with an empty param block' {
@@ -19,7 +19,7 @@ InModuleScope Indented.StubCommand {
 
             function Test-Function {
                 [CmdletBinding()]
-                param( )
+                param ( )
             }
 
             It 'Supports commands with an empty param block and a CmdletBinding declaration' {
@@ -35,7 +35,7 @@ InModuleScope Indented.StubCommand {
 
             function Test-Function {
                 [OutputType([String])]
-                param( )
+                param ( )
             }
 
             It 'Supports functions which declare an OutputType' {
@@ -44,12 +44,21 @@ InModuleScope Indented.StubCommand {
 
             function Test-Function {
                 [OutputType([String], [Int32])]
-                param( )
+                param ( )
             }
 
             It 'Supports functions which declare more than one OutputType' {
                 $stub | Should -Match 'OutputType\(\[System\.String'
                 $stub | Should -Match 'OutputType\(\[System\.Int32'
+            }
+
+            function Test-Function {
+                [OutputType('TypeName')]
+                param ( )
+            }
+
+            It 'Supports functions which declare OutputType as a string' {
+                $stub | Should -Match "OutputType\('TypeName'\)"
             }
         }
 
@@ -68,7 +77,7 @@ InModuleScope Indented.StubCommand {
 
             function Test-Function {
                 [CmdletBinding()]
-                param(
+                param (
                     $Name
                 )
             }
@@ -80,7 +89,7 @@ InModuleScope Indented.StubCommand {
 
             function Test-Function {
                 [CmdletBinding(DefaultParameterSetName = 'One')]
-                param(
+                param (
                     [Parameter(ParameterSetName = 'One')]
                     $One,
 
@@ -97,7 +106,7 @@ InModuleScope Indented.StubCommand {
             }
 
             function Test-Function {
-                param(
+                param (
                     [String]$Value
                 )
             }

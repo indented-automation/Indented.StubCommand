@@ -35,8 +35,13 @@ function New-StubCommand {
 
             # Write OutputType
             foreach ($outputType in $CommandInfo.OutputType) {
-                $null = $script.AppendFormat('[OutputType([{0}])]', $outputType.Name).
-                                AppendLine()
+                $null = $script.Append('[OutputType(')
+                if ($outputType.Type) {
+                    $null = $script.AppendFormat('[{0}]', $outputType.Type)
+                } else {
+                    $null = $script.AppendFormat("'{0}'", $outputType.Name)
+                }
+                $null = $script.AppendLine(')]')
             }
 
             # Write param
