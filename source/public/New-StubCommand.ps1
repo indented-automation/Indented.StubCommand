@@ -29,8 +29,8 @@ function New-StubCommand {
                             AppendLine()
             
             # Write CmdletBinding
-            if ($CommandInfo.CmdletBinding) {
-                $null = $script.AppendLine([ProxyCommand]::GetCmdletBindingAttribute($CommandInfo))
+            if ($cmdletBindingAttribute = [ProxyCommand]::GetCmdletBindingAttribute($CommandInfo)) {
+                $null = $script.AppendLine($cmdletBindingAttribute)
             }
 
             # Write OutputType
