@@ -1,5 +1,7 @@
 # Indented.StubCommand
 
+[![Build status](https://ci.appveyor.com/api/projects/status/hivl80nvn7ms97xh?svg=true)](https://ci.appveyor.com/project/indented-automation/indented-stubcommand)
+
 A stub command or module is intended for use with tools like Pester. 
 
 When Pester to creates a mock the original command must be available. If a command or module is not available a function might be written to resemble the original command.
