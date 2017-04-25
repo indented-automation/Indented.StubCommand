@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/indented-automation/Indented.StubCommand.png?label=ready&title=Ready)](https://waffle.io/indented-automation/Indented.StubCommand)
 # Indented.StubCommand
 
 [![Build status](https://ci.appveyor.com/api/projects/status/hivl80nvn7ms97xh?svg=true)](https://ci.appveyor.com/project/indented-automation/indented-stubcommand)
