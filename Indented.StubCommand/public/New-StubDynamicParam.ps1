@@ -1,20 +1,20 @@
 using namespace System.Management.Automation
 
 function New-StubDynamicParam {
-    # .SYNOPSIS
-    #   Creates a new script representation of a set of dynamic parameters.
-    # .DESCRIPTION
-    #   Creates a new script representation of a set of dynamic parameters.
-    # .INPUTS
-    #   System.Management.Automation.CommandInfo
-    # .OUTPUTS
-    #   System.String
-    # .NOTES
-    #   Author: Chris Dent
-    #
-    #   Change log:
-    #     04/04/2017 - Chris Dent - Created.
+    <#
+    .SYNOPSIS
+        Creates a new script representation of a set of dynamic parameters.
+    .DESCRIPTION
+        Creates a new script representation of a set of dynamic parameters.
+    .INPUTS
+        System.Management.Automation.CommandInfo
+    .NOTES
+        Change log:
+            04/04/2017 - Chris Dent - Created.
+    #>
 
+    # This command does not change state.
+    [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseShouldProcessForStateChangingFunctions', '')]
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]

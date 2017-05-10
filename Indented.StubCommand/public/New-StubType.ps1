@@ -1,22 +1,23 @@
 function New-StubType {
-    # .SYNOPSIS
-    #   Generates a class or enum definition.
-    # .DESCRIPTION
-    #   Builds a type definition which represents a class or type which is used to constrain a parameter.
-    # .INPUTS
-    #   System.Type
-    # .OUTPUTS
-    #   System.String[]
-    # .NOTES
-    #   Author: Chris Dent
-    #
-    #   Change log:
-    #     04/04/2017 - Chris Dent - Created.
+    <#
+    .SYNOPSIS
+        Generates a class or enum definition.
+    .DESCRIPTION
+        Builds a type definition which represents a class or type which is used to constrain a parameter.
+    .INPUTS
+        System.Type
+    .NOTES
+        Change log:
+            04/04/2017 - Chris Dent - Created.
+    #>
 
+    # This command does not change state.
+    [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseShouldProcessForStateChangingFunctions', '')]
     [CmdletBinding()]
+    [OutputType([String])]
     param (
         [Parameter(ValueFromPipeline = $true)]
-        [Type]$Type    
+        [Type]$Type
     )
 
     begin {

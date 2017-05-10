@@ -1,24 +1,23 @@
 function New-StubModule {
-    # .SYNOPSIS
-    #   Create a new stub module.
-    # .DESCRIPTION
-    #   A stub module contains:
-    #
-    #     All exported commands provided by a module.
-    #     A copy of any enumerations used by the module from non-native assemblies.
-    #     A stub of any .NET classes consumed by the module from non-native assemblies.
-    #
-    # .INPUTS
-    #   System.String
-    # .OUTPUTS
-    #   System.String
-    # .NOTES
-    #   Author: Chris Dent
-    #
-    #   Change log:
-    #     05/04/2017 - Chris Dent - Created.
+    <#
+    .SYNOPSIS
+        Create a new stub module.
+    .DESCRIPTION
+        A stub module contains:
 
+            All exported commands provided by a module.
+            A copy of any enumerations used by the module from non-native assemblies.
+            A stub of any .NET classes consumed by the module from non-native assemblies.
+
+    .NOTES
+        Change log:
+            05/04/2017 - Chris Dent - Created.
+    #>
+
+    # This command does not change state.
+    [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseShouldProcessForStateChangingFunctions', '')]
     [CmdletBinding()]
+    [OutputType([String])]
     param (
         # The name of a module to recreate.
         [Parameter(Mandatory = $true)]
@@ -29,7 +28,7 @@ function New-StubModule {
     )
 
     try {
-        $errorAction = 'Stop'
+        $erroractionpreference = 'Stop'
 
         if (Test-Path $FromModule) {
             $FromModule = Import-Module $FromModule -PassThru |

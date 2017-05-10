@@ -1,9 +1,9 @@
 InModuleScope Indented.StubCommand {
     Describe New-StubModule {
-        Mock New-StubType
-        Mock New-StubCommand
-
         BeforeAll {
+            Mock New-StubType
+            Mock New-StubCommand
+
             [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
             $script = New-Object ScriptBuilder
 
@@ -34,8 +34,10 @@ InModuleScope Indented.StubCommand {
                             AppendFormat('[Some.Name.{0}]$Two,', $typeName).
                             AppendLine().
                             AppendLine().
-                            AppendFormat('[Some.Name.{0}enum]$Three', $typeName).
+                            AppendFormat('[Some.Name.{0}enum]$Three,', $typeName).
                             AppendLine().
+                            AppendLine().
+                            AppendFormat('[Some.Name.{0}[]]$Four', $typeName).
                             AppendLine(')').
                             AppendLine('}')
 

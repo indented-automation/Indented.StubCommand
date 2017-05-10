@@ -10,6 +10,24 @@ InModuleScope Indented.StubCommand {
             }
         }
 
+        Context 'Properties' {
+            It 'Default indent characters is four spaces' {
+                $script.IndentCharacters | Should -Be '    '
+            }
+
+            It 'Sets indentCount to 0' {
+                $script.indentCount | Should -Be 0
+            }
+
+            It 'Sets line ot an empty string' {
+                $script.line | Should -Be ''
+            }
+
+            It 'Creates a StringBuilder' {
+                $script.stringBuilder.GetType().Name | Should -Be "StringBuilder"
+            }
+        }
+
         Context 'Method chaining' {
             It 'Returns itself when Append is called' {
                 $script.Append('nothing').GetType().Name | Should -Be 'ScriptBuilder'
@@ -84,6 +102,10 @@ InModuleScope Indented.StubCommand {
                 $script.GetCompliment(')') | Should -Be '('
                 $script.GetCompliment('{') | Should -Be '}'
                 $script.GetCompliment('}') | Should -Be '{'
+            }
+
+            It 'GetCompliment returns null for any other character' {
+                $script.getCompliment('#') | Should -Be ([Char]$null)
             }
 
             It 'Counts occurrences of a specified character' {
