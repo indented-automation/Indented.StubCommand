@@ -3,6 +3,8 @@ InModuleScope Indented.StubCommand {
         Context 'File load' {
             BeforeAll {
                 Mock Get-Content { 'Name' }
+
+                $script:assemblyList = $null
             }
 
             BeforeEach {

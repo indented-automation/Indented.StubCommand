@@ -18,7 +18,7 @@ New-StubCommand [-CommandInfo <CommandInfo>]
 
 ### FromString
 ```
-New-StubCommand [-CommandName] <String> [-CommandInfo <CommandInfo>]
+New-StubCommand [-CommandName] <String>
 ```
 
 ## DESCRIPTION
@@ -61,19 +61,7 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-```yaml
-Type: CommandInfo
-Parameter Sets: FromString
-Aliases: 
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
