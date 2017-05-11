@@ -74,10 +74,57 @@ function New-StubType {
             } else {
                 $null = $script.AppendFormat('public class {0}', $Type.Name).
                                 AppendLine().
-                                AppendLine('{').
-                                AppendFormat('public {0}(object value) {{ }}', $Type.Name).
-                                AppendLine().
-                                AppendLine('}')
+                                AppendLine('{')
+
+                if ($Type.GetFields().Count -gt 0) {
+                    $null = $script.AppendLine('// Public fields')
+                    foreach ($field in $Type.GetFields()) {
+                        $null = $script.AppendFormat('public {0} {1};', $field.FieldType.FullName, $field.Name).
+                                        AppendLine()
+                    }
+                    $null = $script.AppendLine()
+                }
+
+                # Public constructors
+                if ($Type.GetConstructors().Count -gt 0) {
+                    $null = $script.AppendLine('// Public constructors')
+                    foreach ($constructor in $Type.GetConstructors()) {
+                        $null = $script.AppendFormat('public {0}', $Type.Name)
+                        $parameters = foreach ($parameter in $constructor.GetParameters()) {
+                            '{0} {1}' -f $parameter.ParameterType.FullName, $parameter.Name
+                        }
+                        $null = $script.AppendFormat('({0}) {{ }}', $parameters -join ', ').
+                                        AppendLine()
+                    }
+                    $null = $script.AppendLine()
+                }
+
+                # Public properties
+                if ($Type.GetProperties().Count -gt 0) {
+                    $null = $script.AppendLine('// Public properties')
+                    foreach ($property in $Type.GetProperties()) {
+                        $null = $script.AppendFormat('public {0} {1}', $property.PropertyType.FullName, $property.Name).
+                                        Append(' { get; set; }').
+                                        AppendLine()
+                    }
+                    $null = $script.AppendLine()
+                }
+
+                # If the type does not implement a constructor which does not require arguments 
+                if (-not $Type.GetConstructor(@())) {
+                    $null = $script.AppendLine('// Fabricated constructor').
+                                    AppendFormat('private {0}() {{ }}', $Type.Name).
+                                    AppendLine()
+                    # Add a CreateTypeInstance static method
+                    $null = $script.AppendFormat('public static {0} CreateTypeInstance()', $Type.Name).
+                                    AppendLine().
+                                    AppendLine('{').
+                                    AppendFormat('return new {0}();', $Type.Name).
+                                    AppendLine().
+                                    AppendLine('}')
+                }
+
+                $null = $script.AppendLine('}')
             }
 
             if ($Type.Namespace -ne 'System') {
