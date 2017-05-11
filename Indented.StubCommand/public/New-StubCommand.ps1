@@ -1,74 +1,120 @@
 using namespace System.Management.Automation
+using namespace System.Management.Automation.Internal
 
 function New-StubCommand {
-    # .SYNOPSIS
-    #   Create a new partial copy of a command.
-    # .DESCRIPTION
-    #   New-StubCommand recreates a command as a function with param block and dynamic param block (if used).
-    # .INPUTS
-    #   System.Management.Automation.CommandInfo
-    # .OUTPUTS
-    #   System.String
-    # .NOTES
-    #   Author: Chris Dent
-    #
-    #   Change log:
-    #     03/04/2017 - Chris Dent - Created.
+    <#
+    .SYNOPSIS
+        Create a new partial copy of a command.
+    .DESCRIPTION
+        New-StubCommand recreates a command as a function with param block and dynamic param block (if used).
+    .INPUTS
+        System.Management.Automation.CommandInfo
+    .NOTES
+        Change log:
+            10/05/2017 - Chris Dent - Added automatic help insertion.
+            03/04/2017 - Chris Dent - Created.
+    #>
 
-    [CmdletBinding()]
+    # This command does not change state.
+    [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseShouldProcessForStateChangingFunctions', '')]
+    [CmdletBinding(DefaultParameterSetName = 'FromPipeline')]
+    [OutputType([String])]
     param (
+        [Parameter(Position = 0, Mandatory = $true, ParameterSetName = 'FromString')]
+        [String]$CommandName,
+        
+        [Parameter(ParameterSetName = 'FromPipeline')]
         [Parameter(ValueFromPipeline = $true)]
         [CommandInfo]$CommandInfo
     )
     
+    begin {
+        if ($pscmdlet.ParameterSetName -eq 'FromString') {
+            Get-Command $CommandName | New-StubCommand
+        } else {
+            $commonParameters = ([CommonParameters]).GetProperties().Name
+            $shouldProcessParameters = ([ShouldProcessParameters]).GetProperties().Name
+        }
+    }
+
     process {
-        try {
-            $script = New-Object ScriptBuilder
+        if ($pscmdlet.ParameterSetName -eq 'FromPipeline') {
+            try {
+                $script = New-Object ScriptBuilder
 
-            $null = $script.AppendFormat('function {0} {{', $CommandInfo.Name).
-                            AppendLine()
-            
-            # Write CmdletBinding
-            if ($cmdletBindingAttribute = [ProxyCommand]::GetCmdletBindingAttribute($CommandInfo)) {
-                $null = $script.AppendLine($cmdletBindingAttribute)
-            }
+                $null = $script.AppendFormat('function {0} {{', $CommandInfo.Name).
+                                AppendLine()
+                
+                # Write help
+                $helpContent = Get-Help $CommandInfo.Name -Full
+                if ($helpContent.Synopsis) {
+                    $null = $script.AppendLine('<#').
+                                    AppendLine('.SYNOPSIS').
+                                    AppendFormat('    {0}', $helpContent.Synopsis).
+                                    AppendLine()
 
-            # Write OutputType
-            foreach ($outputType in $CommandInfo.OutputType) {
-                $null = $script.Append('[OutputType(')
-                if ($outputType.Type) {
-                    $null = $script.AppendFormat('[{0}]', $outputType.Type)
-                } else {
-                    $null = $script.AppendFormat("'{0}'", $outputType.Name)
-                }
-                $null = $script.AppendLine(')]')
-            }
+                    foreach ($parameter in $CommandInfo.Parameters.Keys) {
+                        if ($parameter -notin $commonParameters -and $parameter -notin $shouldProcessParameters) {
+                            $parameterHelp = ($helpcontent.parameters.parameter | Where-Object { $_.Name -eq $parameter }).Description.Text
+                            if ($parameterHelp) {
+                                $paragraphs = $parameterHelp.Split("`n", [StringSplitOptions]::RemoveEmptyEntries)
 
-            # Write param
-            if ($CommandInfo.CmdletBinding -or $CommandInfo.Parameters.Count -gt 0) {
-                $null = $script.Append('param (')
+                                $null = $script.AppendFormat('.PARAMETER {0}', $parameter).
+                                                AppendLine()
 
-                if ($param = [ProxyCommand]::GetParamBlock($CommandInfo)) {
-                    foreach ($line in $param -split '\r?\n') {
-                        $null = $script.AppendLine($line.Trim())
+                                foreach ($paragraph in $paragraphs) {
+                                    $null = $script.AppendFormat('    {0}', $paragraph).
+                                                    AppendLine()
+                                }
+                            }
+                        }
                     }
-                } else {
-                    $null = $script.Append(' ')
+                    $null = $script.AppendLine('#>').
+                                    AppendLine()
                 }
 
-                $null = $script.AppendLine(')')
-            }
+                # Write CmdletBinding
+                if ($cmdletBindingAttribute = [ProxyCommand]::GetCmdletBindingAttribute($CommandInfo)) {
+                    $null = $script.AppendLine($cmdletBindingAttribute)
+                }
 
-            # Write dynamic params
-            if ($dynamicParams = New-StubDynamicParam $CommandInfo) {
-                $null = $script.AppendScript($dynamicParams)
-            }
+                # Write OutputType
+                foreach ($outputType in $CommandInfo.OutputType) {
+                    $null = $script.Append('[OutputType(')
+                    if ($outputType.Type) {
+                        $null = $script.AppendFormat('[{0}]', $outputType.Type)
+                    } else {
+                        $null = $script.AppendFormat("'{0}'", $outputType.Name)
+                    }
+                    $null = $script.AppendLine(')]')
+                }
 
-            $null = $script.AppendLine('}')
-            
-            $script.ToString()
-        } catch {
-            Write-Error -ErrorRecord $_
+                # Write param
+                if ($CommandInfo.CmdletBinding -or $CommandInfo.Parameters.Count -gt 0) {
+                    $null = $script.Append('param (')
+
+                    if ($param = [ProxyCommand]::GetParamBlock($CommandInfo)) {
+                        foreach ($line in $param -split '\r?\n') {
+                            $null = $script.AppendLine($line.Trim())
+                        }
+                    } else {
+                        $null = $script.Append(' ')
+                    }
+
+                    $null = $script.AppendLine(')')
+                }
+
+                # Write dynamic params
+                if ($dynamicParams = New-StubDynamicParam $CommandInfo) {
+                    $null = $script.AppendScript($dynamicParams)
+                }
+
+                $null = $script.AppendLine('}')
+                
+                $script.ToString()
+            } catch {
+                Write-Error -ErrorRecord $_
+            }
         }
     }
 }
