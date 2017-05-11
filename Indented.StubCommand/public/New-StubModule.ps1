@@ -20,7 +20,7 @@ function New-StubModule {
     [OutputType([String])]
     param (
         # The name of a module to recreate.
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory)]
         [String]$FromModule,
 
         # Save the new definition in the specified directory.
@@ -53,26 +53,7 @@ function New-StubModule {
             
             # Types
 
-            $parameterTypes = $_.Group |
-                ForEach-Object { $_.Parameters.Values } |
-                Select-Object -ExpandProperty ParameterType
-
-            $outputTypes = $_.Group |
-                ForEach-Object { $_.OutputType.Type }
-
-            $parameterTypes + $outputTypes |
-                ForEach-Object {
-                    if ($_.BaseType -eq ([Array])) {
-                        $_.GetElementType()
-                    } else {
-                        $_
-                    }
-                } |
-                Select-Object -Unique |
-                Group-Object { $_.Assembly.FullName } |
-                Where-Object { TestIsForeignAssembly $_.Name } |
-                ForEach-Object { $_.Group } |
-                New-StubType
+            $_.Group | GetRequiredType | New-StubType
 
             # Commands
             $_.Group | New-StubCommand

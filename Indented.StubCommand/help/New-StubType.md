@@ -12,7 +12,7 @@ Generates a class or enum definition.
 ## SYNTAX
 
 ```
-New-StubType [[-Type] <Type>]
+New-StubType [[-Type] <Type>] [[-IsPrimary] <Boolean>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +30,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -Type
-{{Fill Type Description}}
+Generate a stub of the specified type.
 
 ```yaml
 Type: Type
@@ -40,7 +40,22 @@ Aliases:
 Required: False
 Position: 1
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -IsPrimary
+If a type is flagged as secondary, member types are rewritten as object to end the type dependency chain.
+
+```yaml
+Type: Boolean
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: 2
+Default value: True
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 

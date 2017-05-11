@@ -4,7 +4,7 @@ InModuleScope Indented.StubCommand {
             Mock New-StubType
             Mock New-StubCommand
 
-            [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
+            [String]$Script:typeName = 'z' + ([Guid]::NewGuid() -replace '-')
             $script = New-Object ScriptBuilder
 
             $null = $script.AppendLine('Add-Type "').
@@ -42,6 +42,17 @@ InModuleScope Indented.StubCommand {
                             AppendLine('}')
 
             $script.ToString() | Out-File 'TestDrive:\TestModule.psm1'
+
+            Mock GetRequiredType {
+                [PSCustomObject]@{
+                    Type      = $Script:typeName -as [Type]
+                    IsPrimary = $true
+                }
+                [PSCustomObject]@{
+                    Type      = "${Script:typeName}enum" -as [Type]
+                    IsPrimary = $true
+                }
+            }
         }
 
         Context 'Conversion' {
@@ -49,8 +60,12 @@ InModuleScope Indented.StubCommand {
                 New-StubModule -FromModule 'TestDrive:\TestModule.psm1'
             }
 
+            It 'Gathers a list of types to create' {
+                Assert-MockCalled GetRequiredType -Scope It
+            }
+
             It 'Creates stub types for each class or enum' {
-                Assert-MockCalled New-StubType -Times 2 -Exactly -Scope It
+                Assert-MockCalled New-StubType -Scope It
             }
 
             It 'Creates a stub function for each command' {

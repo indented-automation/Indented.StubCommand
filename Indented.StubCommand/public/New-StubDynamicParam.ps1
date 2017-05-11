@@ -17,7 +17,7 @@ function New-StubDynamicParam {
     [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseShouldProcessForStateChangingFunctions', '')]
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory, ValueFromPipeline)]
         [CommandInfo]$CommandInfo
     )
 

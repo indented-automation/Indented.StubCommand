@@ -20,11 +20,10 @@ function New-StubCommand {
     [CmdletBinding(DefaultParameterSetName = 'FromPipeline')]
     [OutputType([String])]
     param (
-        [Parameter(Position = 0, Mandatory = $true, ParameterSetName = 'FromString')]
+        [Parameter(Position = 0, Mandatory, ParameterSetName = 'FromString')]
         [String]$CommandName,
         
-        [Parameter(ParameterSetName = 'FromPipeline')]
-        [Parameter(ValueFromPipeline = $true)]
+        [Parameter(ValueFromPipeline, ParameterSetName = 'FromPipeline')]
         [CommandInfo]$CommandInfo
     )
     
@@ -50,7 +49,7 @@ function New-StubCommand {
                 if ($helpContent.Synopsis) {
                     $null = $script.AppendLine('<#').
                                     AppendLine('.SYNOPSIS').
-                                    AppendFormat('    {0}', $helpContent.Synopsis).
+                                    AppendFormat('    {0}', $helpContent.Synopsis.Trim()).
                                     AppendLine()
 
                     foreach ($parameter in $CommandInfo.Parameters.Keys) {
