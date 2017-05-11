@@ -20,12 +20,12 @@ Builds a type definition which represents a class or type which is used to const
 
 ## EXAMPLES
 
-### Example 1
+### -------------------------- EXAMPLE 1 --------------------------
 ```
-PS C:\> {{ Add example code here }}
+New-Stubtype ([IPAddress])
 ```
 
-{{ Add example description here }}
+Create a stub representing the System.Net.IPAddress class.
 
 ## PARAMETERS
 

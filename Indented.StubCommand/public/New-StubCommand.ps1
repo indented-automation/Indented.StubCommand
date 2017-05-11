@@ -9,6 +9,14 @@ function New-StubCommand {
         New-StubCommand recreates a command as a function with param block and dynamic param block (if used).
     .INPUTS
         System.Management.Automation.CommandInfo
+    .EXAMPLE
+        New-StubCommand Test-Path
+
+        Create a stub of the Test-Path command.
+    .EXAMPLE
+        Get-Command -Module AppLocker | New-StubCommand
+
+        Create a stub of all commands in the AppLocker module.
     .NOTES
         Change log:
             10/05/2017 - Chris Dent - Added automatic help insertion.
@@ -20,9 +28,11 @@ function New-StubCommand {
     [CmdletBinding(DefaultParameterSetName = 'FromPipeline')]
     [OutputType([String])]
     param (
+        # Generate a stub of the specified command name.
         [Parameter(Position = 0, Mandatory, ParameterSetName = 'FromString')]
         [String]$CommandName,
         
+        # Generate a stub of the specified command.
         [Parameter(ValueFromPipeline, ParameterSetName = 'FromPipeline')]
         [CommandInfo]$CommandInfo
     )

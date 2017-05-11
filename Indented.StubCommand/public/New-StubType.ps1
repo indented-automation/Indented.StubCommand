@@ -8,6 +8,10 @@ function New-StubType {
         Builds a type definition which represents a class or type which is used to constrain a parameter.
     .INPUTS
         System.Type
+    .EXAMPLE
+        New-Stubtype ([IPAddress])
+
+        Create a stub representing the System.Net.IPAddress class.
     .NOTES
         Change log:
             04/04/2017 - Chris Dent - Created.

@@ -24,12 +24,12 @@ A stub module contains:
 
 ## EXAMPLES
 
-### Example 1
+### -------------------------- EXAMPLE 1 --------------------------
 ```
-PS C:\> {{ Add example code here }}
+New-StubModule -FromModule DnsClient
 ```
 
-{{ Add example description here }}
+Create stub of the DnsClient module.
 
 ## PARAMETERS
 

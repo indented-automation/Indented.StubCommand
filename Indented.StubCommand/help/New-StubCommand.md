@@ -26,17 +26,24 @@ New-StubCommand recreates a command as a function with param block and dynamic p
 
 ## EXAMPLES
 
-### Example 1
+### -------------------------- EXAMPLE 1 --------------------------
 ```
-PS C:\> {{ Add example code here }}
+New-StubCommand Test-Path
 ```
 
-{{ Add example description here }}
+Create a stub of the Test-Path command.
+
+### -------------------------- EXAMPLE 2 --------------------------
+```
+Get-Command -Module AppLocker | New-StubCommand
+```
+
+Create a stub of all commands in the AppLocker module.
 
 ## PARAMETERS
 
 ### -CommandName
-{{Fill CommandName Description}}
+Generate a stub of the specified command name.
 
 ```yaml
 Type: String
@@ -51,7 +58,7 @@ Accept wildcard characters: False
 ```
 
 ### -CommandInfo
-{{Fill CommandInfo Description}}
+Generate a stub of the specified command.
 
 ```yaml
 Type: CommandInfo

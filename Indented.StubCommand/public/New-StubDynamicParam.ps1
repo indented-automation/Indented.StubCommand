@@ -6,8 +6,14 @@ function New-StubDynamicParam {
         Creates a new script representation of a set of dynamic parameters.
     .DESCRIPTION
         Creates a new script representation of a set of dynamic parameters.
+
+        The dynamic parameter set includes any attributes bound to individual parameters.
     .INPUTS
         System.Management.Automation.CommandInfo
+    .EXAMPLE
+        Get-Command Get-Item | New-StubDynamicParam
+
+        Creates a copy of the dynamic param block used by Get-Item.
     .NOTES
         Change log:
             04/04/2017 - Chris Dent - Created.
@@ -16,7 +22,9 @@ function New-StubDynamicParam {
     # This command does not change state.
     [System.Diagnostics.CodeAnalysis.SuppressMessage('PSUseShouldProcessForStateChangingFunctions', '')]
     [CmdletBinding()]
+    [OutputType([String])]
     param (
+        # Generate a dynamic param block for the specified command.
         [Parameter(Mandatory, ValueFromPipeline)]
         [CommandInfo]$CommandInfo
     )

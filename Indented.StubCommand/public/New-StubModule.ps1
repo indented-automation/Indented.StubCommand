@@ -9,6 +9,10 @@ function New-StubModule {
             A copy of any enumerations used by the module from non-native assemblies.
             A stub of any .NET classes consumed by the module from non-native assemblies.
 
+    .EXAMPLE
+        New-StubModule -FromModule DnsClient
+
+        Create stub of the DnsClient module.
     .NOTES
         Change log:
             05/04/2017 - Chris Dent - Created.

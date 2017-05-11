@@ -18,19 +18,21 @@ New-StubDynamicParam [-CommandInfo] <CommandInfo>
 ## DESCRIPTION
 Creates a new script representation of a set of dynamic parameters.
 
+The dynamic parameter set includes any attributes bound to individual parameters.
+
 ## EXAMPLES
 
-### Example 1
+### -------------------------- EXAMPLE 1 --------------------------
 ```
-PS C:\> {{ Add example code here }}
+Get-Command Get-Item | New-StubDynamicParam
 ```
 
-{{ Add example description here }}
+Creates a copy of the dynamic param block used by Get-Item.
 
 ## PARAMETERS
 
 ### -CommandInfo
-{{Fill CommandInfo Description}}
+Generate a dynamic param block for the specified command.
 
 ```yaml
 Type: CommandInfo
@@ -49,6 +51,8 @@ Accept wildcard characters: False
 ### System.Management.Automation.CommandInfo
 
 ## OUTPUTS
+
+### System.String
 
 ## NOTES
 Change log:
