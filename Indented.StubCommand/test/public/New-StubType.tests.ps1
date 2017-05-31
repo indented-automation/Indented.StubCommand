@@ -18,6 +18,16 @@ InModuleScope Indented.StubCommand {
 
                     return $typeName
                 }
+
+                $testCases = 'int',
+                             'byte',
+                             'sbyte',
+                             'short',
+                             'ushort',
+                             'int',
+                             'uint',
+                             'long',
+                             'ulong' | ForEach-Object { @{ UnderlyingType = $_ } }
             }
 
             It 'Generates a type definition for an existing enum' {
@@ -28,63 +38,15 @@ InModuleScope Indented.StubCommand {
                 $stub | Should -Match 'One = 1,'
             }
 
-            It 'Supports enums with underlying type byte' {
-                $typeName = CreateEnum 'byte'
+            It 'Supports enums with underlying type <UnderlyingType>' -TestCases $testCases {
+                param (
+                    $UnderlyingType
+                )
+
+                $typeName = CreateEnum $UnderlyingType
                 $stub = New-StubType $typeName
 
-                $stub | Should -Match 'byte'
-            }
-
-            It 'Supports enums with underlying type sbyte' {
-                $typeName = CreateEnum 'sbyte'
-                $stub = New-StubType $typeName
-                
-                $stub | Should -Match 'sbyte'
-            }
-
-            It 'Supports enums with underlying type short' {
-                $typeName = CreateEnum 'short'
-                $stub = New-StubType $typeName
-
-                $stub | Should -Match 'short'
-            }
-
-            It 'Supports enums with underlying type ushort' {
-                $typeName = CreateEnum 'ushort'
-                $stub = New-StubType $typeName
-
-                $stub | Should -Match 'ushort'
-            }
-
-
-            It 'Supports enums with underlying type int' {
-                $typeName = CreateEnum 'int'
-                $stub = New-StubType $typeName
-
-                $stub | Should -Match 'int'
-            }
-
-
-            It 'Supports enums with underlying type int' {
-                $typeName = CreateEnum 'uint'
-                $stub = New-StubType $typeName
-
-                $stub | Should -Match 'uint'
-            }
-
-
-            It 'Supports enums with underlying type long' {
-                $typeName = CreateEnum 'long'
-                $stub = New-StubType $typeName
-
-                $stub | Should -Match 'long'
-            }
-
-            It 'Supports enums with underlying type ulong' {
-                $typeName = CreateEnum 'ulong'
-                $stub = New-StubType $typeName
-
-                $stub | Should -Match 'ulong'
+                $stub | Should -Match $UnderlyingType
             }
         }
 
