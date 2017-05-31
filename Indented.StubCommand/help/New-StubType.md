@@ -70,6 +70,7 @@ Accept wildcard characters: False
 ## NOTES
 Change log:
     04/04/2017 - Chris Dent - Created.
+    31/05/2017 - Chris Dent - Nested type handling.
 
 ## RELATED LINKS
 

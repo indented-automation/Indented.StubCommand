@@ -72,6 +72,45 @@ InModuleScope Indented.StubCommand {
             }
         }
 
+        Context 'Nested types' {
+            It 'Creates stub types from nested enums' {
+                [String]$declaringTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                [String]$nestedTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                Add-Type ('
+                    public class {0}
+                    {{
+                        public enum {1} : int
+                        {{
+                            One = 1,
+                            Two = 2
+                        }}
+                    }}
+                ' -f $declaringTypeName, $nestedTypeName)
+                
+                $stub = New-StubType -Type "$declaringTypeName+$nestedTypeName"
+                $stub | Should -Match "public class $declaringTypeName"
+                $stub | Should -Match "public enum $nestedTypeName"
+            }
+
+            It 'Creates stub types from nested classes' {
+                [String]$declaringTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                [String]$nestedTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                Add-Type ('
+                    public class {0}
+                    {{
+                        public class {1}
+                        {{
+                            public string Name;
+                        }}
+                    }}
+                ' -f $declaringTypeName, $nestedTypeName)
+                
+                $stub = New-StubType -Type "$declaringTypeName+$nestedTypeName"
+                $stub | Should -Match "public class $declaringTypeName"
+                $stub | Should -Match "public class $nestedTypeName"
+            }
+        }
+
         Context 'Fields, constructors, and properties' {
             BeforeAll {
                 [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
@@ -203,6 +242,25 @@ InModuleScope Indented.StubCommand {
 
             It 'Adds a single IsSecondaryStubType field' {
                 $stub | Should -Match 'public bool IsSecondaryStubType = true;'
+            }
+        }
+
+        Context 'Namespace handling' {
+            It 'Includes namespace statements when a class is within a namespace' {
+                [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                Add-Type "
+                    namespace Root.Child
+                    {
+                        public class $typeName
+                        {
+                            public string Name;
+                        }
+                    }
+                "
+
+                $stub = New-StubType "Root.Child.$typeName"
+                $stub | Should -Match 'namespace Root\.Child'
+                $stub | Should -Match $typeName
             }
         }
     }

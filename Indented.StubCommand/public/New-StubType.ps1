@@ -15,6 +15,7 @@ function New-StubType {
     .NOTES
         Change log:
             04/04/2017 - Chris Dent - Created.
+            31/05/2017 - Chris Dent - Nested type handling.
     #>
 
     # This command does not change state.
@@ -32,22 +33,37 @@ function New-StubType {
     )
 
     begin {
-        $definedTypes = @{}
-
-        $script = New-Object ScriptBuilder
-
-        $null = $script.AppendLine("Add-Type '")
+        $definedTypes = [Ordered]@{}
     }
 
     process {
         if (-not $definedTypes.Contains($Type)) {
-            $definedTypes.Add($Type, $null)
-
-            if ($Type.Namespace -ne 'System') {
+            $script = New-Object ScriptBuilder
+            
+            if ($Type.Namespace -ne 'System' -and $Type.Namespace) {
                 $null = $script.AppendLine().
                                 AppendFormat('namespace {0}', $Type.Namespace).
                                 AppendLine().
                                 AppendLine('{')
+            }
+
+            if ($Type.MemberType -eq 'NestedType') {
+                if ($definedTypes.Contains($Type.DeclaringType)) {
+                    $parentClassDefinition = $definedTypes[$Type.DeclaringType]
+                } else {
+                    $parentClassDefinition = ((New-StubType $Type.DeclaringType) -replace "Add-Type @'|'@").Trim()
+                }
+                
+                # "Open" the parent class to allow the nested class to be injected (nested types are not automatically fabricated).
+                if ($parentClassDefinition -like 'namespace *') {
+                    $parentClassDefinition = $parentClassDefinition -replace ' *\}\n\}'
+                } else {
+                    $parentClassDefinition = $parentClassDefinition -replace '\}'
+                }
+
+                foreach ($line in $parentClassDefinition.Split("`n")) {
+                    $null = $script.AppendLine($line.Trim())
+                }
             }
 
             if ($Type.BaseType -eq [Enum]) {
@@ -105,7 +121,7 @@ function New-StubType {
                         $null = switch ($memberSet.Name) {
                             'Field' {
                                 foreach ($field in $memberSet.Group) {
-                                    $script.AppendFormat('public {0} {1};', $field.FieldType.FullName, $field.Name).
+                                    $script.AppendFormat('public {0} {1};', (GetTypeName $field.FieldType), $field.Name).
                                             AppendLine()
                                 }
                                 break
@@ -114,7 +130,7 @@ function New-StubType {
                                 foreach ($constructor in $memberSet.Group) {
                                     $script.AppendFormat('public {0}', $Type.Name)
                                     $parameters = foreach ($parameter in $constructor.GetParameters()) {
-                                        '{0} {1}' -f $parameter.ParameterType.FullName, $parameter.Name
+                                        '{0} {1}' -f (GetTypeName $parameter.ParameterType), $parameter.Name
                                     }
                                     $script.AppendFormat('({0}) {{ }}', $parameters -join ', ').
                                             AppendLine()
@@ -123,7 +139,7 @@ function New-StubType {
                             }
                             'Property' {
                                 foreach ($property in $memberSet.Group) {
-                                    $script.AppendFormat('public {0} {1}', $property.PropertyType.FullName, $property.Name).
+                                    $script.AppendFormat('public {0} {1}', (GetTypeName $property.PropertyType), $property.Name).
                                             Append(' { get; set; }').
                                             AppendLine()
                                 }
@@ -139,9 +155,9 @@ function New-StubType {
                     if ($methods.Count -gt 0) {
                         $null = $script.AppendLine('// Static methods')
                         foreach ($method in $methods) {
-                            $null = $script.AppendFormat('public static {0} {1}', $method.ReturnType.FullName, $method.Name)
+                            $null = $script.AppendFormat('public static {0} {1}', (GetTypeName $method.ReturnType), $method.Name)
                             $parameters = foreach ($parameter in $method.GetParameters()) {
-                                '{0} {1}' -f $parameter.ParameterType.FullName, $parameter.Name
+                                '{0} {1}' -f (GetTypeName $parameter.ParameterType), $parameter.Name
                             }
                             $null = $script.AppendFormat('({0})', $parameters -join ', ').
                                             AppendLine().
@@ -176,16 +192,34 @@ function New-StubType {
                 $null = $script.AppendLine('}')
             }
 
-            if ($Type.Namespace -ne 'System') {
+            if ($Type.MemberType -eq 'NestedType') {
                 $null = $script.AppendLine('}')
+            }
+
+            if ($Type.Namespace -ne 'System' -and $Type.Namespace) {
+                $null = $script.AppendLine('}')
+            }
+
+            if ($Type.MemberType -eq 'NestedType') {
+                $definedTypes.($Type.DeclaringType) = $script.ToString()
+                $definedTypes.$Type = $null
+            } else {
+                $definedTypes.$Type = $script.ToString()
             }
         }
     }
 
     end {
-        $null = $script.AppendLine("'")
+        $null = $script.AppendLine("Add-Type @'")
+        $null = $script.AppendLine("'@")
         
         if ($definedTypes.Count -gt 0) {
+            $script = New-Object ScriptBuilder
+
+            $definedTypes.Keys | Sort-Object { $_.Type.FullName } | ForEach-Object {
+                $null = $script.AppendLine($definedTypes[$_])
+            }
+
             return $script.ToString()
         }
     }
