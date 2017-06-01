@@ -39,7 +39,7 @@ function GetRequiredType {
             }
         }
         foreach ($outputTypeAttribute in $CommandInfo.OutputType) {
-            if (-not $primaryTypes.Contains($outputTypeAttribute.Type)) {
+            if ($outputTypeAttribute.Type -and -not $primaryTypes.Contains($outputTypeAttribute.Type)) {
                 $primaryTypes.Add($outputTypeAttribute.Type, $null)
             }
         }
