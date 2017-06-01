@@ -1,9 +1,8 @@
 # Name: ServerManager
 # Version: 2.0.0.0
-# CreatedOn: 2017-05-11 16:17:06Z
+# CreatedOn: 2017-06-01 12:42:31Z
 
-Add-Type '
-
+Add-Type @'
 namespace Microsoft.Windows.ServerManager.Commands
 {
     public class Feature
@@ -39,10 +38,7 @@ namespace Microsoft.Windows.ServerManager.Commands
             return new Feature();
         }
     }
-}
-
-namespace Microsoft.Windows.ServerManager.Commands
-{
+    
     public enum InstallState : int
     {
         Available = 0,
@@ -53,6 +49,7 @@ namespace Microsoft.Windows.ServerManager.Commands
         Removed = 5,
         Unknown = 6
     }
+    
 }
 
 namespace Microsoft.Windows.ServerManager.ServerComponentManager.Internal
@@ -63,8 +60,10 @@ namespace Microsoft.Windows.ServerManager.ServerComponentManager.Internal
         
         public Notification() { }
     }
+    
 }
-'
+
+'@
 
 function Add-WindowsFeature {
     <#

@@ -29,41 +29,44 @@ function New-StubType {
 
         # If a type is flagged as secondary, member types are rewritten as object to end the type dependency chain.
         [Parameter(ValueFromPipelineByPropertyName, DontShow)]
-        [Boolean]$IsPrimary = $true
+        [Boolean]$IsPrimary = $true,
+
+        # Exclude the Add-Type wrapper statements.
+        [Switch]$ExcludeAddType
     )
 
     begin {
-        $definedTypes = [Ordered]@{}
+        $definedStubTypes = [Ordered]@{}
     }
 
     process {
-        if (-not $definedTypes.Contains($Type)) {
-            $script = New-Object ScriptBuilder
-            
-            if ($Type.Namespace -ne 'System' -and $Type.Namespace) {
-                $null = $script.AppendLine().
-                                AppendFormat('namespace {0}', $Type.Namespace).
-                                AppendLine().
-                                AppendLine('{')
+        if (-not $definedStubTypes.Contains($Type)) {
+            $stubType = [PSCustomObject]@{
+                Type       = $Type
+                Namespace  = $Type.Namespace
+                Definition = $null 
             }
+            
+            $script = New-Object ScriptBuilder
+
+            #if ($Type.Namespace -ne 'System' -and $Type.Namespace) {
+            #    $null = $script.AppendLine().
+            #                    AppendFormat('namespace {0}', $Type.Namespace).
+            #                    AppendLine().
+            #                    AppendLine('{')
+            #}
 
             if ($Type.MemberType -eq 'NestedType') {
-                if ($definedTypes.Contains($Type.DeclaringType)) {
-                    $parentClassDefinition = $definedTypes[$Type.DeclaringType]
+                if ($definedStubTypes.Contains($Type.DeclaringType)) {
+                    $parentClassDefinition = $definedStubTypes[$Type.DeclaringType].Definition
                 } else {
-                    $parentClassDefinition = ((New-StubType $Type.DeclaringType) -replace "Add-Type @'|'@").Trim()
+                    $parentClassDefinition = New-StubType $Type.DeclaringType -ExcludeAddType
                 }
                 
                 # "Open" the parent class to allow the nested class to be injected (nested types are not automatically fabricated).
-                if ($parentClassDefinition -like 'namespace *') {
-                    $parentClassDefinition = $parentClassDefinition -replace 'namespace \S+\s+?\{| *\}\s+?\}$'
-                } else {
-                    $parentClassDefinition = $parentClassDefinition -replace '\}$'
-                }
+                $parentClassDefinition = $parentClassDefinition.Trim() -replace '\}$'
 
-                foreach ($line in $parentClassDefinition.Split("`n")) {
-                    $null = $script.AppendLine($line.Trim())
-                }
+                $null = $script.AppendLines($parentClassDefinition.Split("`n"))
             }
 
             if ($Type.BaseType -eq [Enum]) {
@@ -196,30 +199,48 @@ function New-StubType {
                 $null = $script.AppendLine('}')
             }
 
-            if ($Type.Namespace -ne 'System' -and $Type.Namespace) {
-                $null = $script.AppendLine('}')
-            }
+            #if ($Type.Namespace -ne 'System' -and $Type.Namespace) {
+            #    $null = $script.AppendLine('}')
+            #}
+
+            $stubType.Definition = $script.ToString().Trim()
 
             if ($Type.MemberType -eq 'NestedType') {
-                $definedTypes.($Type.DeclaringType) = $script.ToString().Trim()
-                $definedTypes.$Type = $null
+                $definedStubTypes.($Type.DeclaringType) = $stubType
+                $definedStubTypes.$Type = $null
             } else {
-                $definedTypes.$Type = $script.ToString().Trim()
+                $definedStubTypes.$Type = $stubType
             }
         }
     }
 
     end {
-        if ($definedTypes.Count -gt 0) {
+        if ($definedStubTypes.Count -gt 0) {
             $script = New-Object ScriptBuilder
 
-            $null = $script.AppendLine("Add-Type @'")
-
-            $definedTypes.Keys | Sort-Object { $_.Type.FullName } | Where-Object { $definedTypes[$_] } | ForEach-Object {
-                $null = $script.AppendLine($definedTypes[$_])
+            if (-not $ExcludeAddType) {
+                $null = $script.AppendLine("Add-Type @'")
             }
 
-            $null = $script.AppendLine("'@")
+            $definedStubTypes.Values | Group-Object Namespace | Sort-Object Name | ForEach-Object {
+                if ($_.Name) {
+                    $null = $script.AppendFormat('namespace {0}', $_.Name).
+                                    AppendLine().
+                                    AppendLine('{')
+                }
+                $_.Group | Sort-Object { $_.Type.FullName } | ForEach-Object {
+                    $null = $script.AppendLines($_.Definition -split '\r?\n').
+                                    AppendLine()
+                }
+                if ($_.Name) {
+                    $null = $script.AppendLine('}').
+                                    AppendLine()
+                }
+            }
+            
+            if (-not $ExcludeAddType) {
+                $null = $script.AppendLine("'@")
+            }
 
             return $script.ToString()
         }

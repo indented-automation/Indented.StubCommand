@@ -17,6 +17,8 @@ InModuleScope Indented.StubCommand {
                 if ($result.NativeCompilerReturnValue -eq 0) {
                     $true
                 } else {
+                    $result.Errors | Write-Warning
+
                     $false
                 }
             }

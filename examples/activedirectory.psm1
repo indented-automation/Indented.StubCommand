@@ -1,359 +1,624 @@
 ﻿# Name: ActiveDirectory
 # Version: 1.0.0.0
-# CreatedOn: 2017-04-06 14:41:42Z
+# CreatedOn: 2017-06-01 12:43:27Z
 
-if (-not ("Microsoft.ActiveDirectory.Management.ADComputer" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
+Add-Type @'
+namespace Microsoft.ActiveDirectory.Management
+{
+    public class ADAccount
     {
-        public class ADComputer
+        // Constructor
+        public ADAccount() { }
+        public ADAccount(System.String identity) { }
+        public ADAccount(System.Guid guid) { }
+        public ADAccount(System.Security.Principal.SecurityIdentifier sid) { }
+        public ADAccount(Microsoft.ActiveDirectory.Management.ADObject identity) { }
+        
+        // Property
+        public System.String UserPrincipalName { get; set; }
+        public System.Boolean Enabled { get; set; }
+        public System.String SamAccountName { get; set; }
+        public System.Security.Principal.SecurityIdentifier SID { get; set; }
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public enum ADAuthType : int
+    {
+        Negotiate = 0,
+        Basic = 1
+    }
+    
+    public class ADComputer
+    {
+        // Constructor
+        public ADComputer() { }
+        public ADComputer(Microsoft.ActiveDirectory.Management.ADObject identity) { }
+        public ADComputer(System.String identity) { }
+        public ADComputer(System.Guid guid) { }
+        public ADComputer(System.Security.Principal.SecurityIdentifier sid) { }
+        
+        // Property
+        public System.String DNSHostName { get; set; }
+        public System.String UserPrincipalName { get; set; }
+        public System.Boolean Enabled { get; set; }
+        public System.String SamAccountName { get; set; }
+        public System.Security.Principal.SecurityIdentifier SID { get; set; }
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public class ADDefaultDomainPasswordPolicy
+    {
+        // Constructor
+        public ADDefaultDomainPasswordPolicy() { }
+        public ADDefaultDomainPasswordPolicy(System.String identity) { }
+        public ADDefaultDomainPasswordPolicy(System.Guid guid) { }
+        public ADDefaultDomainPasswordPolicy(Microsoft.ActiveDirectory.Management.ADEntity adentity) { }
+        
+        // Property
+        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutDuration { get; set; }
+        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutObservationWindow { get; set; }
+        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutThreshold { get; set; }
+        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MaxPasswordAge { get; set; }
+        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MinPasswordAge { get; set; }
+        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MinPasswordLength { get; set; }
+        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] PasswordHistoryCount { get; set; }
+        public System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ComplexityEnabled { get; set; }
+        public System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ReversibleEncryptionEnabled { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public class ADDirectoryServer
+    {
+        // Constructor
+        public ADDirectoryServer() { }
+        public ADDirectoryServer(System.String identity) { }
+        public ADDirectoryServer(System.Guid guid) { }
+        public ADDirectoryServer(Microsoft.ActiveDirectory.Management.ADObject identity) { }
+        
+        // Property
+        public System.String Name { get; set; }
+        public System.String Site { get; set; }
+        public System.String IPv4Address { get; set; }
+        public System.String IPv6Address { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public class ADDomain
+    {
+        // Constructor
+        public ADDomain() { }
+        public ADDomain(System.String identity) { }
+        public ADDomain(System.Guid guid) { }
+        public ADDomain(System.Security.Principal.SecurityIdentifier sid) { }
+        public ADDomain(Microsoft.ActiveDirectory.Management.ADObject adobject) { }
+        
+        // Property
+        public System.Security.Principal.SecurityIdentifier DomainSID { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection AllowedDNSSuffixes { get; set; }
+        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LastLogonReplicationInterval { get; set; }
+        public System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADDomainMode, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] DomainMode { get; set; }
+        public System.String ManagedBy { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection LinkedGroupPolicyObjects { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection ChildDomains { get; set; }
+        public System.String ComputersContainer { get; set; }
+        public System.String DomainControllersContainer { get; set; }
+        public System.String ForeignSecurityPrincipalsContainer { get; set; }
+        public System.String Forest { get; set; }
+        public System.String InfrastructureMaster { get; set; }
+        public System.String NetBIOSName { get; set; }
+        public System.String PDCEmulator { get; set; }
+        public System.String ParentDomain { get; set; }
+        public System.String RIDMaster { get; set; }
+        public System.String SystemsContainer { get; set; }
+        public System.String UsersContainer { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection SubordinateReferences { get; set; }
+        public System.String DNSRoot { get; set; }
+        public System.String LostAndFoundContainer { get; set; }
+        public System.String DeletedObjectsContainer { get; set; }
+        public System.String QuotasContainer { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection ReadOnlyReplicaDirectoryServers { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection ReplicaDirectoryServers { get; set; }
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public class ADDomainController
+    {
+        // Constructor
+        public ADDomainController() { }
+        public ADDomainController(System.String identity) { }
+        public ADDomainController(System.Guid guid) { }
+        public ADDomainController(System.Security.Principal.SecurityIdentifier sid) { }
+        public ADDomainController(Microsoft.ActiveDirectory.Management.ADObject identity) { }
+        
+        // Property
+        public System.String Domain { get; set; }
+        public System.String Forest { get; set; }
+        public System.String Name { get; set; }
+        public System.String Site { get; set; }
+        public System.String IPv4Address { get; set; }
+        public System.String IPv6Address { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public enum ADDomainMode : int
+    {
+        Windows2000Domain = 0,
+        Windows2003InterimDomain = 1,
+        Windows2003Domain = 2,
+        Windows2008Domain = 3,
+        Windows2008R2Domain = 4,
+        UnknownDomain = 5
+    }
+    
+    public class ADEntity
+    {
+        // Constructor
+        public ADEntity(System.String identity) { }
+        
+        // Property
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+        // Fabricated constructor
+        private ADEntity() { }
+        public static ADEntity CreateTypeInstance()
         {
-            public ADComputer(object value) { }
+            return new ADEntity();
         }
     }
-    '
+    
+    public class ADFineGrainedPasswordPolicy
+    {
+        // Constructor
+        public ADFineGrainedPasswordPolicy() { }
+        public ADFineGrainedPasswordPolicy(System.String identity) { }
+        public ADFineGrainedPasswordPolicy(System.Guid guid) { }
+        public ADFineGrainedPasswordPolicy(Microsoft.ActiveDirectory.Management.ADObject adobject) { }
+        
+        // Property
+        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutDuration { get; set; }
+        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutObservationWindow { get; set; }
+        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutThreshold { get; set; }
+        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MaxPasswordAge { get; set; }
+        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MinPasswordAge { get; set; }
+        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MinPasswordLength { get; set; }
+        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] PasswordHistoryCount { get; set; }
+        public System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ComplexityEnabled { get; set; }
+        public System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ReversibleEncryptionEnabled { get; set; }
+        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] Precedence { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection AppliesTo { get; set; }
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public class ADForest
+    {
+        // Constructor
+        public ADForest() { }
+        public ADForest(System.String identity) { }
+        public ADForest(System.Guid guid) { }
+        public ADForest(System.Security.Principal.SecurityIdentifier sid) { }
+        public ADForest(Microsoft.ActiveDirectory.Management.ADObject adobject) { }
+        
+        // Property
+        public System.String Name { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection UPNSuffixes { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection SPNSuffixes { get; set; }
+        public System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADForestMode, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] ForestMode { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection ApplicationPartitions { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection CrossForestReferences { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Domains { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection GlobalCatalogs { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Sites { get; set; }
+        public System.String DomainNamingMaster { get; set; }
+        public System.String RootDomain { get; set; }
+        public System.String SchemaMaster { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public enum ADForestMode : int
+    {
+        Windows2000Forest = 0,
+        Windows2003InterimForest = 1,
+        Windows2003Forest = 2,
+        Windows2008Forest = 3,
+        Windows2008R2Forest = 4,
+        UnknownForest = 5
+    }
+    
+    public class ADGroup
+    {
+        // Constructor
+        public ADGroup() { }
+        public ADGroup(System.String identity) { }
+        public ADGroup(System.Guid guid) { }
+        public ADGroup(System.Security.Principal.SecurityIdentifier sid) { }
+        public ADGroup(Microsoft.ActiveDirectory.Management.ADObject identity) { }
+        
+        // Property
+        public System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADGroupScope, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] GroupScope { get; set; }
+        public System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADGroupCategory, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] GroupCategory { get; set; }
+        public System.String SamAccountName { get; set; }
+        public System.Security.Principal.SecurityIdentifier SID { get; set; }
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public enum ADGroupCategory : int
+    {
+        Distribution = 0,
+        Security = 1
+    }
+    
+    public enum ADGroupScope : int
+    {
+        DomainLocal = 0,
+        Global = 1,
+        Universal = 2
+    }
+    
+    public class ADObject
+    {
+        // Constructor
+        public ADObject() { }
+        public ADObject(System.String identity) { }
+        public ADObject(System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] objectGuid) { }
+        
+        // Property
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public enum ADOperationMasterRole : int
+    {
+        PDCEmulator = 0,
+        RIDMaster = 1,
+        InfrastructureMaster = 2,
+        SchemaMaster = 3,
+        DomainNamingMaster = 4
+    }
+    
+    public class ADOptionalFeature
+    {
+        // Constructor
+        public ADOptionalFeature() { }
+        public ADOptionalFeature(System.String identity) { }
+        public ADOptionalFeature(System.Guid guid) { }
+        public ADOptionalFeature(Microsoft.ActiveDirectory.Management.ADObject adobject) { }
+        
+        // Property
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] FeatureGUID { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADDomainMode RequiredDomainMode { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADForestMode RequiredForestMode { get; set; }
+        public System.Boolean IsDisableable { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADOptionalFeatureScope[] FeatureScope { get; set; }
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public enum ADOptionalFeatureScope : int
+    {
+        Unknown = 0,
+        ForestOrConfigurationSet = 1,
+        Domain = 2
+    }
+    
+    public class ADOrganizationalUnit
+    {
+        // Constructor
+        public ADOrganizationalUnit() { }
+        public ADOrganizationalUnit(Microsoft.ActiveDirectory.Management.ADObject identity) { }
+        public ADOrganizationalUnit(System.String identity) { }
+        public ADOrganizationalUnit(System.Guid guid) { }
+        
+        // Property
+        public System.String ManagedBy { get; set; }
+        public System.String StreetAddress { get; set; }
+        public System.String City { get; set; }
+        public System.String State { get; set; }
+        public System.String Country { get; set; }
+        public System.String PostalCode { get; set; }
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public class ADPrincipal
+    {
+        // Constructor
+        public ADPrincipal() { }
+        public ADPrincipal(System.String identity) { }
+        public ADPrincipal(System.Guid guid) { }
+        public ADPrincipal(System.Security.Principal.SecurityIdentifier sid) { }
+        public ADPrincipal(Microsoft.ActiveDirectory.Management.ADObject adobject) { }
+        
+        // Property
+        public System.String SamAccountName { get; set; }
+        public System.Security.Principal.SecurityIdentifier SID { get; set; }
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public class ADPropertyValueCollection
+    {
+        public bool IsSecondaryStubType = true;
+        
+        public ADPropertyValueCollection() { }
+    }
+    
+    public enum ADSearchScope : int
+    {
+        Base = 0,
+        OneLevel = 1,
+        Subtree = 2
+    }
+    
+    public class ADServiceAccount
+    {
+        // Constructor
+        public ADServiceAccount() { }
+        public ADServiceAccount(Microsoft.ActiveDirectory.Management.ADObject identity) { }
+        public ADServiceAccount(System.String identity) { }
+        public ADServiceAccount(System.Guid guid) { }
+        public ADServiceAccount(System.Security.Principal.SecurityIdentifier sid) { }
+        
+        // Property
+        public System.String[] HostComputers { get; set; }
+        public System.String UserPrincipalName { get; set; }
+        public System.Boolean Enabled { get; set; }
+        public System.String SamAccountName { get; set; }
+        public System.Security.Principal.SecurityIdentifier SID { get; set; }
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public class ADSite
+    {
+        // Constructor
+        public ADSite() { }
+        public ADSite(System.String identity) { }
+        public ADSite(System.Guid guid) { }
+        public ADSite(Microsoft.ActiveDirectory.Management.ADObject identity) { }
+        
+        // Property
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
+    public class ADUser
+    {
+        // Constructor
+        public ADUser() { }
+        public ADUser(System.String identity) { }
+        public ADUser(System.Guid guid) { }
+        public ADUser(System.Security.Principal.SecurityIdentifier sid) { }
+        public ADUser(Microsoft.ActiveDirectory.Management.ADObject identity) { }
+        
+        // Property
+        public System.String GivenName { get; set; }
+        public System.String Surname { get; set; }
+        public System.String UserPrincipalName { get; set; }
+        public System.Boolean Enabled { get; set; }
+        public System.String SamAccountName { get; set; }
+        public System.Security.Principal.SecurityIdentifier SID { get; set; }
+        public System.String DistinguishedName { get; set; }
+        public System.String Name { get; set; }
+        public System.String ObjectClass { get; set; }
+        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Collections.ICollection PropertyNames { get; set; }
+        public System.Int32 PropertyCount { get; set; }
+        public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
+        
+    }
+    
 }
 
-if (-not ("Microsoft.ActiveDirectory.Management.ADAuthType" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
+namespace Microsoft.ActiveDirectory.Management.Commands
+{
+    public enum ADCurrentDomainType : int
     {
-        public enum ADAuthType : int
-        {
-            Negotiate = 0,
-            Basic = 1
-        }
+        LocalComputer = 0,
+        LoggedOnUser = 1
     }
-    '
+    
+    public enum ADCurrentForestType : int
+    {
+        LocalComputer = 0,
+        LoggedOnUser = 1
+    }
+    
+    public enum ADDiscoverableService : int
+    {
+        PrimaryDC = 1,
+        GlobalCatalog = 2,
+        KDC = 3,
+        TimeService = 4,
+        ReliableTimeService = 5,
+        ADWS = 6
+    }
+    
+    public enum ADMinimumDirectoryServiceVersion : int
+    {
+        Windows2000 = 1,
+        Windows2008 = 2
+    }
+    
 }
 
-if (-not ("Microsoft.ActiveDirectory.Management.ADServiceAccount" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADServiceAccount
-        {
-            public ADServiceAccount(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADDomainController" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADDomainController
-        {
-            public ADDomainController(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADPrincipal" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADPrincipal
-        {
-            public ADPrincipal(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADFineGrainedPasswordPolicy" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADFineGrainedPasswordPolicy
-        {
-            public ADFineGrainedPasswordPolicy(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADGroup" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADGroup
-        {
-            public ADGroup(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADAccount" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADAccount
-        {
-            public ADAccount(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADOptionalFeature" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADOptionalFeature
-        {
-            public ADOptionalFeature(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADOptionalFeatureScope" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public enum ADOptionalFeatureScope : int
-        {
-            Unknown = 0,
-            ForestOrConfigurationSet = 1,
-            Domain = 2
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADEntity" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADEntity
-        {
-            public ADEntity(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADSearchScope" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public enum ADSearchScope : int
-        {
-            Base = 0,
-            OneLevel = 1,
-            Subtree = 2
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADDefaultDomainPasswordPolicy" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADDefaultDomainPasswordPolicy
-        {
-            public ADDefaultDomainPasswordPolicy(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.Commands.ADCurrentDomainType" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management.Commands
-    {
-        public enum ADCurrentDomainType : int
-        {
-            LocalComputer = 0,
-            LoggedOnUser = 1
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADDomain" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADDomain
-        {
-            public ADDomain(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.Commands.ADDiscoverableService" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management.Commands
-    {
-        public enum ADDiscoverableService : int
-        {
-            PrimaryDC = 1,
-            GlobalCatalog = 2,
-            KDC = 3,
-            TimeService = 4,
-            ReliableTimeService = 5,
-            ADWS = 6
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.Commands.ADMinimumDirectoryServiceVersion" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management.Commands
-    {
-        public enum ADMinimumDirectoryServiceVersion : int
-        {
-            Windows2000 = 1,
-            Windows2008 = 2
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADForest" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADForest
-        {
-            public ADForest(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.Commands.ADCurrentForestType" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management.Commands
-    {
-        public enum ADCurrentForestType : int
-        {
-            LocalComputer = 0,
-            LoggedOnUser = 1
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADObject" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADObject
-        {
-            public ADObject(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADOrganizationalUnit" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADOrganizationalUnit
-        {
-            public ADOrganizationalUnit(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADUser" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADUser
-        {
-            public ADUser(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADDirectoryServer" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADDirectoryServer
-        {
-            public ADDirectoryServer(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADSite" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public class ADSite
-        {
-            public ADSite(object value) { }
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADOperationMasterRole" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public enum ADOperationMasterRole : int
-        {
-            PDCEmulator = 0,
-            RIDMaster = 1,
-            InfrastructureMaster = 2,
-            SchemaMaster = 3,
-            DomainNamingMaster = 4
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADDomainMode" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public enum ADDomainMode : int
-        {
-            Windows2000Domain = 0,
-            Windows2003InterimDomain = 1,
-            Windows2003Domain = 2,
-            Windows2008Domain = 3,
-            Windows2008R2Domain = 4,
-            UnknownDomain = 5
-        }
-    }
-    '
-}
-
-if (-not ("Microsoft.ActiveDirectory.Management.ADForestMode" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.ActiveDirectory.Management
-    {
-        public enum ADForestMode : int
-        {
-            Windows2000Forest = 0,
-            Windows2003InterimForest = 1,
-            Windows2003Forest = 2,
-            Windows2008Forest = 3,
-            Windows2008R2Forest = 4,
-            UnknownForest = 5
-        }
-    }
-    '
-}
+'@
 
 function Add-ADComputerServiceAccount {
+    <#
+    .SYNOPSIS
+        Adds one or more service accounts to an Active Directory computer.
+    .PARAMETER Identity
+        Specifies an Active Directory computer object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID  (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager Account Name (sAMAccountName) 
+            Example: SaraDavisDesktop
+        The cmdlet searches the default naming context or partition to find the object. If the identifier given is a DN, the partition to search will be computed from that DN. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a computer object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a computer object instance named "computerInstance".
+          -Identity   $computerInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER ServiceAccount
+        Specifies one or more Active Directory service accounts. You can identify a service account by using one of the following property values: 
+          Distinguished Name 
+            Example: CN=serviceadmin,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+           GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+           SAM Account Name (sAMAccountName) 
+            Example: serviceadmin
+        The following example shows how to specify a service account for this parameter using the SAM Account Name.
+          -ServiceAccount "serviceAdminEurope"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [switch]
         ${Force},
@@ -410,6 +675,102 @@ function Add-ADComputerServiceAccount {
 }
 
 function Add-ADDomainControllerPasswordReplicationPolicy {
+    <#
+    .SYNOPSIS
+        Adds users, computers, and groups to the allowed or denied list of a read-only domain controller password replication policy.
+    .PARAMETER Identity
+        Specifies an Active Directory domain controller object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute. Unless specified otherwise, these values are for the server object that represents the domain controller.
+          GUID (objectGUID)
+            Example: 768c44de-f72d-66e0-8a88-0523ca495f20 
+          IPV4Address
+            Example:157.59.132.61
+          Global IPV6Address 
+            Example: 2001:4898:0:fff:200:5efe:157.59.132.61
+          DNS Host Name (dNSHostName)
+            Example: corp-DC01.corp.contoso.com
+          Name of the server object
+            Example: corp-DC01$
+          Distinguished Name of the NTDS Settings object
+            Example: CN=NTDS Settings,CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso
+          Distinguished Name of the server object that represents the domain controller
+            Example: CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso,DC=com
+          GUID of NTDS settings object under the configuration partition
+            Example: 68adaf21-e28d-6012-bca8-320d93450ab0
+          GUID of server object under the configuration partition
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20
+          Distinguished Name of the computer object that represents the domain controller.
+            Example: CN=CORP-DC12,OU=Domain Controllers,DC=corp,DC=contoso,DC=com
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error.
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name of the NTDS Settings object.
+          -Identity "CN=NTDS Settings,CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso"
+        This example shows how to set this parameter to a domain controller object instance named "AD_DCInstance".
+          -Identity $AD_DCInstance
+    .PARAMETER AllowedList
+        Specifies the users, computers, groups or other accounts to add to the list of accounts allowed to replicate their passwords to this Read-only domain controller (RODC). You can specify more than one value by using a comma-separated list. To identify each user, computer, or group, use one of the following property values:
+          Distinguished name 
+              Example:  CN=SaraDavis,CN=employees,CN=Users,DC=contoso,DC=com
+          GUID  (objectGUID) 
+              Example:  599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security identifier (objectSid) 
+              Example:  S-1-5-21-3165297888-301567370-576410423-1103
+          Security accounts manager (SAM) account name  (sAMAccountName) 
+              Example:  saradavis
+        The following example shows how to specify a group and user by using a SAM account name and a distinguished name.
+          -AllowedList "SaraDavisGroup", "CN=SaraDavis,CN=employees,CN=Users,DC=contoso,DC=com"
+    .PARAMETER DeniedList
+        Specifies the users, computers, groups or other accounts to add to the list of accounts that are denied the right to replicate their passwords to this Read-only domain controller (RODC). You can specify more than one value by using a comma-separated list. To identify each user, computer, or group, use one of the following property values:
+          Distinguished name 
+              Example:  CN=SaraDavis,CN=employees,CN=Users,DC=contoso,DC=com
+          GUID  (objectGUID) 
+              Example:  599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security identifier (objectSid) 
+              Example:  S-1-5-21-3165297888-301567370-576410423-1103
+          SAM account name (sAMAccountName) 
+              Example:  saradavis
+        The following example shows how to specify a group and user by using a SAM account name and a distinguished name.
+          -DeniedList "SaraDavisGroup", "CN=SaraDavis,CN=employees,CN=Users,DC=contoso,DC=com"
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [Parameter(ParameterSetName='AllowedPRP')]
@@ -445,6 +806,96 @@ function Add-ADDomainControllerPasswordReplicationPolicy {
 }
 
 function Add-ADFineGrainedPasswordPolicySubject {
+    <#
+    .SYNOPSIS
+        Applies a fine-grained password policy to one more users and groups.
+    .PARAMETER Identity
+        Specifies an Active Directory fine-grained password policy object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name (distinguishedName)
+            Example: CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Name (name) 
+            Example: PasswordPolicyLevel1
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a fine-grained password policy object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a fine-grained password policy object instance named "fineGrainedPasswordPolicyInstance".
+          -Identity $fineGrainedPasswordPolicyInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Subjects
+        Specifies one or more users or groups. To specify more than one user or group, use a comma-separated list. You can identify a user or group by one of the following property values.
+          Distinguished Name (DN)
+            Example: CN=SaraDavis,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID)
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid)
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        Note: The identifier in parentheses is the LDAP display name for the attribute.
+        You can also provide objects to this parameter directly.
+        The following example shows how to set this parameter to a list of users and groups by using a distinguished name and SAM account names.
+          -Subjects "CN=SaraDavis, CN=Users,DC=corp,DC=contoso,DC=com","donhall","saradavisreports"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity')]
         [Parameter(Mandatory=$true, Position=0)]
@@ -499,6 +950,106 @@ function Add-ADFineGrainedPasswordPolicySubject {
 }
 
 function Add-ADGroupMember {
+    <#
+    .SYNOPSIS
+        Adds one or more members to an Active Directory group.
+    .PARAMETER Identity
+        Specifies an Active Directory group object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager (SAM) Account Name (sAMAccountName) 
+            Example: saradavisreports
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a group object instance named "ADGroupInstance".
+          -Identity $ADGroupInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Members
+        Specifies a set of user, group, and computer objects in a comma-separated list to add to a group. To identify each object, use one of the following property values. Note: The identifier in parentheses is the LDAP display name.
+          Distinguished Name 
+            Example:  CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        You can also provide objects to this parameter directly.
+        The following examples show how to specify this parameter.
+        This example specifies a user and group to add by specifying the distinguished name and the SAM Account Name properties.
+          -Members "CN=SaraDavis,CN=employees,CN=Users,DC=contoso,DC=com", "saradavisreports"
+        This example specifies a user and a group object that are defined in the current Windows PowerShell session as input for the parameter. 
+          -Members $userObject, $groupObject
+        The objects specified for this parameter are processed as Microsoft.ActiveDirectory.Management.ADPrincipal objects. Derived types, such as the following are also received by this parameter.
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+          Microsoft.ActiveDirectory.Management.ADGroup
+        You cannot pass objects through the pipeline to this parameter.
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -551,6 +1102,102 @@ function Add-ADGroupMember {
 }
 
 function Add-ADPrincipalGroupMembership {
+    <#
+    .SYNOPSIS
+        Adds a member to one or more Active Directory groups.
+    .PARAMETER Identity
+        Specifies an Active Directory principal object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=SaraDavis,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        Derived types, such as the following are also accepted:
+          - Microsoft.ActiveDirectory.Management.ADGroup
+          - Microsoft.ActiveDirectory.Management.ADUser
+          - Microsoft.ActiveDirectory.Management.ADComputer
+          - Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a principal object instance named "principalInstance".
+          -Identity $principalInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER MemberOf
+        Specifies the Active Directory groups to add a user, computer, or group to as a member. You can identify a group by providing one of the following values. Note: The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavisreports,CN=europe,CN=users,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager (SAM) Account Name (sAMAccountName) 
+            Example: saradavisreports
+        If you are specifying more than one group, use commas to separate the groups in the list.
+        The following example shows how to specify this parameter by using SAM account name values.
+          -MemberOf "SaraDavisGroup", "JohnSmithGroup"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -603,6 +1250,88 @@ function Add-ADPrincipalGroupMembership {
 }
 
 function Clear-ADAccountExpiration {
+    <#
+    .SYNOPSIS
+        Clears the expiration date for an Active Directory account.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavis ,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an account object instance. 
+        Derived types such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "accountInstance".
+          -Identity $accountInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -633,6 +1362,88 @@ function Clear-ADAccountExpiration {
 }
 
 function Disable-ADAccount {
+    <#
+    .SYNOPSIS
+        Disables an Active Directory account.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavis ,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an account object instance. 
+        Derived types such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "accountInstance".
+          -Identity $accountInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -663,6 +1474,84 @@ function Disable-ADAccount {
 }
 
 function Disable-ADOptionalFeature {
+    <#
+    .SYNOPSIS
+        Disables an Active Directory optional feature.
+    .PARAMETER Identity
+        Specifies an Active Directory optional feature object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute.
+          Fully qualified domain name
+            Example: corp.contoso.com
+          Feature GUID (featureGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Object GUID (objectGUID) 
+            Example: 482ab21c-823e-401e-879a-ac7383d64eb9
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error.
+        This parameter can also get this object through the pipeline or you can set this parameter to an optional feature object instance. 
+        This example shows how to set the parameter to a fully qualified domain name.
+          -Identity "corp.contoso.com"
+        This example shows how to set this parameter to an optional feature object instance named "optionalFeatureInstance".
+          -Identity $optionalFeatureInstance
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Scope
+        Specifies the scope at which the feature is enabled or disabled. Possible values for this parameter include: 
+          Domain or 0
+          Forest or 1
+        The following example shows how to set this parameter so that optional features are enabled or disabled within the scope of the forest.
+          -Scope Forest
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Target
+        Specifies the domain or forest in which to modify the optional feature. You can identify the target domain or forest by providing one of the following values:  
+          Fully-qualified domain name of the forest or domain 
+            Example: corp.Fabrikam.com
+          NetBIOS name of the forest or domain
+            Example: corp
+          Distinguished name of the domain naming context (domain NC)
+            Example:  DC=corp,DC=Fabrikam,DC=com
+        The following example shows how to set this parameter to a domain NC.
+          -Target "DC=corp,DC=Fabrikam,DC=com"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -717,6 +1606,88 @@ function Disable-ADOptionalFeature {
 }
 
 function Enable-ADAccount {
+    <#
+    .SYNOPSIS
+        Enables an Active Directory account.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavis ,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an account object instance. 
+        Derived types such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "accountInstance".
+          -Identity $accountInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -747,6 +1718,84 @@ function Enable-ADAccount {
 }
 
 function Enable-ADOptionalFeature {
+    <#
+    .SYNOPSIS
+        Enables an Active Directory optional feature.
+    .PARAMETER Identity
+        Specifies an Active Directory optional feature object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute.
+          Fully qualified domain name
+            Example: corp.contoso.com
+          Feature GUID (featureGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Object GUID (objectGUID) 
+            Example: 482ab21c-823e-401e-879a-ac7383d64eb9
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error.
+        This parameter can also get this object through the pipeline or you can set this parameter to an optional feature object instance. 
+        This example shows how to set the parameter to a fully qualified domain name.
+          -Identity "corp.contoso.com"
+        This example shows how to set this parameter to an optional feature object instance named "optionalFeatureInstance".
+          -Identity $optionalFeatureInstance
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Scope
+        Specifies the scope at which the feature is enabled or disabled. Possible values for this parameter include: 
+          Domain or 0
+          Forest or 1
+        The following example shows how to set this parameter so that optional features are enabled or disabled within the scope of the forest.
+          -Scope Forest
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Target
+        Specifies the domain or forest in which to modify the optional feature. You can identify the target domain or forest by providing one of the following values:  
+          Fully-qualified domain name of the forest or domain 
+            Example: corp.Fabrikam.com
+          NetBIOS name of the forest or domain
+            Example: corp
+          Distinguished name of the domain naming context (domain NC)
+            Example:  DC=corp,DC=Fabrikam,DC=com
+        The following example shows how to set this parameter to a domain NC.
+          -Target "DC=corp,DC=Fabrikam,DC=com"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -801,6 +1850,86 @@ function Enable-ADOptionalFeature {
 }
 
 function Get-ADAccountAuthorizationGroup {
+    <#
+    .SYNOPSIS
+        Gets the accounts token group information.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavis ,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an account object instance. 
+        Derived types such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "accountInstance".
+          -Identity $accountInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Identity')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNullOrEmpty()]
@@ -826,6 +1955,111 @@ function Get-ADAccountAuthorizationGroup {
 }
 
 function Get-ADAccountResultantPasswordReplicationPolicy {
+    <#
+    .SYNOPSIS
+        Gets the resultant password replication policy for an Active Directory account.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavis ,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an account object instance. 
+        Derived types such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "accountInstance".
+          -Identity $accountInstance
+    .PARAMETER DomainController
+        Specifies a read-only domain controller (RODC). The cmdlet returns the password replication policy of the account for this RODC. You can identify the domain controller by providing one of the following values. 
+          GUID (objectGUID)
+            Example: 768c44de-f72d-66e0-8a88-0523ca495f20 
+          IPV4Address
+            Example:157.59.132.61
+          Global IPV6Address 
+            Example: 2001:4898:0:fff:200:5efe:157.59.132.61
+          DNS Host Name (dNSHostName)
+            Example: corp-DC01.corp.contoso.com
+          Name of the server object
+            Example: corp-DC01$
+          Distinguished Name (DN) of the NTDS Settings object
+            Example: CN=NTDS Settings,CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso
+          Distinguished Name (DN) of the server object that represents the domain controller
+            Example: CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso,DC=com
+          GUID of NTDS settings object under the configuration partition
+            Example: 68adaf21-e28d-6012-bca8-320d93450ab0
+          GUID of server object under the configuration partition
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20
+          Distinguished Name (DN) of the computer object that represents the domain controller.
+            Example: CN=CORP-DC12,OU=Domain Controllers,DC=corp,DC=contoso,DC=com
+        Note: The identifier in parentheses is the LDAP display name for the attribute.
+        The following example shows how to set this parameter to the DNS host name of a domain controller.
+           -DomainController "corp-DC01.corp.contoso.com"
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding()]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNullOrEmpty()]
@@ -856,6 +2090,167 @@ function Get-ADAccountResultantPasswordReplicationPolicy {
 }
 
 function Get-ADComputer {
+    <#
+    .SYNOPSIS
+        Gets one or more Active Directory computers.
+    .PARAMETER Filter
+        Specifies a query string that retrieves Active Directory objects. This string uses the PowerShell Expression Language syntax. The PowerShell Expression Language syntax provides rich type-conversion support for value types received by the Filter parameter. The syntax uses an in-order representation, which means that the operator is placed between the operand and the value. For more information about the Filter parameter, see about_ActiveDirectory_Filter. 
+        Syntax: 
+        The following syntax uses Backus-Naur form to show how to use the PowerShell Expression Language for this parameter.
+        <filter>  ::= "{" <FilterComponentList> "}"
+        <FilterComponentList> ::= <FilterComponent> | <FilterComponent> <JoinOperator> <FilterComponent> | <NotOperator>  <FilterComponent>
+        <FilterComponent> ::= <attr> <FilterOperator> <value> | "(" <FilterComponent> ")"
+        <FilterOperator> ::= "-eq" | "-le" | "-ge" | "-ne" | "-lt" | "-gt"| "-approx" | "-bor" | "-band" | "-recursivematch" | "-like" | "-notlike"
+        <JoinOperator> ::= "-and" | "-or"
+        <NotOperator> ::= "-not"
+        <attr> ::= <PropertyName> | <LDAPDisplayName of the attribute>
+        <value>::= <compare this value with an <attr> by using the specified <FilterOperator>>
+        For a list of supported types for <value>, see about_ActiveDirectory_ObjectModel.
+        Examples: 
+        The following examples show how to use this syntax with Active Directory cmdlets.
+        To get all objects of the type specified by the cmdlet, use the asterisk wildcard:
+        All user objects:
+        Get-ADUser -Filter * 
+          -or-
+        All computer objects:
+        Get-ADComputer -Filter *
+        To get all user objects that have an e-mail message attribute, use one of the following commands:
+        Get-ADUser -Filter {EmailAddress -like "*"} 
+        Get-ADUser -Filter {mail -like "*"} 
+          -or-
+        Get-ADObject -Filter {(mail -like "*") -and (ObjectClass -eq "user")}
+        Note: PowerShell wildcards other than "*", such as "?" are not supported by the Filter syntax.
+        To get all users objects that have surname of Smith and that have an e-mail attribute, use one of the following commands: 
+        Get-ADUser -filter {(EmailAddress -like "*") -and (Surname  -eq "smith")} 
+          -or-
+        Get-ADUser -filter {(mail -eq "*") -and (sn -eq "Smith")} 
+        To get all user objects who have not logged on since January 1, 2007, use the following commands:
+        $logonDate = New-Object System.DateTime(2007, 1, 1)
+        Get-ADUser  -filter { lastLogon -le $logonDate  } 
+        To get all groups that have a group category of Security and a group scope of Global, use one of the following commands:
+        Get-ADGroup  -filter {GroupCategory  -eq "Security"  -and GroupScope -eq "Global"}
+          -or-
+        Get-ADGroup -filter {GroupType -band 0x80000000}
+        Note: To query using LDAP query strings, use the LDAPFilter parameter.
+    .PARAMETER LDAPFilter
+        Specifies an LDAP query string that is used to filter Active Directory objects. You can use this parameter to run your existing LDAP queries. The Filter parameter syntax supports the same functionality as the LDAP syntax. For more information, see the Filter parameter description and the about_ActiveDirectory_Filter.
+        The following example shows how to set this parameter to search for all objects in the organizational unit specified by the SearchBase parameter with a name beginning with "sara".
+         -LDAPFilter "(name=sara*)"  -SearchScope Subtree -SearchBase "DC=NA,DC=fabrikam,DC=com"
+    .PARAMETER Properties
+        Specifies the properties of the output object to retrieve from the server. Use this parameter to retrieve properties that are not included in the default set.
+        Specify properties for this parameter as a comma-separated list of names. To display all of the attributes that are set on the object, specify * (asterisk).
+        To specify an individual extended property, use the name of the property. For properties that are not default or extended properties, you must specify the LDAP display name of the attribute. 
+        To retrieve properties and display them for an object, you can use the Get-* cmdlet associated with the object and pass the output to the Get-Member cmdlet. The following examples show how to retrieve properties for a group where the Administrator's group is used as the sample group object.
+          Get-ADGroup -Identity Administrators | Get-Member
+        To retrieve and display the list of all the properties for an ADGroup object, use the following command:
+          Get-ADGroup -Identity Administrators -Properties *| Get-Member
+        The following examples show how to use the Properties parameter to retrieve individual properties as well as the default, extended or complete set of properties. 
+        To retrieve the extended properties "OfficePhone" and "Organization" and the default properties of an ADUser object named "SaraDavis", use the following command:
+          GetADUser -Identity SaraDavis  -Properties OfficePhone,Organization
+        To retrieve the properties with LDAP display names of "otherTelephone" and "otherMobile", in addition to the default properties for the same user, use the following command:
+           GetADUser -Identity SaraDavis  -Properties otherTelephone, otherMobile |Get-Member
+    .PARAMETER ResultPageSize
+        Specifies the number of objects to include in one page for an Active Directory Domain Services query. 
+        The default is 256 objects per page. 
+        The following example shows how to set this parameter.
+          -ResultPageSize 500
+    .PARAMETER ResultSetSize
+        Specifies the maximum number of objects to return for an Active Directory Domain Services query. If you want to receive all of the objects, set this parameter to $null (null value). You can use Ctrl+c to stop the query and return of objects. 
+        The default is $null. 
+        The following example shows how to set this parameter so that you receive all of the returned objects.
+          -ResultSetSize $null
+    .PARAMETER SearchBase
+        Specifies an Active Directory path to search under. 
+        When you run a cmdlet from an Active Directory provider drive, the default value of this parameter is the current path of the drive.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD DS target, the default value of this parameter is the default naming context of the target domain.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD LDS target, the default value is the default naming context of the target LDS instance if one has been specified by setting the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.  If no default naming context has been specified for the target AD LDS instance, then this parameter has no default value.
+        The following example shows how to set this parameter to search under an OU.
+          -SearchBase "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com" 
+        When the value of the SearchBase parameter is set to an empty string and you are connected to a GC port, all partitions will be searched. If the value of the SearchBase parameter is set to an empty string and you are not connected to a GC port, an error will be thrown.
+        The following example shows how to set this parameter to an empty string.   -SearchBase ""
+    .PARAMETER SearchScope
+        Specifies the scope of an Active Directory search. Possible values for this parameter are:
+          Base or 0
+          OneLevel or 1
+          Subtree or 2
+        A Base query searches only the current path or object. A OneLevel query searches the immediate children of that path or object. A Subtree query searches the current path or object and all children of that path or object.
+        The following example shows how to set this parameter to a subtree search.
+          -SearchScope Subtree
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Identity
+        Specifies an Active Directory computer object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID  (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager Account Name (sAMAccountName) 
+            Example: SaraDavisDesktop
+        The cmdlet searches the default naming context or partition to find the object. If the identifier given is a DN, the partition to search will be computed from that DN. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a computer object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a computer object instance named "computerInstance".
+          -Identity   $computerInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Filter')]
     param (
         [Parameter(ParameterSetName='Filter', Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -921,6 +2316,82 @@ function Get-ADComputer {
 }
 
 function Get-ADComputerServiceAccount {
+    <#
+    .SYNOPSIS
+        Gets the service accounts hosted by a computer.
+    .PARAMETER Identity
+        Specifies an Active Directory computer object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID  (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager Account Name (sAMAccountName) 
+            Example: SaraDavisDesktop
+        The cmdlet searches the default naming context or partition to find the object. If the identifier given is a DN, the partition to search will be computed from that DN. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a computer object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a computer object instance named "computerInstance".
+          -Identity   $computerInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding()]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNullOrEmpty()]
@@ -947,6 +2418,76 @@ function Get-ADComputerServiceAccount {
 }
 
 function Get-ADDefaultDomainPasswordPolicy {
+    <#
+    .SYNOPSIS
+        Gets the default password policy for an Active Directory domain.
+    .PARAMETER Identity
+        Specifies an Active Directory domain object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute. All values are for the domainDNS object that represents the domain. 
+          Distinguished Name
+            Example: DC=redmond,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID)
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid)
+            Example: S-1-5-21-3165297888-301567370-
+          DNS domain name 
+            Example: redmond.corp.contoso.com
+          NetBIOS domain name 
+            Example: redmond
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a domain object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "DC=redmond,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a domain object instance named "domainInstance".
+          -Identity   $domainInstance
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Current
+        Specifies whether to return the domain of the local computer or the current logged on user (CLU). Possible values for this parameter are:
+          LocalComputer or 0
+          LoggedOnUser  or 1
+        The following example shows how to set this parameter to return the domain of the current logged on user.
+          -Current LoggedOnUser
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Current')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -986,6 +2527,76 @@ function Get-ADDefaultDomainPasswordPolicy {
 }
 
 function Get-ADDomain {
+    <#
+    .SYNOPSIS
+        Gets an Active Directory domain.
+    .PARAMETER Identity
+        Specifies an Active Directory domain object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute. All values are for the domainDNS object that represents the domain. 
+          Distinguished Name
+            Example: DC=redmond,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID)
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid)
+            Example: S-1-5-21-3165297888-301567370-
+          DNS domain name 
+            Example: redmond.corp.contoso.com
+          NetBIOS domain name 
+            Example: redmond
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a domain object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "DC=redmond,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a domain object instance named "domainInstance".
+          -Identity   $domainInstance
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Current
+        Specifies whether to return the domain of the local computer or the current logged on user (CLU). Possible values for this parameter are:
+          LocalComputer or 0
+          LoggedOnUser  or 1
+        The following example shows how to set this parameter to return the domain of the current logged on user.
+          -Current LoggedOnUser
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Current')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -1024,6 +2635,166 @@ function Get-ADDomain {
 }
 
 function Get-ADDomainController {
+    <#
+    .SYNOPSIS
+        Gets one or more Active Directory domain controllers based on discoverable services criteria, search parameters or by providing a domain controller identifier, such as the NetBIOS name.
+    .PARAMETER Identity
+        Specifies an Active Directory domain controller object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute. Unless specified otherwise, these values are for the server object that represents the domain controller.
+          GUID (objectGUID)
+            Example: 768c44de-f72d-66e0-8a88-0523ca495f20 
+          IPV4Address
+            Example:157.59.132.61
+          Global IPV6Address 
+            Example: 2001:4898:0:fff:200:5efe:157.59.132.61
+          DNS Host Name (dNSHostName)
+            Example: corp-DC01.corp.contoso.com
+          Name of the server object
+            Example: corp-DC01$
+          Distinguished Name of the NTDS Settings object
+            Example: CN=NTDS Settings,CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso
+          Distinguished Name of the server object that represents the domain controller
+            Example: CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso,DC=com
+          GUID of NTDS settings object under the configuration partition
+            Example: 68adaf21-e28d-6012-bca8-320d93450ab0
+          GUID of server object under the configuration partition
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20
+          Distinguished Name of the computer object that represents the domain controller.
+            Example: CN=CORP-DC12,OU=Domain Controllers,DC=corp,DC=contoso,DC=com
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error.
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name of the NTDS Settings object.
+          -Identity "CN=NTDS Settings,CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso"
+        This example shows how to set this parameter to a domain controller object instance named "AD_DCInstance".
+          -Identity $AD_DCInstance
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER Filter
+        Specifies a query string that retrieves Active Directory objects. This string uses the PowerShell Expression Language syntax. The PowerShell Expression Language syntax provides rich type-conversion support for value types received by the Filter parameter. The syntax uses an in-order representation, which means that the operator is placed between the operand and the value. For more information about the Filter parameter, see about_ActiveDirectory_Filter. 
+        Syntax: 
+        The following syntax uses Backus-Naur form to show how to use the PowerShell Expression Language for this parameter.
+        <filter>  ::= "{" <FilterComponentList> "}"
+        <FilterComponentList> ::= <FilterComponent> | <FilterComponent> <JoinOperator> <FilterComponent> | <NotOperator>  <FilterComponent>
+        <FilterComponent> ::= <attr> <FilterOperator> <value> | "(" <FilterComponent> ")"
+        <FilterOperator> ::= "-eq" | "-le" | "-ge" | "-ne" | "-lt" | "-gt"| "-approx" | "-bor" | "-band" | "-recursivematch" | "-like" | "-notlike"
+        <JoinOperator> ::= "-and" | "-or"
+        <NotOperator> ::= "-not"
+        <attr> ::= <PropertyName> | <LDAPDisplayName of the attribute>
+        <value>::= <compare this value with an <attr> by using the specified <FilterOperator>>
+        For a list of supported types for <value>, see about_ActiveDirectory_ObjectModel.
+        Examples: 
+        The following examples show how to use this syntax with Active Directory cmdlets.
+        To get all objects of the type specified by the cmdlet, use the asterisk wildcard:
+        All user objects:
+        Get-ADUser -Filter * 
+          -or-
+        All computer objects:
+        Get-ADComputer -Filter *
+        To get all user objects that have an e-mail message attribute, use one of the following commands:
+        Get-ADUser -Filter {EmailAddress -like "*"} 
+        Get-ADUser -Filter {mail -like "*"} 
+          -or-
+        Get-ADObject -Filter {(mail -like "*") -and (ObjectClass -eq "user")}
+        Note: PowerShell wildcards other than "*", such as "?" are not supported by the Filter syntax.
+        To get all users objects that have surname of Smith and that have an e-mail attribute, use one of the following commands: 
+        Get-ADUser -filter {(EmailAddress -like "*") -and (Surname  -eq "smith")} 
+          -or-
+        Get-ADUser -filter {(mail -eq "*") -and (sn -eq "Smith")} 
+        To get all user objects who have not logged on since January 1, 2007, use the following commands:
+        $logonDate = New-Object System.DateTime(2007, 1, 1)
+        Get-ADUser  -filter { lastLogon -le $logonDate  } 
+        To get all groups that have a group category of Security and a group scope of Global, use one of the following commands:
+        Get-ADGroup  -filter {GroupCategory  -eq "Security"  -and GroupScope -eq "Global"}
+          -or-
+        Get-ADGroup -filter {GroupType -band 0x80000000}
+        Note: To query using LDAP query strings, use the LDAPFilter parameter.
+    .PARAMETER Discover
+        Specifies to return a discoverable domain controller that meets the conditions specified by the cmdlet parameters.
+        To get a domain controller by using the discovery mechanism of DCLocator, use the Discover parameter. Along with this parameter, you can provide search criteria by setting parameters such as Service, SiteName, DomainName, NextClosestSite, AvoidSelf, and ForceDiscover.
+        The following example shows how to specify this parameter.
+          -Discover
+        The following example shows how to get a live DC that has Web Services enabled in a specific site with name "RODC-Site".
+          Get-ADDomainController -Discover -Services ADWS -SiteName RODC-Site
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER AvoidSelf
+        Specifies to not return the current computer as a domain controller. If the current computer is not a domain controller, this parameter is ignored. You can specify this parameter when you want to get the name of another domain controller in the domain.
+        The following example shows how to specify this parameter.
+         -AvoidSelf
+    .PARAMETER DomainName
+        Specifies the domain to search. The cmdlet locates a discoverable domain controller in this domain. Specify the domain by using the NetBIOS name or Fully Qualified Domain Name (FQDN) of the domain.
+        The following example shows how to set this parameter to the FQDN of a domain.
+          -DomainName "contoso.com"
+    .PARAMETER ForceDiscover
+        Forces the cmdlet to clear any cached domain controller information and perform a new discovery.  If this parameter is not specified the cmdlet  may return cached domain controller information. 
+        The following example shows how to set this parameter.
+          -ForceDiscover
+    .PARAMETER NextClosestSite
+        Specifies to return a domain controller in the next closest site when a domain controller is not found in the site that contains the client. The next closest site is the site with the lowest site link cost with respect to the current site. Costs between sites are based on factors such as bandwidth, as well as physical proximity. 
+        The following example shows how to specify this parameter.
+          -NextClosestSite
+    .PARAMETER Service
+        Species the types of domain controllers to get. You can specify more than one type by using a comma-separated list. Possible values for this parameter are: 
+          PrimaryDC or 1
+          GlobalCatalog or 2
+          KDC or 3
+          TimeService or 4
+          ReliableTimeService or 5
+          ADWS or 6
+        The following example shows how to set this parameter.
+          -Service GlobalCatalog, KDC 
+        The following example shows how to get a live DC that has Web Services enabled:
+          Get-ADDomainController -Discover -Services ADWS
+    .PARAMETER MinimumDirectoryServiceVersion
+        Species the earliest operating system that the domain controller can have so that it is returned by the cmdlet when getting a DC using -Discover switch. Possible values are:
+          Windows2000 or 1
+          Windows2008 or 2
+        The following example shows how to set this parameter.
+          -MinimumDirectoryServiceVersion Windows2000 
+        The following example shows how to get any live DC that is Windows 2008 or above:
+          Get-ADDomainController -Discover -MinimumDirectoryServiceVersion Windows2008
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER SiteName
+        Specifies the name of a site to search in to find the domain controller. If this parameter is not set, the cmdlet searches for domain controllers in the same site as the client. The name of the site is defined by the Name property of the site object.
+        The following example shows how to use this parameter to specify a site.
+          -SiteName "redmond"
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Identity')]
     param (
         [Parameter(ParameterSetName='Identity', Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -1145,6 +2916,78 @@ function Get-ADDomainController {
 }
 
 function Get-ADDomainControllerPasswordReplicationPolicy {
+    <#
+    .SYNOPSIS
+        Gets the members of the allowed list or denied list of a read-only domain controller's password replication policy.
+    .PARAMETER Allowed
+        Specifies that the cmdlet should return the users, computers, and groups from the domain controller allowed list. 
+        The following example shows how to specify this parameter.
+          -AllowedList
+    .PARAMETER Denied
+        Specifies that the cmdlet should return the users, computers, and groups from the domain controller denied list. 
+        The following example shows how to specify this parameter.
+          -DeniedList
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavis ,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an account object instance. 
+        Derived types such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "accountInstance".
+          -Identity $accountInstance
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='AllowedPRP')]
     param (
         [Parameter(ParameterSetName='AllowedPRP')]
         [ValidateNotNull()]
@@ -1176,6 +3019,78 @@ function Get-ADDomainControllerPasswordReplicationPolicy {
 }
 
 function Get-ADDomainControllerPasswordReplicationPolicyUsage {
+    <#
+    .SYNOPSIS
+        Gets the Active Directory accounts that are authenticated by a read-only domain controller or that are in the revealed list of the domain controller.
+    .PARAMETER AuthenticatedAccounts
+        Specifies a search for accounts that have been authenticated by a read-only domain controller
+        The following example shows how to specify this parameter.
+          -AuthenticatedAccounts
+    .PARAMETER RevealedAccounts
+        Specifies a search for accounts which have passwords that are stored on the read-only domain controller.
+        The following example shows how to specify this parameter.
+          -RevealedAccounts
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavis ,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an account object instance. 
+        Derived types such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "accountInstance".
+          -Identity $accountInstance
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='RevealedAccounts')]
     param (
         [Parameter(ParameterSetName='AuthenticatedAccounts', Mandatory=$true)]
         [ValidateNotNull()]
@@ -1207,6 +3122,149 @@ function Get-ADDomainControllerPasswordReplicationPolicyUsage {
 }
 
 function Get-ADFineGrainedPasswordPolicy {
+    <#
+    .SYNOPSIS
+        Gets one or more Active Directory fine grained password policies.
+    .PARAMETER Filter
+        Specifies a query string that retrieves Active Directory objects. This string uses the PowerShell Expression Language syntax. The PowerShell Expression Language syntax provides rich type-conversion support for value types received by the Filter parameter. The syntax uses an in-order representation, which means that the operator is placed between the operand and the value. For more information about the Filter parameter, see about_ActiveDirectory_Filter. 
+        Syntax: 
+        The following syntax uses Backus-Naur form to show how to use the PowerShell Expression Language for this parameter.
+        <filter>  ::= "{" <FilterComponentList> "}"
+        <FilterComponentList> ::= <FilterComponent> | <FilterComponent> <JoinOperator> <FilterComponent> | <NotOperator>  <FilterComponent>
+        <FilterComponent> ::= <attr> <FilterOperator> <value> | "(" <FilterComponent> ")"
+        <FilterOperator> ::= "-eq" | "-le" | "-ge" | "-ne" | "-lt" | "-gt"| "-approx" | "-bor" | "-band" | "-recursivematch" | "-like" | "-notlike"
+        <JoinOperator> ::= "-and" | "-or"
+        <NotOperator> ::= "-not"
+        <attr> ::= <PropertyName> | <LDAPDisplayName of the attribute>
+        <value>::= <compare this value with an <attr> by using the specified <FilterOperator>>
+        For a list of supported types for <value>, see about_ActiveDirectory_ObjectModel.
+        Examples: 
+        The following examples show how to use this syntax with Active Directory cmdlets.
+        To get all objects of the type specified by the cmdlet, use the asterisk wildcard:
+        All user objects:
+        Get-ADUser -Filter * 
+          -or-
+        All computer objects:
+        Get-ADComputer -Filter *
+        To get all user objects that have an e-mail message attribute, use one of the following commands:
+        Get-ADUser -Filter {EmailAddress -like "*"} 
+        Get-ADUser -Filter {mail -like "*"} 
+          -or-
+        Get-ADObject -Filter {(mail -like "*") -and (ObjectClass -eq "user")}
+        Note: PowerShell wildcards other than "*", such as "?" are not supported by the Filter syntax.
+        To get all users objects that have surname of Smith and that have an e-mail attribute, use one of the following commands: 
+        Get-ADUser -filter {(EmailAddress -like "*") -and (Surname  -eq "smith")} 
+          -or-
+        Get-ADUser -filter {(mail -eq "*") -and (sn -eq "Smith")} 
+        To get all user objects who have not logged on since January 1, 2007, use the following commands:
+        $logonDate = New-Object System.DateTime(2007, 1, 1)
+        Get-ADUser  -filter { lastLogon -le $logonDate  } 
+        To get all groups that have a group category of Security and a group scope of Global, use one of the following commands:
+        Get-ADGroup  -filter {GroupCategory  -eq "Security"  -and GroupScope -eq "Global"}
+          -or-
+        Get-ADGroup -filter {GroupType -band 0x80000000}
+        Note: To query using LDAP query strings, use the LDAPFilter parameter.
+    .PARAMETER LDAPFilter
+        Specifies an LDAP query string that is used to filter Active Directory objects. You can use this parameter to run your existing LDAP queries. The Filter parameter syntax supports the same functionality as the LDAP syntax. For more information, see the Filter parameter description and the about_ActiveDirectory_Filter.
+        The following example shows how to set this parameter to search for all objects in the organizational unit specified by the SearchBase parameter with a name beginning with "sara".
+         -LDAPFilter "(name=sara*)"  -SearchScope Subtree -SearchBase "DC=NA,DC=fabrikam,DC=com"
+    .PARAMETER Properties
+        Specifies the properties of the output object to retrieve from the server. Use this parameter to retrieve properties that are not included in the default set.
+        Specify properties for this parameter as a comma-separated list of names. To display all of the attributes that are set on the object, specify * (asterisk).
+        To specify an individual extended property, use the name of the property. For properties that are not default or extended properties, you must specify the LDAP display name of the attribute. 
+        To retrieve properties and display them for an object, you can use the Get-* cmdlet associated with the object and pass the output to the Get-Member cmdlet. The following examples show how to retrieve properties for a group where the Administrator's group is used as the sample group object.
+          Get-ADGroup -Identity Administrators | Get-Member
+        To retrieve and display the list of all the properties for an ADGroup object, use the following command:
+          Get-ADGroup -Identity Administrators -Properties *| Get-Member
+        The following examples show how to use the Properties parameter to retrieve individual properties as well as the default, extended or complete set of properties. 
+        To retrieve the extended properties "OfficePhone" and "Organization" and the default properties of an ADUser object named "SaraDavis", use the following command:
+          GetADUser -Identity SaraDavis  -Properties OfficePhone,Organization
+        To retrieve the properties with LDAP display names of "otherTelephone" and "otherMobile", in addition to the default properties for the same user, use the following command:
+           GetADUser -Identity SaraDavis  -Properties otherTelephone, otherMobile |Get-Member
+    .PARAMETER ResultPageSize
+        Specifies the number of objects to include in one page for an Active Directory Domain Services query. 
+        The default is 256 objects per page. 
+        The following example shows how to set this parameter.
+          -ResultPageSize 500
+    .PARAMETER ResultSetSize
+        Specifies the maximum number of objects to return for an Active Directory Domain Services query. If you want to receive all of the objects, set this parameter to $null (null value). You can use Ctrl+c to stop the query and return of objects. 
+        The default is $null. 
+        The following example shows how to set this parameter so that you receive all of the returned objects.
+          -ResultSetSize $null
+    .PARAMETER SearchBase
+        Specifies an Active Directory path to search under. 
+        When you run a cmdlet from an Active Directory provider drive, the default value of this parameter is the current path of the drive.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD DS target, the default value of this parameter is the default naming context of the target domain.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD LDS target, the default value is the default naming context of the target LDS instance if one has been specified by setting the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.  If no default naming context has been specified for the target AD LDS instance, then this parameter has no default value.
+        The following example shows how to set this parameter to search under an OU.
+          -SearchBase "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com" 
+        When the value of the SearchBase parameter is set to an empty string and you are connected to a GC port, all partitions will be searched. If the value of the SearchBase parameter is set to an empty string and you are not connected to a GC port, an error will be thrown.
+        The following example shows how to set this parameter to an empty string.   -SearchBase ""
+    .PARAMETER SearchScope
+        Specifies the scope of an Active Directory search. Possible values for this parameter are:
+          Base or 0
+          OneLevel or 1
+          Subtree or 2
+        A Base query searches only the current path or object. A OneLevel query searches the immediate children of that path or object. A Subtree query searches the current path or object and all children of that path or object.
+        The following example shows how to set this parameter to a subtree search.
+          -SearchScope Subtree
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Identity
+        Specifies an Active Directory fine-grained password policy object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name (distinguishedName)
+            Example: CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Name (name) 
+            Example: PasswordPolicyLevel1
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a fine-grained password policy object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a fine-grained password policy object instance named "fineGrainedPasswordPolicyInstance".
+          -Identity $fineGrainedPasswordPolicyInstance
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Filter')]
     param (
         [Parameter(ParameterSetName='Filter', Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1267,6 +3325,64 @@ function Get-ADFineGrainedPasswordPolicy {
 }
 
 function Get-ADFineGrainedPasswordPolicySubject {
+    <#
+    .SYNOPSIS
+        Gets the users and groups to which a fine grained password policy is applied.
+    .PARAMETER Identity
+        Specifies an Active Directory fine-grained password policy object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name (distinguishedName)
+            Example: CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Name (name) 
+            Example: PasswordPolicyLevel1
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a fine-grained password policy object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a fine-grained password policy object instance named "fineGrainedPasswordPolicyInstance".
+          -Identity $fineGrainedPasswordPolicyInstance
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding()]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1288,6 +3404,74 @@ function Get-ADFineGrainedPasswordPolicySubject {
 }
 
 function Get-ADForest {
+    <#
+    .SYNOPSIS
+        Gets an Active Directory forest.
+    .PARAMETER Identity
+        Specifies an Active Directory forest object by providing one of the following attribute values. The identifier in parentheses is the LDAP display name for the attribute.
+          Fully qualified domain name
+            Example: corp.contoso.com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          DNS host name
+            Example: dnsServer.corp.contoso.com
+          NetBIOS name
+            Example: corp
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a forest object instance. 
+        This example shows how to set the parameter to a fully qualified domain name.
+          -Identity "corp.contoso.com"
+        This example shows how to set this parameter to a forest object instance named "forestInstance".
+          -Identity $forestInstance
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Current
+        Specifies whether to return the domain of the local computer or the current logged on user (CLU). Possible values for this parameter are:
+          LocalComputer or 0
+          LoggedOnUser  or 1
+        The following example shows how to set this parameter to return the domain of the current logged on user.
+          -Current LoggedOnUser
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Current')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -1326,6 +3510,167 @@ function Get-ADForest {
 }
 
 function Get-ADGroup {
+    <#
+    .SYNOPSIS
+        Gets one or more Active Directory groups.
+    .PARAMETER Filter
+        Specifies a query string that retrieves Active Directory objects. This string uses the PowerShell Expression Language syntax. The PowerShell Expression Language syntax provides rich type-conversion support for value types received by the Filter parameter. The syntax uses an in-order representation, which means that the operator is placed between the operand and the value. For more information about the Filter parameter, see about_ActiveDirectory_Filter. 
+        Syntax: 
+        The following syntax uses Backus-Naur form to show how to use the PowerShell Expression Language for this parameter.
+        <filter>  ::= "{" <FilterComponentList> "}"
+        <FilterComponentList> ::= <FilterComponent> | <FilterComponent> <JoinOperator> <FilterComponent> | <NotOperator>  <FilterComponent>
+        <FilterComponent> ::= <attr> <FilterOperator> <value> | "(" <FilterComponent> ")"
+        <FilterOperator> ::= "-eq" | "-le" | "-ge" | "-ne" | "-lt" | "-gt"| "-approx" | "-bor" | "-band" | "-recursivematch" | "-like" | "-notlike"
+        <JoinOperator> ::= "-and" | "-or"
+        <NotOperator> ::= "-not"
+        <attr> ::= <PropertyName> | <LDAPDisplayName of the attribute>
+        <value>::= <compare this value with an <attr> by using the specified <FilterOperator>>
+        For a list of supported types for <value>, see about_ActiveDirectory_ObjectModel.
+        Examples: 
+        The following examples show how to use this syntax with Active Directory cmdlets.
+        To get all objects of the type specified by the cmdlet, use the asterisk wildcard:
+        All user objects:
+        Get-ADUser -Filter * 
+          -or-
+        All computer objects:
+        Get-ADComputer -Filter *
+        To get all user objects that have an e-mail message attribute, use one of the following commands:
+        Get-ADUser -Filter {EmailAddress -like "*"} 
+        Get-ADUser -Filter {mail -like "*"} 
+          -or-
+        Get-ADObject -Filter {(mail -like "*") -and (ObjectClass -eq "user")}
+        Note: PowerShell wildcards other than "*", such as "?" are not supported by the Filter syntax.
+        To get all users objects that have surname of Smith and that have an e-mail attribute, use one of the following commands: 
+        Get-ADUser -filter {(EmailAddress -like "*") -and (Surname  -eq "smith")} 
+          -or-
+        Get-ADUser -filter {(mail -eq "*") -and (sn -eq "Smith")} 
+        To get all user objects who have not logged on since January 1, 2007, use the following commands:
+        $logonDate = New-Object System.DateTime(2007, 1, 1)
+        Get-ADUser  -filter { lastLogon -le $logonDate  } 
+        To get all groups that have a group category of Security and a group scope of Global, use one of the following commands:
+        Get-ADGroup  -filter {GroupCategory  -eq "Security"  -and GroupScope -eq "Global"}
+          -or-
+        Get-ADGroup -filter {GroupType -band 0x80000000}
+        Note: To query using LDAP query strings, use the LDAPFilter parameter.
+    .PARAMETER LDAPFilter
+        Specifies an LDAP query string that is used to filter Active Directory objects. You can use this parameter to run your existing LDAP queries. The Filter parameter syntax supports the same functionality as the LDAP syntax. For more information, see the Filter parameter description and the about_ActiveDirectory_Filter.
+        The following example shows how to set this parameter to search for all objects in the organizational unit specified by the SearchBase parameter with a name beginning with "sara".
+         -LDAPFilter "(name=sara*)"  -SearchScope Subtree -SearchBase "DC=NA,DC=fabrikam,DC=com"
+    .PARAMETER Properties
+        Specifies the properties of the output object to retrieve from the server. Use this parameter to retrieve properties that are not included in the default set.
+        Specify properties for this parameter as a comma-separated list of names. To display all of the attributes that are set on the object, specify * (asterisk).
+        To specify an individual extended property, use the name of the property. For properties that are not default or extended properties, you must specify the LDAP display name of the attribute. 
+        To retrieve properties and display them for an object, you can use the Get-* cmdlet associated with the object and pass the output to the Get-Member cmdlet. The following examples show how to retrieve properties for a group where the Administrator's group is used as the sample group object.
+          Get-ADGroup -Identity Administrators | Get-Member
+        To retrieve and display the list of all the properties for an ADGroup object, use the following command:
+          Get-ADGroup -Identity Administrators -Properties *| Get-Member
+        The following examples show how to use the Properties parameter to retrieve individual properties as well as the default, extended or complete set of properties. 
+        To retrieve the extended properties "OfficePhone" and "Organization" and the default properties of an ADUser object named "SaraDavis", use the following command:
+          GetADUser -Identity SaraDavis  -Properties OfficePhone,Organization
+        To retrieve the properties with LDAP display names of "otherTelephone" and "otherMobile", in addition to the default properties for the same user, use the following command:
+           GetADUser -Identity SaraDavis  -Properties otherTelephone, otherMobile |Get-Member
+    .PARAMETER ResultPageSize
+        Specifies the number of objects to include in one page for an Active Directory Domain Services query. 
+        The default is 256 objects per page. 
+        The following example shows how to set this parameter.
+          -ResultPageSize 500
+    .PARAMETER ResultSetSize
+        Specifies the maximum number of objects to return for an Active Directory Domain Services query. If you want to receive all of the objects, set this parameter to $null (null value). You can use Ctrl+c to stop the query and return of objects. 
+        The default is $null. 
+        The following example shows how to set this parameter so that you receive all of the returned objects.
+          -ResultSetSize $null
+    .PARAMETER SearchBase
+        Specifies an Active Directory path to search under. 
+        When you run a cmdlet from an Active Directory provider drive, the default value of this parameter is the current path of the drive.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD DS target, the default value of this parameter is the default naming context of the target domain.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD LDS target, the default value is the default naming context of the target LDS instance if one has been specified by setting the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.  If no default naming context has been specified for the target AD LDS instance, then this parameter has no default value.
+        The following example shows how to set this parameter to search under an OU.
+          -SearchBase "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com" 
+        When the value of the SearchBase parameter is set to an empty string and you are connected to a GC port, all partitions will be searched. If the value of the SearchBase parameter is set to an empty string and you are not connected to a GC port, an error will be thrown.
+        The following example shows how to set this parameter to an empty string.   -SearchBase ""
+    .PARAMETER SearchScope
+        Specifies the scope of an Active Directory search. Possible values for this parameter are:
+          Base or 0
+          OneLevel or 1
+          Subtree or 2
+        A Base query searches only the current path or object. A OneLevel query searches the immediate children of that path or object. A Subtree query searches the current path or object and all children of that path or object.
+        The following example shows how to set this parameter to a subtree search.
+          -SearchScope Subtree
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Identity
+        Specifies an Active Directory group object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager (SAM) Account Name (sAMAccountName) 
+            Example: saradavisreports
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a group object instance named "ADGroupInstance".
+          -Identity $ADGroupInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Filter')]
     param (
         [Parameter(ParameterSetName='Filter', Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1391,6 +3736,102 @@ function Get-ADGroup {
 }
 
 function Get-ADGroupMember {
+    <#
+    .SYNOPSIS
+        Gets the members of an Active Directory group.
+    .PARAMETER Identity
+        Specifies an Active Directory group object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager (SAM) Account Name (sAMAccountName) 
+            Example: saradavisreports
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a group object instance named "ADGroupInstance".
+          -Identity $ADGroupInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Recursive
+        Specifies that the cmdlet get all members in the hierarchy of a group that do not contain child objects. The following example shows a hierarchy for the group SaraDavisReports.
+        +SaraDavisReports [group]
+          -KarenToh [user]
+          -MattHinkLaptop [computer]
+          +JohnSmithReports [group]
+            -JoshPollock [user]
+            -ArmandoPinto [user]
+            +JohnSmithComputers [group]
+              -JoshComputer [computer]
+          
+        If you specify SaraDavisReports as the group and specify the Recursive parameter, the following members and sub-members are returned.
+          KarenToh
+          MattHinkLaptop
+          JoshPollock
+          ArmandoPinto
+          JoshComputer
+        If the specified group does not have any members, then nothing is returned.
+        The following example shows how to specify this parameter.
+          -Recursive
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding()]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1420,6 +3861,173 @@ function Get-ADGroupMember {
 }
 
 function Get-ADObject {
+    <#
+    .SYNOPSIS
+        Gets one or more Active Directory objects.
+    .PARAMETER Filter
+        Specifies a query string that retrieves Active Directory objects. This string uses the PowerShell Expression Language syntax. The PowerShell Expression Language syntax provides rich type-conversion support for value types received by the Filter parameter. The syntax uses an in-order representation, which means that the operator is placed between the operand and the value. For more information about the Filter parameter, see about_ActiveDirectory_Filter. 
+        Syntax: 
+        The following syntax uses Backus-Naur form to show how to use the PowerShell Expression Language for this parameter.
+        <filter>  ::= "{" <FilterComponentList> "}"
+        <FilterComponentList> ::= <FilterComponent> | <FilterComponent> <JoinOperator> <FilterComponent> | <NotOperator>  <FilterComponent>
+        <FilterComponent> ::= <attr> <FilterOperator> <value> | "(" <FilterComponent> ")"
+        <FilterOperator> ::= "-eq" | "-le" | "-ge" | "-ne" | "-lt" | "-gt"| "-approx" | "-bor" | "-band" | "-recursivematch" | "-like" | "-notlike"
+        <JoinOperator> ::= "-and" | "-or"
+        <NotOperator> ::= "-not"
+        <attr> ::= <PropertyName> | <LDAPDisplayName of the attribute>
+        <value>::= <compare this value with an <attr> by using the specified <FilterOperator>>
+        For a list of supported types for <value>, see about_ActiveDirectory_ObjectModel.
+        Examples: 
+        The following examples show how to use this syntax with Active Directory cmdlets.
+        To get all objects of the type specified by the cmdlet, use the asterisk wildcard:
+        All user objects:
+        Get-ADUser -Filter * 
+          -or-
+        All computer objects:
+        Get-ADComputer -Filter *
+        To get all user objects that have an e-mail message attribute, use one of the following commands:
+        Get-ADUser -Filter {EmailAddress -like "*"} 
+        Get-ADUser -Filter {mail -like "*"} 
+          -or-
+        Get-ADObject -Filter {(mail -like "*") -and (ObjectClass -eq "user")}
+        Note: PowerShell wildcards other than "*", such as "?" are not supported by the Filter syntax.
+        To get all users objects that have surname of Smith and that have an e-mail attribute, use one of the following commands: 
+        Get-ADUser -filter {(EmailAddress -like "*") -and (Surname  -eq "smith")} 
+          -or-
+        Get-ADUser -filter {(mail -eq "*") -and (sn -eq "Smith")} 
+        To get all user objects who have not logged on since January 1, 2007, use the following commands:
+        $logonDate = New-Object System.DateTime(2007, 1, 1)
+        Get-ADUser  -filter { lastLogon -le $logonDate  } 
+        To get all groups that have a group category of Security and a group scope of Global, use one of the following commands:
+        Get-ADGroup  -filter {GroupCategory  -eq "Security"  -and GroupScope -eq "Global"}
+          -or-
+        Get-ADGroup -filter {GroupType -band 0x80000000}
+        Note: To query using LDAP query strings, use the LDAPFilter parameter.
+    .PARAMETER LDAPFilter
+        Specifies an LDAP query string that is used to filter Active Directory objects. You can use this parameter to run your existing LDAP queries. The Filter parameter syntax supports the same functionality as the LDAP syntax. For more information, see the Filter parameter description and the about_ActiveDirectory_Filter.
+        The following example shows how to set this parameter to search for all objects in the organizational unit specified by the SearchBase parameter with a name beginning with "sara".
+         -LDAPFilter "(name=sara*)"  -SearchScope Subtree -SearchBase "DC=NA,DC=fabrikam,DC=com"
+    .PARAMETER Properties
+        Specifies the properties of the output object to retrieve from the server. Use this parameter to retrieve properties that are not included in the default set.
+        Specify properties for this parameter as a comma-separated list of names. To display all of the attributes that are set on the object, specify * (asterisk).
+        To specify an individual extended property, use the name of the property. For properties that are not default or extended properties, you must specify the LDAP display name of the attribute. 
+        To retrieve properties and display them for an object, you can use the Get-* cmdlet associated with the object and pass the output to the Get-Member cmdlet. The following examples show how to retrieve properties for a group where the Administrator's group is used as the sample group object.
+          Get-ADGroup -Identity Administrators | Get-Member
+        To retrieve and display the list of all the properties for an ADGroup object, use the following command:
+          Get-ADGroup -Identity Administrators -Properties *| Get-Member
+        The following examples show how to use the Properties parameter to retrieve individual properties as well as the default, extended or complete set of properties. 
+        To retrieve the extended properties "OfficePhone" and "Organization" and the default properties of an ADUser object named "SaraDavis", use the following command:
+          GetADUser -Identity SaraDavis  -Properties OfficePhone,Organization
+        To retrieve the properties with LDAP display names of "otherTelephone" and "otherMobile", in addition to the default properties for the same user, use the following command:
+           GetADUser -Identity SaraDavis  -Properties otherTelephone, otherMobile |Get-Member
+    .PARAMETER ResultPageSize
+        Specifies the number of objects to include in one page for an Active Directory Domain Services query. 
+        The default is 256 objects per page. 
+        The following example shows how to set this parameter.
+          -ResultPageSize 500
+    .PARAMETER ResultSetSize
+        Specifies the maximum number of objects to return for an Active Directory Domain Services query. If you want to receive all of the objects, set this parameter to $null (null value). You can use Ctrl+c to stop the query and return of objects. 
+        The default is $null. 
+        The following example shows how to set this parameter so that you receive all of the returned objects.
+          -ResultSetSize $null
+    .PARAMETER SearchBase
+        Specifies an Active Directory path to search under. 
+        When you run a cmdlet from an Active Directory provider drive, the default value of this parameter is the current path of the drive.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD DS target, the default value of this parameter is the default naming context of the target domain.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD LDS target, the default value is the default naming context of the target LDS instance if one has been specified by setting the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.  If no default naming context has been specified for the target AD LDS instance, then this parameter has no default value.
+        The following example shows how to set this parameter to search under an OU.
+          -SearchBase "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com" 
+        When the value of the SearchBase parameter is set to an empty string and you are connected to a GC port, all partitions will be searched. If the value of the SearchBase parameter is set to an empty string and you are not connected to a GC port, an error will be thrown.
+        The following example shows how to set this parameter to an empty string.   -SearchBase ""
+    .PARAMETER SearchScope
+        Specifies the scope of an Active Directory search. Possible values for this parameter are:
+          Base or 0
+          OneLevel or 1
+          Subtree or 2
+        A Base query searches only the current path or object. A OneLevel query searches the immediate children of that path or object. A Subtree query searches the current path or object and all children of that path or object.
+        The following example shows how to set this parameter to a subtree search.
+          -SearchScope Subtree
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Identity
+        Specifies an Active Directory object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavis,OU=users,OU=asia,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        Derived types, such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADGroup
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+          Microsoft.ActiveDirectory.Management.ADFineGrainedPasswordPolicy
+          Microsoft.ActiveDirectory.Management.ADDomain
+        This example shows how to set this parameter to an ADObject object instance named "ADObjectInstance".
+          -Identity   $ADObjectInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER IncludeDeletedObjects
+        Specifies to retrieve deleted objects and the deactivated forward and backward links. When this parameter is specified, the cmdlet uses the following LDAP controls: 
+          Show Deleted Objects (1.2.840.113556.1.4.417)
+          Show Deactivated Links (1.2.840.113556.1.4.2065)
+        Note: If this parameter is not specified, the cmdlet will not return or operate on deleted objects.
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Filter')]
     param (
         [Parameter(ParameterSetName='Filter', Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1501,6 +4109,149 @@ function Get-ADObject {
 }
 
 function Get-ADOptionalFeature {
+    <#
+    .SYNOPSIS
+        Gets one or more Active Directory optional features.
+    .PARAMETER Filter
+        Specifies a query string that retrieves Active Directory objects. This string uses the PowerShell Expression Language syntax. The PowerShell Expression Language syntax provides rich type-conversion support for value types received by the Filter parameter. The syntax uses an in-order representation, which means that the operator is placed between the operand and the value. For more information about the Filter parameter, see about_ActiveDirectory_Filter. 
+        Syntax: 
+        The following syntax uses Backus-Naur form to show how to use the PowerShell Expression Language for this parameter.
+        <filter>  ::= "{" <FilterComponentList> "}"
+        <FilterComponentList> ::= <FilterComponent> | <FilterComponent> <JoinOperator> <FilterComponent> | <NotOperator>  <FilterComponent>
+        <FilterComponent> ::= <attr> <FilterOperator> <value> | "(" <FilterComponent> ")"
+        <FilterOperator> ::= "-eq" | "-le" | "-ge" | "-ne" | "-lt" | "-gt"| "-approx" | "-bor" | "-band" | "-recursivematch" | "-like" | "-notlike"
+        <JoinOperator> ::= "-and" | "-or"
+        <NotOperator> ::= "-not"
+        <attr> ::= <PropertyName> | <LDAPDisplayName of the attribute>
+        <value>::= <compare this value with an <attr> by using the specified <FilterOperator>>
+        For a list of supported types for <value>, see about_ActiveDirectory_ObjectModel.
+        Examples: 
+        The following examples show how to use this syntax with Active Directory cmdlets.
+        To get all objects of the type specified by the cmdlet, use the asterisk wildcard:
+        All user objects:
+        Get-ADUser -Filter * 
+          -or-
+        All computer objects:
+        Get-ADComputer -Filter *
+        To get all user objects that have an e-mail message attribute, use one of the following commands:
+        Get-ADUser -Filter {EmailAddress -like "*"} 
+        Get-ADUser -Filter {mail -like "*"} 
+          -or-
+        Get-ADObject -Filter {(mail -like "*") -and (ObjectClass -eq "user")}
+        Note: PowerShell wildcards other than "*", such as "?" are not supported by the Filter syntax.
+        To get all users objects that have surname of Smith and that have an e-mail attribute, use one of the following commands: 
+        Get-ADUser -filter {(EmailAddress -like "*") -and (Surname  -eq "smith")} 
+          -or-
+        Get-ADUser -filter {(mail -eq "*") -and (sn -eq "Smith")} 
+        To get all user objects who have not logged on since January 1, 2007, use the following commands:
+        $logonDate = New-Object System.DateTime(2007, 1, 1)
+        Get-ADUser  -filter { lastLogon -le $logonDate  } 
+        To get all groups that have a group category of Security and a group scope of Global, use one of the following commands:
+        Get-ADGroup  -filter {GroupCategory  -eq "Security"  -and GroupScope -eq "Global"}
+          -or-
+        Get-ADGroup -filter {GroupType -band 0x80000000}
+        Note: To query using LDAP query strings, use the LDAPFilter parameter.
+    .PARAMETER LDAPFilter
+        Specifies an LDAP query string that is used to filter Active Directory objects. You can use this parameter to run your existing LDAP queries. The Filter parameter syntax supports the same functionality as the LDAP syntax. For more information, see the Filter parameter description and the about_ActiveDirectory_Filter.
+        The following example shows how to set this parameter to search for all objects in the organizational unit specified by the SearchBase parameter with a name beginning with "sara".
+         -LDAPFilter "(name=sara*)"  -SearchScope Subtree -SearchBase "DC=NA,DC=fabrikam,DC=com"
+    .PARAMETER Properties
+        Specifies the properties of the output object to retrieve from the server. Use this parameter to retrieve properties that are not included in the default set.
+        Specify properties for this parameter as a comma-separated list of names. To display all of the attributes that are set on the object, specify * (asterisk).
+        To specify an individual extended property, use the name of the property. For properties that are not default or extended properties, you must specify the LDAP display name of the attribute. 
+        To retrieve properties and display them for an object, you can use the Get-* cmdlet associated with the object and pass the output to the Get-Member cmdlet. The following examples show how to retrieve properties for a group where the Administrator's group is used as the sample group object.
+          Get-ADGroup -Identity Administrators | Get-Member
+        To retrieve and display the list of all the properties for an ADGroup object, use the following command:
+          Get-ADGroup -Identity Administrators -Properties *| Get-Member
+        The following examples show how to use the Properties parameter to retrieve individual properties as well as the default, extended or complete set of properties. 
+        To retrieve the extended properties "OfficePhone" and "Organization" and the default properties of an ADUser object named "SaraDavis", use the following command:
+          GetADUser -Identity SaraDavis  -Properties OfficePhone,Organization
+        To retrieve the properties with LDAP display names of "otherTelephone" and "otherMobile", in addition to the default properties for the same user, use the following command:
+           GetADUser -Identity SaraDavis  -Properties otherTelephone, otherMobile |Get-Member
+    .PARAMETER ResultPageSize
+        Specifies the number of objects to include in one page for an Active Directory Domain Services query. 
+        The default is 256 objects per page. 
+        The following example shows how to set this parameter.
+          -ResultPageSize 500
+    .PARAMETER ResultSetSize
+        Specifies the maximum number of objects to return for an Active Directory Domain Services query. If you want to receive all of the objects, set this parameter to $null (null value). You can use Ctrl+c to stop the query and return of objects. 
+        The default is $null. 
+        The following example shows how to set this parameter so that you receive all of the returned objects.
+          -ResultSetSize $null
+    .PARAMETER SearchBase
+        Specifies an Active Directory path to search under. 
+        When you run a cmdlet from an Active Directory provider drive, the default value of this parameter is the current path of the drive.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD DS target, the default value of this parameter is the default naming context of the target domain.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD LDS target, the default value is the default naming context of the target LDS instance if one has been specified by setting the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.  If no default naming context has been specified for the target AD LDS instance, then this parameter has no default value.
+        The following example shows how to set this parameter to search under an OU.
+          -SearchBase "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com" 
+        When the value of the SearchBase parameter is set to an empty string and you are connected to a GC port, all partitions will be searched. If the value of the SearchBase parameter is set to an empty string and you are not connected to a GC port, an error will be thrown.
+        The following example shows how to set this parameter to an empty string.   -SearchBase ""
+    .PARAMETER SearchScope
+        Specifies the scope of an Active Directory search. Possible values for this parameter are:
+          Base or 0
+          OneLevel or 1
+          Subtree or 2
+        A Base query searches only the current path or object. A OneLevel query searches the immediate children of that path or object. A Subtree query searches the current path or object and all children of that path or object.
+        The following example shows how to set this parameter to a subtree search.
+          -SearchScope Subtree
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Identity
+        Specifies an Active Directory optional feature object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute.
+          Fully qualified domain name
+            Example: corp.contoso.com
+          Feature GUID (featureGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Object GUID (objectGUID) 
+            Example: 482ab21c-823e-401e-879a-ac7383d64eb9
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error.
+        This parameter can also get this object through the pipeline or you can set this parameter to an optional feature object instance. 
+        This example shows how to set the parameter to a fully qualified domain name.
+          -Identity "corp.contoso.com"
+        This example shows how to set this parameter to an optional feature object instance named "optionalFeatureInstance".
+          -Identity $optionalFeatureInstance
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Filter')]
     param (
         [Parameter(ParameterSetName='Filter', Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1561,6 +4312,163 @@ function Get-ADOptionalFeature {
 }
 
 function Get-ADOrganizationalUnit {
+    <#
+    .SYNOPSIS
+        Gets one or more Active Directory organizational units.
+    .PARAMETER Filter
+        Specifies a query string that retrieves Active Directory objects. This string uses the PowerShell Expression Language syntax. The PowerShell Expression Language syntax provides rich type-conversion support for value types received by the Filter parameter. The syntax uses an in-order representation, which means that the operator is placed between the operand and the value. For more information about the Filter parameter, see about_ActiveDirectory_Filter. 
+        Syntax: 
+        The following syntax uses Backus-Naur form to show how to use the PowerShell Expression Language for this parameter.
+        <filter>  ::= "{" <FilterComponentList> "}"
+        <FilterComponentList> ::= <FilterComponent> | <FilterComponent> <JoinOperator> <FilterComponent> | <NotOperator>  <FilterComponent>
+        <FilterComponent> ::= <attr> <FilterOperator> <value> | "(" <FilterComponent> ")"
+        <FilterOperator> ::= "-eq" | "-le" | "-ge" | "-ne" | "-lt" | "-gt"| "-approx" | "-bor" | "-band" | "-recursivematch" | "-like" | "-notlike"
+        <JoinOperator> ::= "-and" | "-or"
+        <NotOperator> ::= "-not"
+        <attr> ::= <PropertyName> | <LDAPDisplayName of the attribute>
+        <value>::= <compare this value with an <attr> by using the specified <FilterOperator>>
+        For a list of supported types for <value>, see about_ActiveDirectory_ObjectModel.
+        Examples: 
+        The following examples show how to use this syntax with Active Directory cmdlets.
+        To get all objects of the type specified by the cmdlet, use the asterisk wildcard:
+        All user objects:
+        Get-ADUser -Filter * 
+          -or-
+        All computer objects:
+        Get-ADComputer -Filter *
+        To get all user objects that have an e-mail message attribute, use one of the following commands:
+        Get-ADUser -Filter {EmailAddress -like "*"} 
+        Get-ADUser -Filter {mail -like "*"} 
+          -or-
+        Get-ADObject -Filter {(mail -like "*") -and (ObjectClass -eq "user")}
+        Note: PowerShell wildcards other than "*", such as "?" are not supported by the Filter syntax.
+        To get all users objects that have surname of Smith and that have an e-mail attribute, use one of the following commands: 
+        Get-ADUser -filter {(EmailAddress -like "*") -and (Surname  -eq "smith")} 
+          -or-
+        Get-ADUser -filter {(mail -eq "*") -and (sn -eq "Smith")} 
+        To get all user objects who have not logged on since January 1, 2007, use the following commands:
+        $logonDate = New-Object System.DateTime(2007, 1, 1)
+        Get-ADUser  -filter { lastLogon -le $logonDate  } 
+        To get all groups that have a group category of Security and a group scope of Global, use one of the following commands:
+        Get-ADGroup  -filter {GroupCategory  -eq "Security"  -and GroupScope -eq "Global"}
+          -or-
+        Get-ADGroup -filter {GroupType -band 0x80000000}
+        Note: To query using LDAP query strings, use the LDAPFilter parameter.
+    .PARAMETER LDAPFilter
+        Specifies an LDAP query string that is used to filter Active Directory objects. You can use this parameter to run your existing LDAP queries. The Filter parameter syntax supports the same functionality as the LDAP syntax. For more information, see the Filter parameter description and the about_ActiveDirectory_Filter.
+        The following example shows how to set this parameter to search for all objects in the organizational unit specified by the SearchBase parameter with a name beginning with "sara".
+         -LDAPFilter "(name=sara*)"  -SearchScope Subtree -SearchBase "DC=NA,DC=fabrikam,DC=com"
+    .PARAMETER Properties
+        Specifies the properties of the output object to retrieve from the server. Use this parameter to retrieve properties that are not included in the default set.
+        Specify properties for this parameter as a comma-separated list of names. To display all of the attributes that are set on the object, specify * (asterisk).
+        To specify an individual extended property, use the name of the property. For properties that are not default or extended properties, you must specify the LDAP display name of the attribute. 
+        To retrieve properties and display them for an object, you can use the Get-* cmdlet associated with the object and pass the output to the Get-Member cmdlet. The following examples show how to retrieve properties for a group where the Administrator's group is used as the sample group object.
+          Get-ADGroup -Identity Administrators | Get-Member
+        To retrieve and display the list of all the properties for an ADGroup object, use the following command:
+          Get-ADGroup -Identity Administrators -Properties *| Get-Member
+        The following examples show how to use the Properties parameter to retrieve individual properties as well as the default, extended or complete set of properties. 
+        To retrieve the extended properties "OfficePhone" and "Organization" and the default properties of an ADUser object named "SaraDavis", use the following command:
+          GetADUser -Identity SaraDavis  -Properties OfficePhone,Organization
+        To retrieve the properties with LDAP display names of "otherTelephone" and "otherMobile", in addition to the default properties for the same user, use the following command:
+           GetADUser -Identity SaraDavis  -Properties otherTelephone, otherMobile |Get-Member
+    .PARAMETER ResultPageSize
+        Specifies the number of objects to include in one page for an Active Directory Domain Services query. 
+        The default is 256 objects per page. 
+        The following example shows how to set this parameter.
+          -ResultPageSize 500
+    .PARAMETER ResultSetSize
+        Specifies the maximum number of objects to return for an Active Directory Domain Services query. If you want to receive all of the objects, set this parameter to $null (null value). You can use Ctrl+c to stop the query and return of objects. 
+        The default is $null. 
+        The following example shows how to set this parameter so that you receive all of the returned objects.
+          -ResultSetSize $null
+    .PARAMETER SearchBase
+        Specifies an Active Directory path to search under. 
+        When you run a cmdlet from an Active Directory provider drive, the default value of this parameter is the current path of the drive.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD DS target, the default value of this parameter is the default naming context of the target domain.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD LDS target, the default value is the default naming context of the target LDS instance if one has been specified by setting the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.  If no default naming context has been specified for the target AD LDS instance, then this parameter has no default value.
+        The following example shows how to set this parameter to search under an OU.
+          -SearchBase "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com" 
+        When the value of the SearchBase parameter is set to an empty string and you are connected to a GC port, all partitions will be searched. If the value of the SearchBase parameter is set to an empty string and you are not connected to a GC port, an error will be thrown.
+        The following example shows how to set this parameter to an empty string.   -SearchBase ""
+    .PARAMETER SearchScope
+        Specifies the scope of an Active Directory search. Possible values for this parameter are:
+          Base or 0
+          OneLevel or 1
+          Subtree or 2
+        A Base query searches only the current path or object. A OneLevel query searches the immediate children of that path or object. A Subtree query searches the current path or object and all children of that path or object.
+        The following example shows how to set this parameter to a subtree search.
+          -SearchScope Subtree
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Identity
+        Specifies the identity of an Active Directory organizational unit object. The parameter accepts the following identity formats. The identifier in parentheses is the LDAP display name for the attribute that contains the identity.
+          Distinguished Name 
+            Example:  OU=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "OU=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an organizational unit object instance named "OUinstance".
+          -Identity   $OUInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Filter')]
     param (
         [Parameter(ParameterSetName='Filter', Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1626,6 +4534,95 @@ function Get-ADOrganizationalUnit {
 }
 
 function Get-ADPrincipalGroupMembership {
+    <#
+    .SYNOPSIS
+        Gets the Active Directory groups that have a specified user, computer, group, or service account.
+    .PARAMETER Identity
+        Specifies an Active Directory principal object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=SaraDavis,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        Derived types, such as the following are also accepted:
+          - Microsoft.ActiveDirectory.Management.ADGroup
+          - Microsoft.ActiveDirectory.Management.ADUser
+          - Microsoft.ActiveDirectory.Management.ADComputer
+          - Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a principal object instance named "principalInstance".
+          -Identity $principalInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER ResourceContextServer
+        Specifies that the cmdlet return a list of groups that the user is a member of and that reside in the specified domain. Use this parameter to search for groups in a domain that is not the domain where the user's account resides. To search a partition other than the default partition in this domain, also specify the ResourceContextPartition parameter.
+        The following example shows how to specify this parameter.
+          -ResourceContextServer "corp.contoso.com"
+    .PARAMETER ResourceContextPartition
+        Specifies the distinguished name of the partition of an AD or AD LDS instance to search. Use this parameter with the ResourceContextServer parameter to specify a partition hosted by the specified server. If the ResourceContextPartition parameter is not specified, the default partition of the ResourceContextServer is searched. 
+        The following example shows how to set this parameter.
+          -ResourceContextPartition "cn=employees,dc=corp,dc=contoso,dc=com"
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Identity')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1659,6 +4656,63 @@ function Get-ADPrincipalGroupMembership {
 }
 
 function Get-ADRootDSE {
+    <#
+    .SYNOPSIS
+        Gets the root of a Directory Server information tree.
+    .PARAMETER Properties
+        Specifies the properties of the output object to retrieve from the server. Use this parameter to retrieve properties that are not included in the default set.
+        Specify properties for this parameter as a comma-separated list of names. To display all of the attributes that are set on the object, specify * (asterisk).
+        To specify an individual extended property, use the name of the property. For properties that are not default or extended properties, you must specify the LDAP display name of the attribute. 
+        To retrieve properties and display them for an object, you can use the Get-* cmdlet associated with the object and pass the output to the Get-Member cmdlet. The following examples show how to retrieve properties for a group where the Administrator's group is used as the sample group object.
+          Get-ADGroup -Identity Administrators | Get-Member
+        To retrieve and display the list of all the properties for an ADGroup object, use the following command:
+          Get-ADGroup -Identity Administrators -Properties *| Get-Member
+        The following examples show how to use the Properties parameter to retrieve individual properties as well as the default, extended or complete set of properties. 
+        To retrieve the extended properties "OfficePhone" and "Organization" and the default properties of an ADUser object named "SaraDavis", use the following command:
+          GetADUser -Identity SaraDavis  -Properties OfficePhone,Organization
+        To retrieve the properties with LDAP display names of "otherTelephone" and "otherMobile", in addition to the default properties for the same user, use the following command:
+           GetADUser -Identity SaraDavis  -Properties otherTelephone, otherMobile |Get-Member
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding()]
     param (
         [Alias('Property')]
         [ValidateNotNullOrEmpty()]
@@ -1680,6 +4734,168 @@ function Get-ADRootDSE {
 }
 
 function Get-ADServiceAccount {
+    <#
+    .SYNOPSIS
+        Gets one or more Active Directory service accounts.
+    .PARAMETER Filter
+        Specifies a query string that retrieves Active Directory objects. This string uses the PowerShell Expression Language syntax. The PowerShell Expression Language syntax provides rich type-conversion support for value types received by the Filter parameter. The syntax uses an in-order representation, which means that the operator is placed between the operand and the value. For more information about the Filter parameter, see about_ActiveDirectory_Filter. 
+        Syntax: 
+        The following syntax uses Backus-Naur form to show how to use the PowerShell Expression Language for this parameter.
+        <filter>  ::= "{" <FilterComponentList> "}"
+        <FilterComponentList> ::= <FilterComponent> | <FilterComponent> <JoinOperator> <FilterComponent> | <NotOperator>  <FilterComponent>
+        <FilterComponent> ::= <attr> <FilterOperator> <value> | "(" <FilterComponent> ")"
+        <FilterOperator> ::= "-eq" | "-le" | "-ge" | "-ne" | "-lt" | "-gt"| "-approx" | "-bor" | "-band" | "-recursivematch" | "-like" | "-notlike"
+        <JoinOperator> ::= "-and" | "-or"
+        <NotOperator> ::= "-not"
+        <attr> ::= <PropertyName> | <LDAPDisplayName of the attribute>
+        <value>::= <compare this value with an <attr> by using the specified <FilterOperator>>
+        For a list of supported types for <value>, see about_ActiveDirectory_ObjectModel.
+        Examples: 
+        The following examples show how to use this syntax with Active Directory cmdlets.
+        To get all objects of the type specified by the cmdlet, use the asterisk wildcard:
+        All user objects:
+        Get-ADUser -Filter * 
+          -or-
+        All computer objects:
+        Get-ADComputer -Filter *
+        To get all user objects that have an e-mail message attribute, use one of the following commands:
+        Get-ADUser -Filter {EmailAddress -like "*"} 
+        Get-ADUser -Filter {mail -like "*"} 
+          -or-
+        Get-ADObject -Filter {(mail -like "*") -and (ObjectClass -eq "user")}
+        Note: PowerShell wildcards other than "*", such as "?" are not supported by the Filter syntax.
+        To get all users objects that have surname of Smith and that have an e-mail attribute, use one of the following commands: 
+        Get-ADUser -filter {(EmailAddress -like "*") -and (Surname  -eq "smith")} 
+          -or-
+        Get-ADUser -filter {(mail -eq "*") -and (sn -eq "Smith")} 
+        To get all user objects who have not logged on since January 1, 2007, use the following commands:
+        $logonDate = New-Object System.DateTime(2007, 1, 1)
+        Get-ADUser  -filter { lastLogon -le $logonDate  } 
+        To get all groups that have a group category of Security and a group scope of Global, use one of the following commands:
+        Get-ADGroup  -filter {GroupCategory  -eq "Security"  -and GroupScope -eq "Global"}
+          -or-
+        Get-ADGroup -filter {GroupType -band 0x80000000}
+        Note: To query using LDAP query strings, use the LDAPFilter parameter.
+    .PARAMETER LDAPFilter
+        Specifies an LDAP query string that is used to filter Active Directory objects. You can use this parameter to run your existing LDAP queries. The Filter parameter syntax supports the same functionality as the LDAP syntax. For more information, see the Filter parameter description and the about_ActiveDirectory_Filter.
+        The following example shows how to set this parameter to search for all objects in the organizational unit specified by the SearchBase parameter with a name beginning with "sara".
+         -LDAPFilter "(name=sara*)"  -SearchScope Subtree -SearchBase "DC=NA,DC=fabrikam,DC=com"
+    .PARAMETER Properties
+        Specifies the properties of the output object to retrieve from the server. Use this parameter to retrieve properties that are not included in the default set.
+        Specify properties for this parameter as a comma-separated list of names. To display all of the attributes that are set on the object, specify * (asterisk).
+        To specify an individual extended property, use the name of the property. For properties that are not default or extended properties, you must specify the LDAP display name of the attribute. 
+        To retrieve properties and display them for an object, you can use the Get-* cmdlet associated with the object and pass the output to the Get-Member cmdlet. The following examples show how to retrieve properties for a group where the Administrator's group is used as the sample group object.
+          Get-ADGroup -Identity Administrators | Get-Member
+        To retrieve and display the list of all the properties for an ADGroup object, use the following command:
+          Get-ADGroup -Identity Administrators -Properties *| Get-Member
+        The following examples show how to use the Properties parameter to retrieve individual properties as well as the default, extended or complete set of properties. 
+        To retrieve the extended properties "OfficePhone" and "Organization" and the default properties of an ADUser object named "SaraDavis", use the following command:
+          GetADUser -Identity SaraDavis  -Properties OfficePhone,Organization
+        To retrieve the properties with LDAP display names of "otherTelephone" and "otherMobile", in addition to the default properties for the same user, use the following command:
+           GetADUser -Identity SaraDavis  -Properties otherTelephone, otherMobile |Get-Member
+    .PARAMETER ResultPageSize
+        Specifies the number of objects to include in one page for an Active Directory Domain Services query. 
+        The default is 256 objects per page. 
+        The following example shows how to set this parameter.
+          -ResultPageSize 500
+    .PARAMETER ResultSetSize
+        Specifies the maximum number of objects to return for an Active Directory Domain Services query. If you want to receive all of the objects, set this parameter to $null (null value). You can use Ctrl+c to stop the query and return of objects. 
+        The default is $null. 
+        The following example shows how to set this parameter so that you receive all of the returned objects.
+          -ResultSetSize $null
+    .PARAMETER SearchBase
+        Specifies an Active Directory path to search under. 
+        When you run a cmdlet from an Active Directory provider drive, the default value of this parameter is the current path of the drive.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD DS target, the default value of this parameter is the default naming context of the target domain.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD LDS target, the default value is the default naming context of the target LDS instance if one has been specified by setting the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.  If no default naming context has been specified for the target AD LDS instance, then this parameter has no default value.
+        The following example shows how to set this parameter to search under an OU.
+          -SearchBase "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com" 
+        When the value of the SearchBase parameter is set to an empty string and you are connected to a GC port, all partitions will be searched. If the value of the SearchBase parameter is set to an empty string and you are not connected to a GC port, an error will be thrown.
+        The following example shows how to set this parameter to an empty string.   -SearchBase ""
+    .PARAMETER SearchScope
+        Specifies the scope of an Active Directory search. Possible values for this parameter are:
+          Base or 0
+          OneLevel or 1
+          Subtree or 2
+        A Base query searches only the current path or object. A OneLevel query searches the immediate children of that path or object. A Subtree query searches the current path or object and all children of that path or object.
+        The following example shows how to set this parameter to a subtree search.
+          -SearchScope Subtree
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: WebAccount$
+          
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+         This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "AccountInstance".
+          -Identity   $AccountInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Filter')]
     param (
         [Parameter(ParameterSetName='Filter', Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1745,6 +4961,167 @@ function Get-ADServiceAccount {
 }
 
 function Get-ADUser {
+    <#
+    .SYNOPSIS
+        Gets one or more Active Directory users.
+    .PARAMETER Filter
+        Specifies a query string that retrieves Active Directory objects. This string uses the PowerShell Expression Language syntax. The PowerShell Expression Language syntax provides rich type-conversion support for value types received by the Filter parameter. The syntax uses an in-order representation, which means that the operator is placed between the operand and the value. For more information about the Filter parameter, see about_ActiveDirectory_Filter. 
+        Syntax: 
+        The following syntax uses Backus-Naur form to show how to use the PowerShell Expression Language for this parameter.
+        <filter>  ::= "{" <FilterComponentList> "}"
+        <FilterComponentList> ::= <FilterComponent> | <FilterComponent> <JoinOperator> <FilterComponent> | <NotOperator>  <FilterComponent>
+        <FilterComponent> ::= <attr> <FilterOperator> <value> | "(" <FilterComponent> ")"
+        <FilterOperator> ::= "-eq" | "-le" | "-ge" | "-ne" | "-lt" | "-gt"| "-approx" | "-bor" | "-band" | "-recursivematch" | "-like" | "-notlike"
+        <JoinOperator> ::= "-and" | "-or"
+        <NotOperator> ::= "-not"
+        <attr> ::= <PropertyName> | <LDAPDisplayName of the attribute>
+        <value>::= <compare this value with an <attr> by using the specified <FilterOperator>>
+        For a list of supported types for <value>, see about_ActiveDirectory_ObjectModel.
+        Examples: 
+        The following examples show how to use this syntax with Active Directory cmdlets.
+        To get all objects of the type specified by the cmdlet, use the asterisk wildcard:
+        All user objects:
+        Get-ADUser -Filter * 
+          -or-
+        All computer objects:
+        Get-ADComputer -Filter *
+        To get all user objects that have an e-mail message attribute, use one of the following commands:
+        Get-ADUser -Filter {EmailAddress -like "*"} 
+        Get-ADUser -Filter {mail -like "*"} 
+          -or-
+        Get-ADObject -Filter {(mail -like "*") -and (ObjectClass -eq "user")}
+        Note: PowerShell wildcards other than "*", such as "?" are not supported by the Filter syntax.
+        To get all users objects that have surname of Smith and that have an e-mail attribute, use one of the following commands: 
+        Get-ADUser -filter {(EmailAddress -like "*") -and (Surname  -eq "smith")} 
+          -or-
+        Get-ADUser -filter {(mail -eq "*") -and (sn -eq "Smith")} 
+        To get all user objects who have not logged on since January 1, 2007, use the following commands:
+        $logonDate = New-Object System.DateTime(2007, 1, 1)
+        Get-ADUser  -filter { lastLogon -le $logonDate  } 
+        To get all groups that have a group category of Security and a group scope of Global, use one of the following commands:
+        Get-ADGroup  -filter {GroupCategory  -eq "Security"  -and GroupScope -eq "Global"}
+          -or-
+        Get-ADGroup -filter {GroupType -band 0x80000000}
+        Note: To query using LDAP query strings, use the LDAPFilter parameter.
+    .PARAMETER LDAPFilter
+        Specifies an LDAP query string that is used to filter Active Directory objects. You can use this parameter to run your existing LDAP queries. The Filter parameter syntax supports the same functionality as the LDAP syntax. For more information, see the Filter parameter description and the about_ActiveDirectory_Filter.
+        The following example shows how to set this parameter to search for all objects in the organizational unit specified by the SearchBase parameter with a name beginning with "sara".
+         -LDAPFilter "(name=sara*)"  -SearchScope Subtree -SearchBase "DC=NA,DC=fabrikam,DC=com"
+    .PARAMETER Properties
+        Specifies the properties of the output object to retrieve from the server. Use this parameter to retrieve properties that are not included in the default set.
+        Specify properties for this parameter as a comma-separated list of names. To display all of the attributes that are set on the object, specify * (asterisk).
+        To specify an individual extended property, use the name of the property. For properties that are not default or extended properties, you must specify the LDAP display name of the attribute. 
+        To retrieve properties and display them for an object, you can use the Get-* cmdlet associated with the object and pass the output to the Get-Member cmdlet. The following examples show how to retrieve properties for a group where the Administrator's group is used as the sample group object.
+          Get-ADGroup -Identity Administrators | Get-Member
+        To retrieve and display the list of all the properties for an ADGroup object, use the following command:
+          Get-ADGroup -Identity Administrators -Properties *| Get-Member
+        The following examples show how to use the Properties parameter to retrieve individual properties as well as the default, extended or complete set of properties. 
+        To retrieve the extended properties "OfficePhone" and "Organization" and the default properties of an ADUser object named "SaraDavis", use the following command:
+          GetADUser -Identity SaraDavis  -Properties OfficePhone,Organization
+        To retrieve the properties with LDAP display names of "otherTelephone" and "otherMobile", in addition to the default properties for the same user, use the following command:
+           GetADUser -Identity SaraDavis  -Properties otherTelephone, otherMobile |Get-Member
+    .PARAMETER ResultPageSize
+        Specifies the number of objects to include in one page for an Active Directory Domain Services query. 
+        The default is 256 objects per page. 
+        The following example shows how to set this parameter.
+          -ResultPageSize 500
+    .PARAMETER ResultSetSize
+        Specifies the maximum number of objects to return for an Active Directory Domain Services query. If you want to receive all of the objects, set this parameter to $null (null value). You can use Ctrl+c to stop the query and return of objects. 
+        The default is $null. 
+        The following example shows how to set this parameter so that you receive all of the returned objects.
+          -ResultSetSize $null
+    .PARAMETER SearchBase
+        Specifies an Active Directory path to search under. 
+        When you run a cmdlet from an Active Directory provider drive, the default value of this parameter is the current path of the drive.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD DS target, the default value of this parameter is the default naming context of the target domain.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD LDS target, the default value is the default naming context of the target LDS instance if one has been specified by setting the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.  If no default naming context has been specified for the target AD LDS instance, then this parameter has no default value.
+        The following example shows how to set this parameter to search under an OU.
+          -SearchBase "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com" 
+        When the value of the SearchBase parameter is set to an empty string and you are connected to a GC port, all partitions will be searched. If the value of the SearchBase parameter is set to an empty string and you are not connected to a GC port, an error will be thrown.
+        The following example shows how to set this parameter to an empty string.   -SearchBase ""
+    .PARAMETER SearchScope
+        Specifies the scope of an Active Directory search. Possible values for this parameter are:
+          Base or 0
+          OneLevel or 1
+          Subtree or 2
+        A Base query searches only the current path or object. A OneLevel query searches the immediate children of that path or object. A Subtree query searches the current path or object and all children of that path or object.
+        The following example shows how to set this parameter to a subtree search.
+          -SearchScope Subtree
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Identity
+        Specifies an Active Directory user object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM account name  (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a user object instance named "userInstance".
+          -Identity   $userInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Filter')]
     param (
         [Parameter(ParameterSetName='Filter', Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1810,6 +5187,66 @@ function Get-ADUser {
 }
 
 function Get-ADUserResultantPasswordPolicy {
+    <#
+    .SYNOPSIS
+        Gets the resultant password policy for a user.
+    .PARAMETER Identity
+        Specifies an Active Directory user object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM account name  (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a user object instance named "userInstance".
+          -Identity   $userInstance
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(DefaultParameterSetName='Identity')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNullOrEmpty()]
@@ -1831,6 +5268,43 @@ function Get-ADUserResultantPasswordPolicy {
 }
 
 function Install-ADServiceAccount {
+    <#
+    .SYNOPSIS
+        Installs an Active Directory service account on a computer.
+    .PARAMETER PromptForPassword
+        The PromptForPassword parameter allows you to enter the password of a managed service account that you have provisioned. This is required when you are installing a managed service account on a server located on a segmented network  or site (such as a perimeter network or DMZ) with access to a read-only domain controller (RODC) but no access to writable DCs. In this case, you should create the managed service account, link it with the appropriate computer account and assign a well-known password that needs to be passed when installing the managed service account on the server on the RODC-only site. If you pass both AccountPassword and PromptForPassword parameters, the AccountPassword parameter takes precedence.
+    .PARAMETER AccountPassword
+        The AccountPassword parameter allows you to pass a SecureString value type that contains the password of a Managed Service Account that you have provisioned. This is required when you are installing a managed service account on a server located on a segmented network  or site (such as a perimeter network or DMZ) with access to a read-only domain controller (RODC) but no access to writable DCs. In this case, you should create the managed service account, link it with the appropriate computer account and assign a well-known password that needs to be passed when installing the managed service account on the server on the RODC-only site. If you pass both AccountPassword and PromptForPassword parameters, the AccountPassword parameter takes precedence.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: WebAccount$
+          
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+         This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "AccountInstance".
+          -Identity   $AccountInstance
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [switch]
         ${Force},
@@ -1854,6 +5328,82 @@ function Install-ADServiceAccount {
 }
 
 function Move-ADDirectoryServer {
+    <#
+    .SYNOPSIS
+        Moves a directory server in Active Directory to a new site.
+    .PARAMETER Identity
+        Specifies an Active Directory server object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute.
+        Name of the server object (name) 
+          For AD LDS instances the syntax is of a name is <computer-name>$<instance-name>
+            Example: asia-w7-vm4$instance1
+            Note: When you type this value in Windows PowerShell, you must use the backtick (`) as an escape character for the dollar sign ($). Therefore, for the previous example you would type the following: asia-w7-vm4`$instance1
+          For other Active Directory instances, use the value of the name property
+            Example: corp-DC01
+        Distinguished Name of the NTDS Settings object
+          Example: CN=NTDS Settings,CN=CORP-DC12,CN=Servers,CN=NA-CAN-BC,CN=Sites,CN=Configuration,DC=corp,DC=contoso
+        Distinguished Name of the server object that represents the directory server
+          Example: CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso,DC=com
+        GUID (objectGUID) of server object under the configuration partition
+          Example: 599c3d2e-f72d-4d20-8a88-030d99495f20
+        GUID (objectGUID) of NTDS settings object under the configuration partition
+          Example: 768c44de-f72d-66e0-8a88-0523ca495f20
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a directory server object instance named "directoryServerInstance".
+          -Identity   $directoryServerInstance
+    .PARAMETER Site
+        Specifies the new site for the directory server. You can identify the site by one of the following property values. Note: The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished name (DN)
+            Example: CN= NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso,DC=com
+          GUID (ObjectGUID)
+           Example: 599c3d2e-f72d-4d20-8a88-030d99495f20
+          Name (name)
+            Example: NA-CAN-QBC 
+        The following example shows how use this parameter to specify a site object by using the site name.
+          -Site  "NA-CAN-QBC"
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -1880,6 +5430,82 @@ function Move-ADDirectoryServer {
 }
 
 function Move-ADDirectoryServerOperationMasterRole {
+    <#
+    .SYNOPSIS
+        Moves operation master roles to an Active Directory directory server.
+    .PARAMETER Identity
+        Specifies an Active Directory server object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute.
+        Name of the server object (name) 
+          For AD LDS instances the syntax is of a name is <computer-name>$<instance-name>
+            Example: asia-w7-vm4$instance1
+            Note: When you type this value in Windows PowerShell, you must use the backtick (`) as an escape character for the dollar sign ($). Therefore, for the previous example you would type the following: asia-w7-vm4`$instance1
+          For other Active Directory instances, use the value of the name property
+            Example: corp-DC01
+        Distinguished Name of the NTDS Settings object
+          Example: CN=NTDS Settings,CN=CORP-DC12,CN=Servers,CN=NA-CAN-BC,CN=Sites,CN=Configuration,DC=corp,DC=contoso
+        Distinguished Name of the server object that represents the directory server
+          Example: CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso,DC=com
+        GUID (objectGUID) of server object under the configuration partition
+          Example: 599c3d2e-f72d-4d20-8a88-030d99495f20
+        GUID (objectGUID) of NTDS settings object under the configuration partition
+          Example: 768c44de-f72d-66e0-8a88-0523ca495f20
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a directory server object instance named "directoryServerInstance".
+          -Identity   $directoryServerInstance
+    .PARAMETER OperationMasterRole
+        Specifies one or more operation master roles to move to the specified directory server in Active Directory Domain Services. Possible values for this parameter include: 
+          PDCEmulator or 0
+          RIDMaster or 1
+          InfrastructureMaster or 2
+          SchemaMaster or 3
+          DomainNamingMaster or 4
+        To specify multiple operation master roles, use a comma-separated list.
+        The following example shows how to specify this parameter so that the SchemaMaster and DomainNamingMaster roles are moved.
+           -OperationMasterRole SchemaMaster, 4
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -1910,6 +5536,102 @@ function Move-ADDirectoryServerOperationMasterRole {
 }
 
 function Move-ADObject {
+    <#
+    .SYNOPSIS
+        Moves an Active Directory object or a container of objects to a different container or domain.
+    .PARAMETER TargetPath
+        Specifies the new location for the object. This location must be the path to a container or organizational unit.
+        The following example shows how to specify a target path by providing the distinguished name.
+          -TargetPath "ou=sales,dc=corp,dc=contoso,dc=com"
+    .PARAMETER TargetServer
+        Specifies the Active Directory instance to use by providing the following value for a corresponding domain name or directory server. 
+        Note: A cross domain move requires a FQDN server name.
+        Domain name values:
+          Fully qualified domain name (FQDN)
+            Examples: contoso.com
+        Directory server values:
+          Fully qualified directory server name
+            Example: server01.europe.contoso.com
+          Fully qualified directory server name and port
+            Example: server01.europe.contoso.com:3268
+        The following example shows how to specify a target server by specifying the fully-qualified directory server name.
+          -TargetServer "server01.europe.contoso.com"
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Identity
+        Specifies an Active Directory object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavis,OU=users,OU=asia,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        Derived types, such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADGroup
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+          Microsoft.ActiveDirectory.Management.ADFineGrainedPasswordPolicy
+          Microsoft.ActiveDirectory.Management.ADDomain
+        This example shows how to set this parameter to an ADObject object instance named "ADObjectInstance".
+          -Identity   $ADObjectInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(Mandatory=$true, Position=1)]
         [ValidateNotNullOrEmpty()]
@@ -1947,6 +5669,271 @@ function Move-ADObject {
 }
 
 function New-ADComputer {
+    <#
+    .SYNOPSIS
+        Creates a new Active Directory computer.
+    .PARAMETER Path
+        Specifies the X.500 path of the Organizational Unit (OU) or container where the new object is created.  
+        In many cases, a default value will be used for the Path parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          -  If none of the previous cases apply, the default value of Path will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          - If the target AD LDS instance has a default naming context, the default value of Path will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Path parameter will not take any default value.
+        The following example shows how to set this parameter to an OU.
+          -Path "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com"
+        Note:  The Active Directory Provider cmdlets, such New-Item, Remove-Item, Remove-ItemProperty, Rename-Item and Set-ItemProperty also contain a Path property. However, for the provider cmdlets, the Path parameter identifies the path of the actual object and not the container as with the Active Directory cmdlets.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER OtherAttributes
+        Specifies object attribute values for attributes that are not represented by cmdlet parameters. You can set one or more parameters at the same time with this parameter. If an attribute takes more than one value, you can assign multiple values. To identify an attribute, specify the LDAPDisplayName (ldapDisplayName) defined for it in the Active Directory schema.
+        Syntax:
+        To specify a single value for an attribute:
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value}
+        To specify multiple values for an attribute
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value1,value2,...}
+        You can specify values for more than one attribute by using semicolons to separate attributes.  The following syntax shows how to set values for multiple attributes:
+           -OtherAttributes @{'Attribute1LDAPDisplayName'=value; 'Attribute2LDAPDisplayName'=value1,value2;...}
+        The following examples show how to use this parameter.
+        To set the value of a custom attribute called favColors that takes a set of Unicode strings, use the following syntax: 
+           -OtherAttributes @{'favColors'="pink","purple"}
+        To set values for favColors and dateOfBirth simultaneously, use the following syntax:
+           -OtherAttributes @{'favColors'="pink","purple"; 'dateOfBirth'=" 01/01/1960"}
+    .PARAMETER Instance
+        Specifies an instance of a computer object to use as a template for a new computer object.
+        You can use an instance of an existing computer object as a template or you can construct a new computer object by using the Windows PowerShell command line or by using a script. The following examples show how to use these two methods to create computer object templates.
+        Method 1: Use an existing computer object as a template for a new object. To retrieve an instance of an existing computer object use  Get-ADcomputer. Then provide this object to the Instance parameter of the New-ADcomputer cmdlet to create a new computer object. You can override property values of the new object by setting the appropriate parameters. 
+          $computerInstance = Get-ADcomputer -Identity ellenAdamsDesktop 
+          New-ADcomputer -Name "saraDavisDesktop"  -Instance $computerInstance -AccountPassword "MustChange242" 
+        -samAccountName "saraDavisDesktop"
+        Method 2: Create a new ADcomputer object and set the property values by using the Windows PowerShell command line interface. Then pass this object to the Instance parameter of the New-ADcomputer cmdlet to create the new Active Directory computer object. 
+          $computerInstance = new-object Microsoft.ActiveDirectory.Management.ADcomputer
+          New-ADcomputer -Name "saraDavisDesktop"  -Instance $computerInstance
+        Note: Specified attributes are not validated, so attempting to set attributes that do not exist or cannot be set will raise an error.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER AccountExpirationDate
+        Specifies the expiration date for an account. When you set this parameter to 0, the account never expires. This parameter sets the AccountExpirationDate property of an account object. The LDAP Display name (ldapDisplayName) for this property is accountExpires.
+        Use the DateTime syntax when you specify this parameter. Time is assumed to be local time unless otherwise specified. When a time value is not specified, the time is assumed to 12:00:00 AM local time. When a date is not specified, the date is assumed to be the current date. The following examples show commonly-used syntax to specify a DateTime object.
+          "4/17/2006"
+          "Monday, April 17, 2006"
+          "2:22:45 PM"
+          "Monday, April 17, 2006 2:22:45 PM"
+        These examples specify the same date and the time without the seconds.
+          "4/17/2006 2:22 PM"
+          "Monday, April 17, 2006 2:22 PM"
+          "2:22 PM"
+        The following example shows how to specify a date and time by using the RFC1123 standard. This example defines time by using Greenwich Mean Time (GMT).
+          "Mon, 17 Apr 2006 21:22:48 GMT"
+        The following example shows how to specify a round-trip value as Coordinated Universal Time (UTC). This example represents Monday, April 17, 2006 at 2:22:48 PM UTC. 
+          "2006-04-17T14:22:48.0000000" 
+        The following example shows how to set this parameter to the date May 1, 2012 at 5 PM. 
+          -AccountExpirationDate "05/01/2012 5:00:00 PM"
+    .PARAMETER AccountNotDelegated
+        Specifies whether the security context of the user is delegated to a service. When this parameter is set to true, the security context of the account is not delegated to a service even when the service account is set as trusted for Kerberos delegation. This parameter sets the AccountNotDelegated property for an Active Directory account. This parameter also sets the ADS_UF_NOT_DELEGATED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include 
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that the security context of the account is not delegated to a service.
+          -AccountNotDelegated $true
+    .PARAMETER AccountPassword
+        Specifies a new password value for an account. This value is stored as an encrypted string.
+        The following conditions apply based on the manner in which the password parameter is used:
+        $null password is specified - Random password is set and the account is enabled unless it is requested to be disabled
+         No password is specified - Random password is set and the account is enabled unless it is requested to be disabled
+        User password is specified - Password is set and the account is enabled unless it is requested to be disabled, unless the password you provided does not meet password policy or was not set for other reasons, at which point the account is disabled
+        Notes:  Computer accounts, by default, are created with a 240-character random password. If you provide a password, an attempt will be made to set that password however, this can fail due to password policy restrictions. The computer account will still be created and you can use Set-ADAccountPassword to set the password on that account. In order to ensure that accounts remain secure, computer accounts will never be enabled unless a valid password is set (either a randomly-generated or user-provided one) or PasswordNotRequired is set to true. 
+        The account is created if the password fails for any reason.
+        The new ADComputer object will always either be disabled or have a user-requested or randomly-generated password. There is no way to create an enabled computer account object with a password that violates domain password policy, such as an empty password.
+        The following example shows how to set this parameter. This command will prompt you to enter the password.
+          -AccountPassword (Read-Host -AsSecureString "AccountPassword")
+    .PARAMETER AllowReversiblePasswordEncryption
+        Specifies whether reversible password encryption is allowed for the account. This parameter sets the AllowReversiblePasswordEncryption property of the account. This parameter also sets the ADS_UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter to true.
+          -AllowReversiblePasswordEncryption $true
+    .PARAMETER CannotChangePassword
+        Specifies whether the account password can be changed. This parameter sets the CannotChangePassword property of an account. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that the account password can be changed.
+          -CannotChangePassword $false
+    .PARAMETER Certificates
+        Modifies the DER-encoded X.509v3 certificates of the account. These certificates include the public key certificates issued to this account by the Microsoft Certificate Service. This parameter sets the Certificates property of the account object. The LDAP Display Name (ldapDisplayName) for this property is "userCertificate".
+        Syntax:
+        To add values:
+          -Certificates @{Add=value1,value2,...}
+        To remove values:
+          -Certificates @{Remove=value3,value4,...}
+        To replace values:
+          -Certificates @{Replace=value1,value2,...}
+        To clear all values:
+          -Certificates $null
+        You can specify more than one operation by using a list separated by semicolons. For example, use the following syntax to add and remove Certificate values 
+          -Certificates @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to create a certificate by using the New-Object cmdlet, and then add it to a user account. When this cmdlet is run, <certificate password> is replaced by the password used to add the certificate.
+        $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate certificate1.cer  <certificate password>
+        Set-ADUser saradavis  -Certificates @{Add=$cert}
+        The following example shows how to add a certificate that is specified as a byte array.
+            Set-ADUser saradavis  -Certificates @{Add= [Byte[]](0xC5,0xEE,0x53,...)}
+    .PARAMETER ChangePasswordAtLogon
+        Specifies whether a password must be changed during the next logon attempt. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        This parameter cannot be set to $true or 1 for an account that also has the PasswordNeverExpires property set to true.
+        The following example shows how to set this parameter so that the password must be changed at logon.
+          -ChangePasswordAtLogon $true
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER DNSHostName
+        Specifies the fully qualified domain name (FQDN) of the computer. This parameter sets the DNSHostName property for a computer object. The LDAP Display Name for this property is "dNSHostName". 
+        The following example shows how to set this parameter to a FQDN.
+          -DNSHostName "corp.contoso.com"
+    .PARAMETER Enabled
+        Specifies if an account is enabled. An enabled account requires a password. This parameter sets the Enabled property for an account object. This parameter also sets the ADS_UF_ACCOUNTDISABLE flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to enable the account.
+          -Enabled $true
+    .PARAMETER HomePage
+        Specifies the URL of the home page of the object. This parameter sets the homePage property of an Active Directory object. The LDAP Display Name (ldapDisplayName) for this property is "wWWHomePage".
+        The following example shows how to set this parameter to a URL.
+          -HomePage "http://employees.contoso.com/sdavis"
+    .PARAMETER Location
+        Specifies the location of the computer, such as an office number. This parameter sets the Location property of a computer. The LDAP display name (ldapDisplayName) of this property is "location". 
+        The following example shows how to set this parameter.
+          -Location  "Test Lab A"
+    .PARAMETER ManagedBy
+        Specifies the user or group that manages the object by providing one of the following property values. Note: The identifier in parentheses is the LDAP display name for the property.
+          Distinguished Name 
+            Example:  CN=SaraDavis,OU=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        This parameter sets the Active Directory attribute with an LDAP Display Name of "managedBy". 
+        The following example shows how to specify this parameter.
+          -ManagedBy ContosoAdmins
+    .PARAMETER Name
+        Specifies the name of the object. This parameter sets the Name property of the Active Directory object. The LDAP Display Name (ldapDisplayName) of this property is "name". 
+        The following example shows how to set this parameter to a name string.
+          -Name "SaraDavis"
+    .PARAMETER OperatingSystem
+        Specifies an operating system name. This parameter sets the OperatingSystem property of the computer object. The LDAP Display Name (ldapDisplayName) for this property is "operatingSystem". 
+        The following example shows how to set this parameter.
+           -OperatingSystem "Windows Server 2008 Enterprise"
+    .PARAMETER OperatingSystemHotfix
+        Specifies an operating system hotfix name. This parameter sets the operatingSystemHotfix property of the computer object. The LDAP display name for this property is "operatingSystemHotfix".
+        The following example shows how to specify this parameter.
+           -operatingSystemHotfix "523466"
+    .PARAMETER OperatingSystemServicePack
+        Specifies the name of an operating system service pack. This parameter sets the OperatingSystemServicePack property of the computer object. The LDAP display name (ldapDisplayName) for this property is "operatingSystemServicePack". 
+        The following example shows how to specify this parameter.
+           -OperatingSystemServicePack "Service Pack 2"
+    .PARAMETER OperatingSystemVersion
+        Specifies an operating system version. This parameter sets the OperatingSystemVersion property of the computer object. The LDAP display name (ldapDisplayName) for this property is "operatingSystemVersion". 
+        The following example shows how to specify this parameter.
+           -OperatingSystemVersion "6.0 (6001)"
+    .PARAMETER PasswordNeverExpires
+        Specifies whether the password of an account can expire. This parameter sets the PasswordNeverExpires property of an account object. This parameter also sets the ADS_UF_DONT_EXPIRE_PASSWD flag of the Active Directory User Account Control attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        Note: This parameter cannot be set to $true or 1 for an account that also has the ChangePasswordAtLogon property set to true.
+        The following example shows how to set this parameter so that the password can expire.
+          -PasswordNeverExpires $false
+    .PARAMETER PasswordNotRequired
+        Specifies whether the account requires a password. This parameter sets the PasswordNotRequired property of an account, such as a user or computer account. This parameter also sets the ADS_UF_PASSWD_NOTREQD flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0 
+          $true or 1 
+        The following example shows how to set this parameter so that as password is not required for the account.
+          -PasswordNotRequired $true
+    .PARAMETER SAMAccountName
+        Specifies the Security Account Manager (SAM) account name of the user, group, computer, or service account. The maximum length of the description is 256 characters. To be compatible with older operating systems, create a SAM account name that is 20 characters or less. This parameter sets the SAMAccountName for an account object. The LDAP display name (ldapDisplayName) for this property is "sAMAccountName".
+        The following example shows how to specify this parameter.
+          -SAMAccountName "saradavis"
+        Note: If the SAMAccountName string provided, does not end with a '$', one will be appended if needed.
+    .PARAMETER ServicePrincipalNames
+        Specifies the service principal names for the account. This parameter sets the ServicePrincipalNames property of the account. The LDAP display name (ldapDisplayName) for this property is servicePrincipalName. This parameter uses the following syntax to add remove, replace or clear service principal name values. 
+        Syntax:
+        To add values:
+          -ServicePrincipalNames @{Add=value1,value2,...}
+        To remove values:
+          -ServicePrincipalNames @{Remove=value3,value4,...}
+        To replace values:
+          -ServicePrincipalNames @{Replace=value1,value2,...}
+        To clear all values:
+          -ServicePrincipalNames $null
+        You can specify more than one change by using a list separated by semicolons. For example, use the following syntax to add and remove service principal names. 
+          @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to add and remove service principal names.
+          -ServicePrincipalNames-@{Add="SQLservice\accounting.corp.contoso.com:1456"};{Remove="SQLservice\finance.corp.contoso.com:1456"}
+    .PARAMETER TrustedForDelegation
+        Specifies whether an account is trusted for Kerberos delegation. A service that runs under an account that is trusted for Kerberos delegation can assume the identity of a client requesting the service. This parameter sets the TrustedForDelegation property of an account object. This value also sets the ADS_UF_TRUSTED_FOR_DELEGATION flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0
+          $true or 1
+        The following example shows how to specify that an account is trusted for Kerberos delegation.
+          -TrustedForDelegation $true
+    .PARAMETER UserPrincipalName
+        Each user account has a user principal name (UPN) in the format <user>@<DNS-domain-name>. A UPN is a friendly name assigned by an administrator that is shorter than the LDAP distinguished name used by the system and easier to remember. The UPN is independent of the user object's DN, so a user object can be moved or renamed without affecting the user logon name. When logging on using a UPN, users no longer have to choose a domain from a list on the logon dialog box.
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ValueFromPipelineByPropertyName=$true)]
         [ValidateNotNullOrEmpty()]
@@ -2242,6 +6229,219 @@ function New-ADComputer {
 }
 
 function New-ADFineGrainedPasswordPolicy {
+    <#
+    .SYNOPSIS
+        Creates a new Active Directory fine grained password policy.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER OtherAttributes
+        Specifies object attribute values for attributes that are not represented by cmdlet parameters. You can set one or more parameters at the same time with this parameter. If an attribute takes more than one value, you can assign multiple values. To identify an attribute, specify the LDAPDisplayName (ldapDisplayName) defined for it in the Active Directory schema.
+        Syntax:
+        To specify a single value for an attribute:
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value}
+        To specify multiple values for an attribute
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value1,value2,...}
+        You can specify values for more than one attribute by using semicolons to separate attributes.  The following syntax shows how to set values for multiple attributes:
+           -OtherAttributes @{'Attribute1LDAPDisplayName'=value; 'Attribute2LDAPDisplayName'=value1,value2;...}
+        The following examples show how to use this parameter.
+        To set the value of a custom attribute called favColors that takes a set of Unicode strings, use the following syntax: 
+           -OtherAttributes @{'favColors'="pink","purple"}
+        To set values for favColors and dateOfBirth simultaneously, use the following syntax:
+           -OtherAttributes @{'favColors'="pink","purple"; 'dateOfBirth'=" 01/01/1960"}
+    .PARAMETER Instance
+        Specifies an instance of a fine-grained password policy object to use as a template for a new fine-grained password policy object.
+        You can use an instance of an existing fine-grained password policy object as a template or you can construct a new fine-grained password policy object by using the Windows PowerShell command line or by using a script. The following examples show how to use these two methods to create a new fine-grained password policy object.
+        Method 1: Use an existing fine-grained password policy object as a template for a new object. To retrieve an instance of an existing fine-grained password policy object, use a cmdlet such as Get-ADFineGrainedPasswordPolicy. Then provide this object to the Instance parameter of the New-ADFineGrainedPasswordPolicy cmdlet to create a new fine-grained password policy object. You can override property values of the new object by setting the appropriate parameters. 
+          $fineGrainedPasswordPolicyInstance = Get-ADFineGrainedPasswordPolicy -Identity PasswordPolicy90 
+          New-ADFineGrainedPasswordPolicy -Name "PasswordPolicy180"  -Instance $fineGrainedPasswordPolicyInstance -Precedence 600 -MaxPasswordAge "180" 
+         
+        Method 2: Create a new ADFineGrainedPasswordPolicy object and set the property values by using the Windows PowerShell command line interface. Then pass this object to the Instance parameter of the New-ADFineGrainedPasswordPolicy cmdlet to create the new Active Directory fine-grained password policy object. 
+          $fineGrainedPasswordPolicyInstance = new-object Microsoft.ActiveDirectory.Management.ADFineGrainedPasswordPolicy
+          $fineGrainedPasswordPolicyInstance.MaxPasswordAge = "180" 
+          New-ADFineGrainedPasswordPolicy -Name "PasswordPolicy180"  -Instance $fineGrainedPasswordPolicyInstance
+        Note: Specified attributes are not validated, so attempting to set attributes that do not exist or cannot be set will raise an error.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER ComplexityEnabled
+        Specifies whether password complexity is enabled for the password policy. If enabled, the password must contain two of the following three character types: 
+          Uppercase characters (A, B, C, D, E, ...)
+          Lowercase characters (a, b, c, d, e, ...)
+          Numerals (0, 1, 2, 3, ...) 
+        This parameter sets the ComplexityEnabled property of a password policy. 
+        Possible values for this parameter include:
+          $false or 0 - Disables password complexity
+          $true or 1 - Enables password complexity
+        The following example shows how to set this parameter to true.
+          -ComplexityEnabled $true
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER LockoutDuration
+        Specifies the length of time that an account is locked after the number of failed login attempts exceeds the lockout threshold. You cannot login to an account that is locked until the lockout duration time period has expired. This parameter sets the lockoutDuration property of a password policy object. The LDAP display name (ldapDisplayName) of this property is "msDS-LockoutDuration".
+        The lockout duration must be greater than or equal to the lockout observation time for a password policy. Use the LockOutObservationWindow parameter to set the lockout observation time. 
+        Specify the lockout duration time interval in the following format.
+            [-]D.H:M:S.F
+            where:
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        The following examples show how to set this parameter.
+          Set the time to 2 days
+            -LockoutDuration "2"
+          Set the time to 4 hours
+            -LockoutDuration "4:00"
+          Set the time to 5 minutes
+            -LockoutDuration "0:5"
+          Set the time to 45 seconds
+            LockoutDuration "0:0:45"
+    .PARAMETER LockoutObservationWindow
+        Specifies the maximum time interval between two unsuccessful login attempts before the number of unsuccessful login attempts is reset to 0. An account is locked when the number of unsuccessful login attempts exceeds the password policy lockout threshold. This parameter sets the lockoutObservationWindow property of a password policy object. The LDAP Display Name (ldapDisplayName) of this property is "msDS-lockoutObservationWindow".
+        The lockout observation window must be smaller than or equal to the lockout duration for a password policy. Use the LockoutDuration parameter to set the lockout duration time.
+        Specify the time interval in the following format.
+           [-]D:H:M:S.F 
+            where:
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        Note: Time values must be between the following values: 0:0:0:0.0 and 10675199:02:48:05.4775807.
+        The following examples show how to set this parameter.
+          Set the time to 2 days
+            -LockoutObservationWindow "2"
+          Set the time to 4 hours
+            -LockoutObservationWindow "4:00"
+          Set the time to 5 minutes
+            -LockoutObservationWindow "0:5"
+          Set the time to 45 seconds
+            -LockoutObservationWindow "0:0:45"
+    .PARAMETER LockoutThreshold
+        Specifies the number of unsuccessful login attempts that are permitted before an account is locked out. This number increases when the time between unsuccessful login attempts is less than the time specified for the lockout observation time window. This parameter sets the LockoutThreshold property of a password policy. 
+        The following example shows how to set the lockout threshold to 3 login attempts.
+          -LockoutThreshold 3
+    .PARAMETER MaxPasswordAge
+        Specifies the maximum length of time that you can have the same password. After this time period, the password expires and you must create a new one. 
+        This parameter sets the maxPasswordAge property of a password policy. The LDAP Display Name (ldapDisplayName) for this property is "maxPwdAge".
+        Specify the time interval in the following format.
+           [-]D.H:M:S.F
+            where:
+              [-] = Specifies a negative time interval
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        Note: Time values must be between the following values: -10675199:02:48:05.4775808 and 10675199:02:48:05.4775807.
+        The following examples show how to set this parameter.
+          Set the time span to 2 days
+            MaxPasswordAge "2"
+          Set the time span to the previous 2 days
+            MaxPasswordAge "-2"
+          Set the time span to 4 hours
+            MaxPasswordAge "4:00"
+          Set the time span to 5 minutes
+            MaxPasswordAge "0:5"
+          Set the time span to 45 seconds
+            MaxPasswordAge "0:0:45"
+    .PARAMETER MinPasswordAge
+        Specifies the minimum length of time before you can change a password.
+        This parameter sets the minPasswordAge property of a password policy. The LDAP Display Name (ldapDisplayName) for this property is "minPwdAge".
+        Specify the time interval in the following format.
+           [-]D.H:M:S.F
+            where:
+              [-] = Specifies a negative time interval
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        Note: Time values must be between the following values: -10675199:02:48:05.4775808 and 10675199:02:48:05.4775807.
+        The following examples show how to set this parameter.
+          Set the time span to 2 days
+            -MinPasswordAge "2"
+          Set the time span to 4 hours
+            -MinPasswordAge "4:00"
+          Set the time span to 5 minutes
+            -MinPasswordAge "0:5"
+          Set the time span to 45 seconds
+            -MinPasswordAge "0:0:45"
+    .PARAMETER MinPasswordLength
+        Specifies the minimum number of characters that a password must contain.  This parameter sets the MinPasswordLength property of the password policy. 
+        The following example shows how to set this parameter.
+          -MinPasswordLength 15
+    .PARAMETER Name
+        Specifies the name of the object. This parameter sets the Name property of the Active Directory object. The LDAP Display Name (ldapDisplayName) of this property is "name". 
+        The following example shows how to set this parameter to a name string.
+          -Name "SaraDavis"
+    .PARAMETER PasswordHistoryCount
+        Specifies the number of previous passwords to save.  A user cannot reuse a password in the list of saved passwords. This parameter sets the PasswordHistoryCount property for a password policy. 
+        The following example shows how to set this parameter to save 10 previous passwords.
+          -PasswordHistoryCount 10
+    .PARAMETER Precedence
+        Specifies a value that defines the precedence of a fine-grained password policy among all fine-grained password policies. This parameter sets the Precedence property for a fine-grained password policy. The LDAP display name (ldapDisplayName) for this property is "msDS-PasswordSettingsPrecedence".
+        This value determines which password policy to use when more than one password policy applies to a user or group. When there is a conflict, the password policy that has the lower Precedence property value has higher priority. For example, if PasswordPolicy1 has a Precedence property value of 200 and PasswordPolicy2 has a Precedence property value of 100, PasswordPolicy2 is used. 
+        Typically, password policy precedence values are assigned in multiples of 10 or 100, making it easier to add policies at a later time. For example, if you set the initial precedence values for your policies to 100 and 200, you can add another policy that has precedence value of 150. 
+        If the specified Precedence parameter is already assigned to another password policy object, the cmdlet returns a terminating error.
+        The following example shows how to set this parameter.
+          -Precedence 100
+    .PARAMETER ProtectedFromAccidentalDeletion
+        Specifies whether to prevent the object from being deleted. When this property is set to true, you cannot delete the corresponding object without changing the value of the property. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to true.
+          -ProtectedFromAccidentalDeletion $true
+    .PARAMETER ReversibleEncryptionEnabled
+        Specifies whether the directory must  store passwords using reversible encryption. This parameter sets the ReversibleEncryption property for a password policy. Possible values for this parameter include the following:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to true.
+          -ReversibleEncryptionEnabled $true
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [ValidateNotNull()]
         [switch]
@@ -2421,6 +6621,143 @@ function New-ADFineGrainedPasswordPolicy {
 }
 
 function New-ADGroup {
+    <#
+    .SYNOPSIS
+        Creates an Active Directory group.
+    .PARAMETER Path
+        Specifies the X.500 path of the Organizational Unit (OU) or container where the new object is created.  
+        In many cases, a default value will be used for the Path parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          -  If none of the previous cases apply, the default value of Path will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          - If the target AD LDS instance has a default naming context, the default value of Path will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Path parameter will not take any default value.
+        The following example shows how to set this parameter to an OU.
+          -Path "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com"
+        Note:  The Active Directory Provider cmdlets, such New-Item, Remove-Item, Remove-ItemProperty, Rename-Item and Set-ItemProperty also contain a Path property. However, for the provider cmdlets, the Path parameter identifies the path of the actual object and not the container as with the Active Directory cmdlets.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER OtherAttributes
+        Specifies object attribute values for attributes that are not represented by cmdlet parameters. You can set one or more parameters at the same time with this parameter. If an attribute takes more than one value, you can assign multiple values. To identify an attribute, specify the LDAPDisplayName (ldapDisplayName) defined for it in the Active Directory schema.
+        Syntax:
+        To specify a single value for an attribute:
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value}
+        To specify multiple values for an attribute
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value1,value2,...}
+        You can specify values for more than one attribute by using semicolons to separate attributes.  The following syntax shows how to set values for multiple attributes:
+           -OtherAttributes @{'Attribute1LDAPDisplayName'=value; 'Attribute2LDAPDisplayName'=value1,value2;...}
+        The following examples show how to use this parameter.
+        To set the value of a custom attribute called favColors that takes a set of Unicode strings, use the following syntax: 
+           -OtherAttributes @{'favColors'="pink","purple"}
+        To set values for favColors and dateOfBirth simultaneously, use the following syntax:
+           -OtherAttributes @{'favColors'="pink","purple"; 'dateOfBirth'=" 01/01/1960"}
+    .PARAMETER Instance
+        Specifies an instance of a group object to use as a template for a new group object.
+        You can use an instance of an existing group object as a template or you can construct a new group object by using the Windows PowerShell command line or by using a script. The following examples show how to use these two methods to create group object templates.
+        Method 1: Use an existing group object as a template for a new object. Use the Get-ADGroup cmdlet to retrieve a group object then pass this object to the Instance parameter of the New-ADGroup cmdlet to create a new group object. You can override property values of the new object by setting the appropriate parameters. 
+          $groupInstance = Get-ADGroup -Identity "KarenTohReports" 
+          New-ADGroup -Name "Sara Davis Reports"  -Instance $groupInstance GroupType DomainLocal
+        Method 2: Create a new ADGroup object and set the property values by using the Windows PowerShell command line interface. Then pass this object to the Instance parameter of the New-ADGroup cmdlet to create the new group object. 
+          $groupTemplate = New-Object Microsoft.ActiveDirectory.Management.ADGroup
+          $groupTemplateGroupType = DomainLocal
+          New-ADGroup -Name "Sara Davis Reports" -Instance $groupInstance
+        Note: Specified attributes are not validated, so attempting to set attributes that do not exist or cannot be set will raise an error.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER GroupScope
+        Specifies the group scope of the group. Possible values of this parameter are:
+          DomainLocal or 0
+          Global or 1
+          Universal or 2
+        This parameter sets the GroupScope property of a group object to the specified value. The LDAP display name of this property is "groupType".
+        The following example shows two ways to set this parameter to DomainLocal.
+          -GroupScope DomainLocal
+          -GroupScope 0
+    .PARAMETER GroupCategory
+        Specifies the category of the group. Possible values of this parameter are:
+          Distribution or 0  
+          Security or 1 
+         
+        This parameter sets the GroupCategory property of the group. This parameter value combined with other group values sets the LDAP Display Name (ldapDisplayName) attribute named "groupType".
+        The following example shows how to specify that a group is a security group.
+          -GroupCategory security
+    .PARAMETER HomePage
+        Specifies the URL of the home page of the object. This parameter sets the homePage property of an Active Directory object. The LDAP Display Name (ldapDisplayName) for this property is "wWWHomePage".
+        The following example shows how to set this parameter to a URL.
+          -HomePage "http://employees.contoso.com/sdavis"
+    .PARAMETER ManagedBy
+        Specifies the user or group that manages the object by providing one of the following property values. Note: The identifier in parentheses is the LDAP display name for the property.
+          Distinguished Name 
+            Example:  CN=SaraDavis,OU=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        This parameter sets the Active Directory attribute with an LDAP Display Name of "managedBy". 
+        The following example shows how to specify this parameter.
+          -ManagedBy ContosoAdmins
+    .PARAMETER SamAccountName
+        Specifies the Security Account Manager (SAM) account name of the user, group, computer, or service account. The maximum length of the description is 256 characters. To be compatible with older operating systems, create a SAM account name that is 20 characters or less. This parameter sets the SAMAccountName for an account object. The LDAP display name (ldapDisplayName) for this property is "sAMAccountName".
+        The following example shows how to specify this parameter.
+          -SAMAccountName "saradavis"
+        Note: If the string value provided is not terminated with a '$' character, the system adds one if needed.
+    .PARAMETER Name
+        Specifies the name of the object. This parameter sets the Name property of the Active Directory object. The LDAP Display Name (ldapDisplayName) of this property is "name". 
+        The following example shows how to set this parameter to a name string.
+          -Name "SaraDavis"
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ValueFromPipelineByPropertyName=$true)]
         [ValidateNotNullOrEmpty()]
@@ -2554,6 +6891,112 @@ function New-ADGroup {
 }
 
 function New-ADObject {
+    <#
+    .SYNOPSIS
+        Creates an Active Directory object.
+    .PARAMETER Path
+        Specifies the X.500 path of the Organizational Unit (OU) or container where the new object is created.  
+        In many cases, a default value will be used for the Path parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          -  If none of the previous cases apply, the default value of Path will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          - If the target AD LDS instance has a default naming context, the default value of Path will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Path parameter will not take any default value.
+        The following example shows how to set this parameter to an OU.
+          -Path "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com"
+        Note:  The Active Directory Provider cmdlets, such New-Item, Remove-Item, Remove-ItemProperty, Rename-Item and Set-ItemProperty also contain a Path property. However, for the provider cmdlets, the Path parameter identifies the path of the actual object and not the container as with the Active Directory cmdlets.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER OtherAttributes
+        Specifies object attribute values for attributes that are not represented by cmdlet parameters. You can set one or more parameters at the same time with this parameter. If an attribute takes more than one value, you can assign multiple values. To identify an attribute, specify the LDAPDisplayName (ldapDisplayName) defined for it in the Active Directory schema.
+        Syntax:
+        To specify a single value for an attribute:
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value}
+        To specify multiple values for an attribute
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value1,value2,...}
+        You can specify values for more than one attribute by using semicolons to separate attributes.  The following syntax shows how to set values for multiple attributes:
+           -OtherAttributes @{'Attribute1LDAPDisplayName'=value; 'Attribute2LDAPDisplayName'=value1,value2;...}
+        The following examples show how to use this parameter.
+        To set the value of a custom attribute called favColors that takes a set of Unicode strings, use the following syntax: 
+           -OtherAttributes @{'favColors'="pink","purple"}
+        To set values for favColors and dateOfBirth simultaneously, use the following syntax:
+           -OtherAttributes @{'favColors'="pink","purple"; 'dateOfBirth'=" 01/01/1960"}
+    .PARAMETER Instance
+        Specifies an instance of an Active Directory object to use as a template for a new Active Directory object.
+        You can use an instance of an existing Active Directory object as a template or you can construct a new Active Directory object by using the Windows PowerShell command line or by using a script. The following examples show how to use these two methods to create a new Active Directory object.
+        Method 1: Use an existing Active Directory object as a template for a new object. To retrieve an instance of an existing Active Directory object, use a cmdlet such as Get-ADObject. Then provide this object to the Instance parameter of the New-ADObject cmdlet to create a new Active Directory object. You can override property values of the new object by setting the appropriate parameters. 
+          $objectInstance = Get-ADObject -Identity saraDavisDesktop 
+          New-ADObject -Name "ellenAdamsDesktop"  -Instance $ObjectInstance -Type "computer"
+        Method 2: Create a new ADObject and set the property values by using the Windows PowerShell command line interface. Then pass this object to the Instance parameter of the New-ADObject cmdlet to create the new Active Directory object. 
+        $objectInstance = new-object Microsoft.ActiveDirectory.Management.ADObject $objectInstance.Description = "Ellen Adams New Computer" New-ADObject -Name ellenAdamsDesktop  -Instance $ObjectInstance -Type computer
+        Note: Specified attributes are not validated, so attempting to set attributes that do not exist or cannot be set will raise an error.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER ProtectedFromAccidentalDeletion
+        Specifies whether to prevent the object from being deleted. When this property is set to true, you cannot delete the corresponding object without changing the value of the property. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to true.
+          -ProtectedFromAccidentalDeletion $true
+    .PARAMETER Type
+        Specifies the type of object to create. Set the Type parameter to the LDAP display name of the Active Directory Schema Class that represents the type of object that you want to create. Examples of type values include user, computer, and group.
+        The following example shows how to use this parameter to create a new Active Directory group object.
+          -Type "group"
+    .PARAMETER Name
+        Specifies the name of the object. This parameter sets the Name property of the Active Directory object. The LDAP Display Name (ldapDisplayName) of this property is "name". 
+        The following example shows how to set this parameter to a name string.
+          -Name "SaraDavis"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ValueFromPipelineByPropertyName=$true)]
         [ValidateNotNullOrEmpty()]
@@ -2650,6 +7093,143 @@ function New-ADObject {
 }
 
 function New-ADOrganizationalUnit {
+    <#
+    .SYNOPSIS
+        Creates a new Active Directory organizational unit.
+    .PARAMETER Path
+        Specifies the X.500 path of the Organizational Unit (OU) or container where the new object is created.  
+        In many cases, a default value will be used for the Path parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          -  If none of the previous cases apply, the default value of Path will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          - If the target AD LDS instance has a default naming context, the default value of Path will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Path parameter will not take any default value.
+        The following example shows how to set this parameter to an OU.
+          -Path "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com"
+        Note:  The Active Directory Provider cmdlets, such New-Item, Remove-Item, Remove-ItemProperty, Rename-Item and Set-ItemProperty also contain a Path property. However, for the provider cmdlets, the Path parameter identifies the path of the actual object and not the container as with the Active Directory cmdlets.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER OtherAttributes
+        Specifies object attribute values for attributes that are not represented by cmdlet parameters. You can set one or more parameters at the same time with this parameter. If an attribute takes more than one value, you can assign multiple values. To identify an attribute, specify the LDAPDisplayName (ldapDisplayName) defined for it in the Active Directory schema.
+        Syntax:
+        To specify a single value for an attribute:
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value}
+        To specify multiple values for an attribute
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value1,value2,...}
+        You can specify values for more than one attribute by using semicolons to separate attributes.  The following syntax shows how to set values for multiple attributes:
+           -OtherAttributes @{'Attribute1LDAPDisplayName'=value; 'Attribute2LDAPDisplayName'=value1,value2;...}
+        The following examples show how to use this parameter.
+        To set the value of a custom attribute called favColors that takes a set of Unicode strings, use the following syntax: 
+           -OtherAttributes @{'favColors'="pink","purple"}
+        To set values for favColors and dateOfBirth simultaneously, use the following syntax:
+           -OtherAttributes @{'favColors'="pink","purple"; 'dateOfBirth'=" 01/01/1960"}
+    .PARAMETER Instance
+        Specifies an instance of an organizational unit object to use as a template for a new organizational unit object.
+        You can use an instance of an existing organizational unit object as a template or you can construct a new organizational unit object by using the Windows PowerShell command line or by using a script. The following examples show how to use these two methods to create organizational unit object templates.
+        Method 1: Use an existing organizational unit object as a template for a new object. To retrieve an instance of an existing organizational unit object use Get-ADOrganizationalUnit. Then provide this object to the Instance parameter of the New-ADOrganizationalUnit cmdlet to create a new organizational unit object. You can override property values of the new object by setting the appropriate parameters. 
+          $organizationalUnitInstance = Get-ADOrganizationalUnit -Identity accountingAsia
+          New-ADOrganizationalUnit -Name accountingAustralia  -Instance $OrganizationalUnitInstance -Country Australia
+        Method 2: Create a new ADOrganizationalUnit object and set the property values by using the Windows PowerShell command line interface. Then pass this object to the Instance parameter of the New-ADOrganizationalUnit cmdlet to create the new Active Directory organizational unit object. 
+          $OrganizationalUnitInstance = new-object Microsoft.ActiveDirectory.Management.ADOrganizationalUnit
+          $OrganizationalUnitInstance.Country = Australia
+          New-ADOrganizationalUnit -Name accountingAustralia  -Instance $OrganizationalUnitInstance
+        Note: Specified attributes are not validated, so attempting to set attributes that do not exist or cannot be set will raise an error.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Country
+        Specifies the country or region code for the user's language of choice. This parameter sets the Country property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "c". This value is not used by Windows 2000.
+        The following example shows how set this parameter.
+          -Country "IN"
+    .PARAMETER City
+        Specifies the user's town or city. This parameter sets the City property of a user. The LDAP display name (ldapDisplayName) of this property is "l".
+        The following example shows how set this parameter.
+          -City "Las Vegas"
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER Name
+        Specifies the name of the object. This parameter sets the Name property of the Active Directory object. The LDAP Display Name (ldapDisplayName) of this property is "name". 
+        The following example shows how to set this parameter to a name string.
+          -Name "SaraDavis"
+    .PARAMETER PostalCode
+        Specifies the user's postal code or zip code. This parameter sets the PostalCode property of a user. The LDAP Display Name (ldapDisplayName) of this property is "postalCode".
+        The following example shows how to set this parameter.
+          -PostalCode "28712"
+    .PARAMETER ProtectedFromAccidentalDeletion
+        Specifies whether to prevent the object from being deleted. When this property is set to true, you cannot delete the corresponding object without changing the value of the property. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to true.
+          -ProtectedFromAccidentalDeletion $true
+    .PARAMETER State
+        Specifies the user's or Organizational Unit's state or province. This parameter sets the State property of a User or Organizational Unit object. The LDAP display name (ldapDisplayName) of this property is "st".
+        The following example shows how set this parameter.
+          -State  "Nevada"
+    .PARAMETER StreetAddress
+        Specifies the organizational unit's street address. This parameter sets the StreetAddress property of a organizational unit object. The LDAP display name (ldapDisplayName) of this property is "street".
+        The following example shows how to set this parameter.
+          -StreetAddress  "1200 Main Street"
+    .PARAMETER ManagedBy
+        Specifies the user or group that manages the object by providing one of the following property values. Note: The identifier in parentheses is the LDAP display name for the property.
+          Distinguished Name 
+            Example:  CN=SaraDavis,OU=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        This parameter sets the Active Directory attribute with an LDAP Display Name of "managedBy". 
+        The following example shows how to specify this parameter.
+          -ManagedBy ContosoAdmins
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ValueFromPipelineByPropertyName=$true)]
         [ValidateNotNullOrEmpty()]
@@ -2792,6 +7372,199 @@ function New-ADOrganizationalUnit {
 }
 
 function New-ADServiceAccount {
+    <#
+    .SYNOPSIS
+        Creates a new Active Directory service account.
+    .PARAMETER Path
+        Specifies the X.500 path of the Organizational Unit (OU) or container where the new object is created.  
+        In many cases, a default value will be used for the Path parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          -  If none of the previous cases apply, the default value of Path will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          - If the target AD LDS instance has a default naming context, the default value of Path will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Path parameter will not take any default value.
+        The following example shows how to set this parameter to an OU.
+          -Path "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com"
+        Note:  The Active Directory Provider cmdlets, such New-Item, Remove-Item, Remove-ItemProperty, Rename-Item and Set-ItemProperty also contain a Path property. However, for the provider cmdlets, the Path parameter identifies the path of the actual object and not the container as with the Active Directory cmdlets.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER OtherAttributes
+        Specifies object attribute values for attributes that are not represented by cmdlet parameters. You can set one or more parameters at the same time with this parameter. If an attribute takes more than one value, you can assign multiple values. To identify an attribute, specify the LDAPDisplayName (ldapDisplayName) defined for it in the Active Directory schema.
+        Syntax:
+        To specify a single value for an attribute:
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value}
+        To specify multiple values for an attribute
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value1,value2,...}
+        You can specify values for more than one attribute by using semicolons to separate attributes.  The following syntax shows how to set values for multiple attributes:
+           -OtherAttributes @{'Attribute1LDAPDisplayName'=value; 'Attribute2LDAPDisplayName'=value1,value2;...}
+        The following examples show how to use this parameter.
+        To set the value of a custom attribute called favColors that takes a set of Unicode strings, use the following syntax: 
+           -OtherAttributes @{'favColors'="pink","purple"}
+        To set values for favColors and dateOfBirth simultaneously, use the following syntax:
+           -OtherAttributes @{'favColors'="pink","purple"; 'dateOfBirth'=" 01/01/1960"}
+    .PARAMETER Instance
+        Specifies an instance of a service account object to use as a template for a new service account object.
+        You can use an instance of an existing service account object as a template or you can construct a new service account object for template use.  You can construct a new service account using the Windows PowerShell command line or by using a script. The following examples show how to use these two methods to create service account object templates.
+        Method 1: Use an existing service account object as a template for a new object. To retrieve an instance of an existing service account object, use a cmdlet such as Get-ADServiceAccount. Then provide this object to the Instance parameter of the New-ADServiceAccount cmdlet to create a new service account object. You can override property values of the new object by setting the appropriate parameters. 
+          $serviceaccountInstance = Get-ADServiceAccount -Identity  
+          New-ADServiceAccount -Name "ServiceAdmin_2" -Instance $serviceaccountInstance   -Description "Service Account 2"
+        Method 2: Create a new ADServiceAccount object and set the property values by using the Windows PowerShell command line interface. Then pass this object to the Instance parameter of the New-ADServiceAccount cmdlet to create the new Active Directory service account object. 
+          $serviceaccountInstance = new-object Microsoft.ActiveDirectory.Management.ADServiceAccount
+          $serviceaccountInstance. Description "Service Account 2"
+        Note: Specified attributes are not validated, so attempting to set attributes that do not exist or cannot be set will raise an error.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER AccountExpirationDate
+        Specifies the expiration date for an account. When you set this parameter to 0, the account never expires. This parameter sets the AccountExpirationDate property of an account object. The LDAP Display name (ldapDisplayName) for this property is accountExpires.
+        Use the DateTime syntax when you specify this parameter. Time is assumed to be local time unless otherwise specified. When a time value is not specified, the time is assumed to 12:00:00 AM local time. When a date is not specified, the date is assumed to be the current date. The following examples show commonly-used syntax to specify a DateTime object.
+          "4/17/2006"
+          "Monday, April 17, 2006"
+          "2:22:45 PM"
+          "Monday, April 17, 2006 2:22:45 PM"
+        These examples specify the same date and the time without the seconds.
+          "4/17/2006 2:22 PM"
+          "Monday, April 17, 2006 2:22 PM"
+          "2:22 PM"
+        The following example shows how to specify a date and time by using the RFC1123 standard. This example defines time by using Greenwich Mean Time (GMT).
+          "Mon, 17 Apr 2006 21:22:48 GMT"
+        The following example shows how to specify a round-trip value as Coordinated Universal Time (UTC). This example represents Monday, April 17, 2006 at 2:22:48 PM UTC. 
+          "2006-04-17T14:22:48.0000000" 
+        The following example shows how to set this parameter to the date May 1, 2012 at 5 PM. 
+          -AccountExpirationDate "05/01/2012 5:00:00 PM"
+    .PARAMETER AccountNotDelegated
+        Specifies whether the security context of the user is delegated to a service. When this parameter is set to true, the security context of the account is not delegated to a service even when the service account is set as trusted for Kerberos delegation. This parameter sets the AccountNotDelegated property for an Active Directory account. This parameter also sets the ADS_UF_NOT_DELEGATED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include 
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that the security context of the account is not delegated to a service.
+          -AccountNotDelegated $true
+    .PARAMETER AccountPassword
+        Specifies a new password value for an account. This value is stored as an encrypted string.
+        The following conditions apply based on the manner in which the password parameter is used:
+        $null password is specified - Random password is set and the account is enabled unless it is requested to be disabled
+         No password is specified - Random password is set and the account is enabled unless it is requested to be disabled
+        User password is specified - Password is set and the account is enabled unless it is requested to be disabled, unless the password you provided does not meet password policy or was not set for other reasons, at which point the account is disabled
+        Notes: Service accounts, by default, are created with a 240-character random password. If you provide a password, an attempt will be made to set that password however, this can fail due to password policy restrictions. The service account will still be created and you can use Set-ADAccountPassword to set the password on that account. In order to ensure that accounts remain secure, service accounts will never be enabled unless a valid password is set (either a randomly-generated or user-provided one) or PasswordNotRequired is set to true.
+        The new ADServiceAccount object will always either be disabled or have a user-requested or randomly-generated password. There is no way to create an enabled service account object with a password that violates domain password policy, such as an empty password.
+         The account is created if the password fails for any reason.
+        The following example shows how to set this parameter. This command will prompt you to enter the password.
+          -AccountPassword (Read-Host -AsSecureString "AccountPassword")
+    .PARAMETER Certificates
+        Modifies the DER-encoded X.509v3 certificates of the account. These certificates include the public key certificates issued to this account by the Microsoft Certificate Service. This parameter sets the Certificates property of the account object. The LDAP Display Name (ldapDisplayName) for this property is "userCertificate".
+        Syntax:
+        To add values:
+          -Certificates @{Add=value1,value2,...}
+        To remove values:
+          -Certificates @{Remove=value3,value4,...}
+        To replace values:
+          -Certificates @{Replace=value1,value2,...}
+        To clear all values:
+          -Certificates $null
+        You can specify more than one operation by using a list separated by semicolons. For example, use the following syntax to add and remove Certificate values 
+          -Certificates @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to create a certificate by using the New-Object cmdlet, and then add it to a user account. When this cmdlet is run, <certificate password> is replaced by the password used to add the certificate.
+        $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate certificate1.cer  <certificate password>
+        Set-ADUser saradavis  -Certificates @{Add=$cert}
+        The following example shows how to add a certificate that is specified as a byte array.
+            Set-ADUser saradavis  -Certificates @{Add= [Byte[]](0xC5,0xEE,0x53,...)}
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER Enabled
+        Specifies if an account is enabled. An enabled account requires a password. This parameter sets the Enabled property for an account object. This parameter also sets the ADS_UF_ACCOUNTDISABLE flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to enable the account.
+          -Enabled $true
+    .PARAMETER HomePage
+        Specifies the URL of the home page of the object. This parameter sets the homePage property of an Active Directory object. The LDAP Display Name (ldapDisplayName) for this property is "wWWHomePage".
+        The following example shows how to set this parameter to a URL.
+          -HomePage "http://employees.contoso.com/sdavis"
+    .PARAMETER Name
+        Specifies the name of the object. This parameter sets the Name property of the Active Directory object. The LDAP Display Name (ldapDisplayName) of this property is "name". 
+        The following example shows how to set this parameter to a name string.
+          -Name "SaraDavis"
+    .PARAMETER SamAccountName
+        Specifies the Security Account Manager (SAM) account name of the user, group, computer, or service account. The maximum length of the description is 256 characters. To be compatible with older operating systems, create a SAM account name that is 20 characters or less. This parameter sets the SAMAccountName for an account object. The LDAP display name (ldapDisplayName) for this property is "sAMAccountName".
+        The following example shows how to specify this parameter.
+          -SAMAccountName "saradavis"
+        Note: If the SAMAccountName string provided, does not end with a '$', one will be appended if needed.
+    .PARAMETER ServicePrincipalNames
+        Specifies the service principal names for the account. This parameter sets the ServicePrincipalNames property of the account. The LDAP display name (ldapDisplayName) for this property is servicePrincipalName. This parameter uses the following syntax to add remove, replace or clear service principal name values. 
+        Syntax:
+        To add values:
+          -ServicePrincipalNames @{Add=value1,value2,...}
+        To remove values:
+          -ServicePrincipalNames @{Remove=value3,value4,...}
+        To replace values:
+          -ServicePrincipalNames @{Replace=value1,value2,...}
+        To clear all values:
+          -ServicePrincipalNames $null
+        You can specify more than one change by using a list separated by semicolons. For example, use the following syntax to add and remove service principal names. 
+          @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to add and remove service principal names.
+          -ServicePrincipalNames-@{Add="SQLservice\accounting.corp.contoso.com:1456"};{Remove="SQLservice\finance.corp.contoso.com:1456"}
+    .PARAMETER TrustedForDelegation
+        Specifies whether an account is trusted for Kerberos delegation. A service that runs under an account that is trusted for Kerberos delegation can assume the identity of a client requesting the service. This parameter sets the TrustedForDelegation property of an account object. This value also sets the ADS_UF_TRUSTED_FOR_DELEGATION flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0
+          $true or 1
+        The following example shows how to specify that an account is trusted for Kerberos delegation.
+          -TrustedForDelegation $true
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ValueFromPipelineByPropertyName=$true)]
         [ValidateNotNullOrEmpty()]
@@ -2957,6 +7730,368 @@ function New-ADServiceAccount {
 }
 
 function New-ADUser {
+    <#
+    .SYNOPSIS
+        Creates a new Active Directory user.
+    .PARAMETER Path
+        Specifies the X.500 path of the Organizational Unit (OU) or container where the new object is created.  
+        In many cases, a default value will be used for the Path parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          -  If none of the previous cases apply, the default value of Path will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Path will be set in the following cases:
+          - If the cmdlet is run from an Active Directory PowerShell provider drive, the parameter is set to the current path of the provider drive.
+          - If the cmdlet has a default path, this will be used.  For example: in New-ADUser, the Path parameter would default to the Users container.
+          - If the target AD LDS instance has a default naming context, the default value of Path will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Path parameter will not take any default value.
+        The following example shows how to set this parameter to an OU.
+          -Path "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com"
+        Note:  The Active Directory Provider cmdlets, such New-Item, Remove-Item, Remove-ItemProperty, Rename-Item and Set-ItemProperty also contain a Path property. However, for the provider cmdlets, the Path parameter identifies the path of the actual object and not the container as with the Active Directory cmdlets.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER OtherAttributes
+        Specifies object attribute values for attributes that are not represented by cmdlet parameters. You can set one or more parameters at the same time with this parameter. If an attribute takes more than one value, you can assign multiple values. To identify an attribute, specify the LDAPDisplayName (ldapDisplayName) defined for it in the Active Directory schema.
+        Syntax:
+        To specify a single value for an attribute:
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value}
+        To specify multiple values for an attribute
+           -OtherAttributes @{'AttributeLDAPDisplayName'=value1,value2,...}
+        You can specify values for more than one attribute by using semicolons to separate attributes.  The following syntax shows how to set values for multiple attributes:
+           -OtherAttributes @{'Attribute1LDAPDisplayName'=value; 'Attribute2LDAPDisplayName'=value1,value2;...}
+        The following examples show how to use this parameter.
+        To set the value of a custom attribute called favColors that takes a set of Unicode strings, use the following syntax: 
+           -OtherAttributes @{'favColors'="pink","purple"}
+        To set values for favColors and dateOfBirth simultaneously, use the following syntax:
+           -OtherAttributes @{'favColors'="pink","purple"; 'dateOfBirth'=" 01/01/1960"}
+    .PARAMETER Instance
+        Specifies an instance of a user object to use as a template for a new user object.
+        You can use an instance of an existing user object as a template or you can construct a new user object for template use.  You can construct a new user object using the Windows PowerShell command line or by using a script. The following examples show how to use these two methods to create user object templates.
+        Method 1: Use an existing user object as a template for a new object. To retrieve an instance of an existing user object, use a cmdlet such as Get-ADUser. Then provide this object to the Instance parameter of the New-ADUser cmdlet to create a new user object. You can override property values of the new object by setting the appropriate parameters. 
+          $userInstance = Get-ADUser -Identity "saraDavis" 
+          New-ADUser -SAMAccountName "ellenAdams"  -Instance $userInstance -DisplayName "EllenAdams"
+        Method 2: Create a new ADUser object and set the property values by using the Windows PowerShell command line interface. Then pass this object to the Instance parameter of the New-ADUser cmdlet to create the new Active Directory user object. 
+          $userInstance = new-object Microsoft.ActiveDirectory.Management.ADUser
+          $userInstance.DisplayName = "Ellen Adams"
+          New-ADUser -SAMAccountName "ellenAdams"  -Instance $userInstance
+        Note: Specified attributes are not validated, so attempting to set attributes that do not exist or cannot be set will raise an error.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Name
+        Specifies the name of the object. This parameter sets the Name property of the Active Directory object. The LDAP Display Name (ldapDisplayName) of this property is "name". 
+        The following example shows how to set this parameter to a name string.
+          -Name "SaraDavis"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER AccountExpirationDate
+        Specifies the expiration date for an account. When you set this parameter to 0, the account never expires. This parameter sets the AccountExpirationDate property of an account object. The LDAP Display name (ldapDisplayName) for this property is accountExpires.
+        Use the DateTime syntax when you specify this parameter. Time is assumed to be local time unless otherwise specified. When a time value is not specified, the time is assumed to 12:00:00 AM local time. When a date is not specified, the date is assumed to be the current date. The following examples show commonly-used syntax to specify a DateTime object.
+          "4/17/2006"
+          "Monday, April 17, 2006"
+          "2:22:45 PM"
+          "Monday, April 17, 2006 2:22:45 PM"
+        These examples specify the same date and the time without the seconds.
+          "4/17/2006 2:22 PM"
+          "Monday, April 17, 2006 2:22 PM"
+          "2:22 PM"
+        The following example shows how to specify a date and time by using the RFC1123 standard. This example defines time by using Greenwich Mean Time (GMT).
+          "Mon, 17 Apr 2006 21:22:48 GMT"
+        The following example shows how to specify a round-trip value as Coordinated Universal Time (UTC). This example represents Monday, April 17, 2006 at 2:22:48 PM UTC. 
+          "2006-04-17T14:22:48.0000000" 
+        The following example shows how to set this parameter to the date May 1, 2012 at 5 PM. 
+          -AccountExpirationDate "05/01/2012 5:00:00 PM"
+    .PARAMETER AccountNotDelegated
+        Specifies whether the security context of the user is delegated to a service. When this parameter is set to true, the security context of the account is not delegated to a service even when the service account is set as trusted for Kerberos delegation. This parameter sets the AccountNotDelegated property for an Active Directory account. This parameter also sets the ADS_UF_NOT_DELEGATED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include 
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that the security context of the account is not delegated to a service.
+          -AccountNotDelegated $true
+    .PARAMETER AccountPassword
+        Specifies a new password value for an account. This value is stored as an encrypted string.
+        The following conditions apply based on the manner in which the password parameter is used:
+        $null password is specified - No password is set and the account is disabled unless it is requested to be enabled 
+        No password is specified - No password is set and the account is disabled unless it is requested to be enabled 
+        User password is specified - Password is set and the account is disabled unless it is requested to be enabled   
+        Notes: 
+        User accounts, by default, are created without a password. If you provide a password, an attempt will be made to set that password however, this can fail due to password policy restrictions. The user account will still be created and you may use Set-ADAccountPassword to set the password on that account. In order to ensure that accounts remain secure, user accounts will never be enabled unless a valid password is set or PasswordNotRequired is set to true.  
+        The account is created if the password fails for any reason.
+        The following example shows one method to set this parameter. This command will prompt you to enter the password.
+          -AccountPassword (Read-Host -AsSecureString "AccountPassword")
+    .PARAMETER AllowReversiblePasswordEncryption
+        Specifies whether reversible password encryption is allowed for the account. This parameter sets the AllowReversiblePasswordEncryption property of the account. This parameter also sets the ADS_UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter to true.
+          -AllowReversiblePasswordEncryption $true
+    .PARAMETER CannotChangePassword
+        Specifies whether the account password can be changed. This parameter sets the CannotChangePassword property of an account. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that the account password can be changed.
+          -CannotChangePassword $false
+    .PARAMETER Certificates
+        Modifies the DER-encoded X.509v3 certificates of the account. These certificates include the public key certificates issued to this account by the Microsoft Certificate Service. This parameter sets the Certificates property of the account object. The LDAP Display Name (ldapDisplayName) for this property is "userCertificate".
+        Syntax:
+        To add values:
+          -Certificates @{Add=value1,value2,...}
+        To remove values:
+          -Certificates @{Remove=value3,value4,...}
+        To replace values:
+          -Certificates @{Replace=value1,value2,...}
+        To clear all values:
+          -Certificates $null
+        You can specify more than one operation by using a list separated by semicolons. For example, use the following syntax to add and remove Certificate values 
+          -Certificates @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to create a certificate by using the New-Object cmdlet, and then add it to a user account. When this cmdlet is run, <certificate password> is replaced by the password used to add the certificate.
+        $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate certificate1.cer  <certificate password>
+        Set-ADUser saradavis  -Certificates @{Add=$cert}
+        The following example shows how to add a certificate that is specified as a byte array.
+            Set-ADUser saradavis  -Certificates @{Add= [Byte[]](0xC5,0xEE,0x53,...)}
+    .PARAMETER ChangePasswordAtLogon
+        Specifies whether a password must be changed during the next logon attempt. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        This parameter cannot be set to $true or 1 for an account that also has the PasswordNeverExpires property set to true.
+        The following example shows how to set this parameter so that the password must be changed at logon.
+          -ChangePasswordAtLogon $true
+    .PARAMETER City
+        Specifies the user's town or city. This parameter sets the City property of a user. The LDAP display name (ldapDisplayName) of this property is "l".
+        The following example shows how set this parameter.
+          -City "Las Vegas"
+    .PARAMETER Company
+        Specifies the user's company. This parameter sets the Company property of a user object. The LDAP display name (ldapDisplayName) of this property is "company". 
+        The following example shows how to set this parameter.
+          -Company "Contoso"
+    .PARAMETER Country
+        Specifies the country or region code for the user's language of choice. This parameter sets the Country property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "c". This value is not used by Windows 2000.
+        The following example shows how set this parameter.
+          -Country "IN"
+    .PARAMETER Department
+        Specifies the user's department. This parameter sets the Department property of a user. The LDAP Display Name (ldapDisplayName) of this property is "department". 
+        The following example shows how to set this parameter.
+          -Department "Development"
+    .PARAMETER Division
+        Specifies the user's division. This parameter sets the Division property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "division". 
+        The following example shows how to set this parameter.
+          -Division "Software"
+    .PARAMETER EmailAddress
+        Specifies the user's e-mail address. This parameter sets the EmailAddress property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "mail". 
+        The following example shows how to set this parameter.
+          -EmailAddress "saradavis@contoso.com"
+    .PARAMETER EmployeeID
+        Specifies the user's employee ID. This parameter sets the EmployeeID property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "employeeID". 
+        The following example shows how to set this parameter.
+          -EmployeeID  "A123456"
+    .PARAMETER EmployeeNumber
+        Specifies the user's employee number. This parameter sets the EmployeeNumber property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "employeeNumber". 
+        The following example shows how set this parameter.
+          -EmployeeNumber "12345678"
+    .PARAMETER Enabled
+        Specifies if an account is enabled. An enabled account requires a password. This parameter sets the Enabled property for an account object. This parameter also sets the ADS_UF_ACCOUNTDISABLE flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to enable the account.
+          -Enabled $true
+    .PARAMETER Fax
+        Specifies the user's fax phone number. This parameter sets the Fax property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "facsimileTelephoneNumber". 
+        The following example shows how to set this parameter.
+          -Fax  "+1 (999) 555 1212"
+    .PARAMETER GivenName
+        Specifies the user's given name. This parameter sets the GivenName property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "givenName".
+        The following example shows how to set this parameter.
+          -givenName "Sanjay"
+    .PARAMETER HomeDirectory
+        Specifies a user's home directory. This parameter sets the HomeDirectory property of a user object. The LDAP Display Name (ldapDisplayName) for this property is "homeDirectory".
+        The following example shows how to set this parameter.
+           -HomeDirectory "\\users\saraDavisHomeDir"
+    .PARAMETER HomeDrive
+        Specifies a drive that is associated with the UNC path defined by the HomeDirectory property. The drive letter is specified as "<DriveLetter>:" where <DriveLetter> indicates the letter of the drive to associate. The <DriveLetter> must be a single, uppercase letter and the colon is required. This parameter sets the HomeDrive property of the user object. The LDAP Display Name (ldapDisplayName) for this property is "homeDrive". 
+        The following example shows how to set this parameter.
+           -HomeDrive "D:"
+    .PARAMETER HomePage
+        Specifies the URL of the home page of the object. This parameter sets the homePage property of an Active Directory object. The LDAP Display Name (ldapDisplayName) for this property is "wWWHomePage".
+        The following example shows how to set this parameter to a URL.
+          -HomePage "http://employees.contoso.com/sdavis"
+    .PARAMETER HomePhone
+        Specifies the user's home telephone number. This parameter sets the HomePhone property of a user. The LDAP Display Name (ldapDisplayName) of this property is "homePhone".
+        The following example shows how to set this parameter.
+          -HomePhone  "+1 (999) 555 1212"
+    .PARAMETER Initials
+        Specifies the initials that represent part of a user's name. You can use this value for the user's middle initial. This parameter sets the Initials property of a user. The LDAP Display Name (ldapDisplayName) of this property is "initials".
+        The following example shows how set this parameter.
+          -Initials "L"
+    .PARAMETER LogonWorkstations
+        Specifies the computers that the user can access. To specify more than one computer, create a single comma-separated list. You can identify a computer by using the Security Accounts Manager (SAM) account name (sAMAccountName) or the DNS host name of the computer. The SAM account name is the same as the NetBIOS name of the computer.
+        The LDAP display name (ldapDisplayName) for this property is "userWorkStations". 
+        The following example shows how to set this parameter by using SAMAccountName (NetBIOS name) and DNSHostName values.
+          -LogonWorkstations "saraDavisDesktop,saraDavisLapTop,projectA.corp.contoso.com"
+    .PARAMETER Manager
+        Specifies the user's manager. This parameter sets the Manager property of a user. This parameter is set by providing one of the following property values.  Note: The identifier in parentheses is the LDAP display name for the property.
+          Distinguished Name 
+            Example: CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The LDAP Display Name (ldapDisplayName) of this property is "manager".
+        The following example shows how to set this parameter.
+          -Manager saradavis
+    .PARAMETER MobilePhone
+        Specifies the user's mobile phone number. This parameter sets the MobilePhone property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "mobile".
+        The following example shows how to set this parameter.
+          -MobilePhone  "+1  (999 ) 555 1212"
+    .PARAMETER Office
+        Specifies the location of the user's office or place of business. This parameter sets the Office property of a user object. The LDAP display name (ldapDisplayName) of this property is "office".
+        The following example shows how to set this parameter.
+          -Office  "D1042"
+    .PARAMETER OfficePhone
+        Specifies the user's office telephone number. This parameter sets the OfficePhone property of a user object. The LDAP display name (ldapDisplayName) of this property is "telephoneNumber".
+        The following example shows how to set this parameter.
+          -OfficePhone  "+1 (999) 555 1212"
+    .PARAMETER Organization
+        Specifies the user's organization. This parameter sets the Organization property of a user object. The LDAP display name (ldapDisplayName) of this property is "o".
+        The following example shows how to set this parameter.
+          -Organization "Accounting"
+    .PARAMETER OtherName
+        Specifies a name in addition to a user's given name and surname, such as the user's middle name. This parameter sets the OtherName property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "middleName".
+        The following example shows how to set this parameter.
+          -OtherName  "Peter"
+    .PARAMETER PasswordNeverExpires
+        Specifies whether the password of an account can expire. This parameter sets the PasswordNeverExpires property of an account object. This parameter also sets the ADS_UF_DONT_EXPIRE_PASSWD flag of the Active Directory User Account Control attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        Note: This parameter cannot be set to $true or 1 for an account that also has the ChangePasswordAtLogon property set to true.
+        The following example shows how to set this parameter so that the password can expire.
+          -PasswordNeverExpires $false
+    .PARAMETER PasswordNotRequired
+        Specifies whether the account requires a password. A password is not required for a new account. This parameter sets the PasswordNotRequired property of an account object. 
+        The following example shows how to set this parameter to true.
+          -PasswordNotRequired $true
+    .PARAMETER POBox
+        Specifies the user's post office box number. This parameter sets the POBox property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "postOfficeBox".
+        The following example shows how to set this parameter.
+          -POBox  "25662"
+    .PARAMETER PostalCode
+        Specifies the user's postal code or zip code. This parameter sets the PostalCode property of a user. The LDAP Display Name (ldapDisplayName) of this property is "postalCode".
+        The following example shows how to set this parameter.
+          -PostalCode "28712"
+    .PARAMETER UserPrincipalName
+        Each user account has a user principal name (UPN) in the format <user>@<DNS-domain-name>. A UPN is a friendly name assigned by an administrator that is shorter than the LDAP distinguished name used by the system and easier to remember. The UPN is independent of the user object's DN, so a user object can be moved or renamed without affecting the user logon name. When logging on using a UPN, users no longer have to choose a domain from a list on the logon dialog box.
+    .PARAMETER ProfilePath
+        Specifies a path to the user's profile. This value can be a local absolute path or a Universal Naming Convention (UNC) path. This parameter sets the ProfilePath property of the user object. The LDAP display name (ldapDisplayName) for this property is "profilePath".
+        The following examples show how to set this parameter to a local path and to a UNC path.    -ProfilePath "E:\users\profiles\saraDavis"
+           -ProfilePath "\\users\profiles\saraDavis"
+    .PARAMETER SamAccountName
+        Specifies the Security Account Manager (SAM) account name of the user, group, computer, or service account. The maximum length of the description is 256 characters. To be compatible with older operating systems, create a SAM account name that is 20 characters or less. This parameter sets the SAMAccountName for an account object. The LDAP display name (ldapDisplayName) for this property is "sAMAccountName".
+        The following example shows how to specify this parameter.
+          -SAMAccountName "saradavis"
+        Note: If the string value provided is not terminated with a '$' character, the system adds one if needed.
+    .PARAMETER ScriptPath
+        Specifies a path to the user's log on script. This value can be a local absolute path or a Universal Naming Convention (UNC) path. This parameter sets the ScriptPath property of the user. The LDAP display name (ldapDisplayName) for this property is "scriptPath". 
+        The following example shows how to set this parameter.
+           -ScriptPath "\\logonScripts\saradavisLogin"
+    .PARAMETER ServicePrincipalNames
+        Specifies the service principal names for the account. This parameter sets the ServicePrincipalNames property of the account. The LDAP display name (ldapDisplayName) for this property is servicePrincipalName. This parameter uses the following syntax to add remove, replace or clear service principal name values. 
+        Syntax:
+        To add values:
+          -ServicePrincipalNames @{Add=value1,value2,...}
+        To remove values:
+          -ServicePrincipalNames @{Remove=value3,value4,...}
+        To replace values:
+          -ServicePrincipalNames @{Replace=value1,value2,...}
+        To clear all values:
+          -ServicePrincipalNames $null
+        You can specify more than one change by using a list separated by semicolons. For example, use the following syntax to add and remove service principal names. 
+          @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to add and remove service principal names.
+          -ServicePrincipalNames-@{Add="SQLservice\accounting.corp.contoso.com:1456"};{Remove="SQLservice\finance.corp.contoso.com:1456"}
+    .PARAMETER SmartcardLogonRequired
+        Specifies whether a smart card is required to logon. This parameter sets the SmartCardLoginRequired property for a user. This parameter also sets the ADS_UF_SMARTCARD_REQUIRED flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter so that a smart card is required to logon to the account.
+          -SmartCardLogonRequired $true
+    .PARAMETER State
+        Specifies the user's or Organizational Unit's state or province. This parameter sets the State property of a User or Organizational Unit object. The LDAP display name (ldapDisplayName) of this property is "st".
+        The following example shows how set this parameter.
+          -State  "Nevada"
+    .PARAMETER StreetAddress
+        Specifies the user's street address. This parameter sets the StreetAddress property of a user object. The LDAP display name (ldapDisplayName) of this property is "streetAddress".
+        The following example shows how to set this parameter.
+          -StreetAddress  "1200 Main Street"
+    .PARAMETER Surname
+        Specifies the user's last name or surname. This parameter sets the Surname property of a user object. The LDAP display name (ldapDisplayName) of this property is "sn".
+        The following example shows how to set this parameter.
+          -Surname  "Patel"
+    .PARAMETER Title
+        Specifies the user's title. This parameter sets the Title property of a user object. The LDAP display name (ldapDisplayName) of this property is "title".
+        The following example shows how to set this parameter.
+          -Title  "Manager"
+    .PARAMETER TrustedForDelegation
+        Specifies whether an account is trusted for Kerberos delegation. A service that runs under an account that is trusted for Kerberos delegation can assume the identity of a client requesting the service. This parameter sets the TrustedForDelegation property of an account object. This value also sets the ADS_UF_TRUSTED_FOR_DELEGATION flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0
+          $true or 1
+        The following example shows how to specify that an account is trusted for Kerberos delegation.
+          -TrustedForDelegation $true
+    .PARAMETER Type
+        Specifies the type of object to create. Set the Type parameter to the LDAP display name of the Active Directory Schema Class that represents the type of object that you want to create. The selected type must be a subclass of the User schema class.  If this parameter is not specified it will default to "User".
+        The following example shows how to use this parameter to create a new Active Directory InetOrgPerson object.
+          -Type "InetOrgPerson"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ValueFromPipelineByPropertyName=$true)]
         [ValidateNotNullOrEmpty()]
@@ -3492,6 +8627,82 @@ function New-ADUser {
 }
 
 function Remove-ADComputer {
+    <#
+    .SYNOPSIS
+        Removes an Active Directory computer.
+    .PARAMETER Identity
+        Specifies an Active Directory computer object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID  (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager Account Name (sAMAccountName) 
+            Example: SaraDavisDesktop
+        The cmdlet searches the default naming context or partition to find the object. If the identifier given is a DN, the partition to search will be computed from that DN. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a computer object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a computer object instance named "computerInstance".
+          -Identity   $computerInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -3517,6 +8728,96 @@ function Remove-ADComputer {
 }
 
 function Remove-ADComputerServiceAccount {
+    <#
+    .SYNOPSIS
+        Removes one or more service accounts from a computer.
+    .PARAMETER Identity
+        Specifies an Active Directory computer object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID  (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager Account Name (sAMAccountName) 
+            Example: SaraDavisDesktop
+        The cmdlet searches the default naming context or partition to find the object. If the identifier given is a DN, the partition to search will be computed from that DN. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a computer object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a computer object instance named "computerInstance".
+          -Identity   $computerInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER ServiceAccount
+        Specifies one or more Active Directory service accounts. You can identify a service account by using one of the following property values: 
+          Distinguished Name 
+            Example: CN=serviceadmin,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+           GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+           SAM Account Name (sAMAccountName) 
+            Example: serviceadmin
+        The following example shows how to specify a service account for this parameter using the SAM Account Name.
+          -ServiceAccount "serviceAdminEurope"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [Alias('Computer')]
@@ -3570,6 +8871,102 @@ function Remove-ADComputerServiceAccount {
 }
 
 function Remove-ADDomainControllerPasswordReplicationPolicy {
+    <#
+    .SYNOPSIS
+        Removes users, computers and groups from the allowed or denied list of a read-only domain controller password replication policy.
+    .PARAMETER Identity
+        Specifies an Active Directory domain controller object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute. Unless specified otherwise, these values are for the server object that represents the domain controller.
+          GUID (objectGUID)
+            Example: 768c44de-f72d-66e0-8a88-0523ca495f20 
+          IPV4Address
+            Example:157.59.132.61
+          Global IPV6Address 
+            Example: 2001:4898:0:fff:200:5efe:157.59.132.61
+          DNS Host Name (dNSHostName)
+            Example: corp-DC01.corp.contoso.com
+          Name of the server object
+            Example: corp-DC01$
+          Distinguished Name of the NTDS Settings object
+            Example: CN=NTDS Settings,CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso
+          Distinguished Name of the server object that represents the domain controller
+            Example: CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso,DC=com
+          GUID of NTDS settings object under the configuration partition
+            Example: 68adaf21-e28d-6012-bca8-320d93450ab0
+          GUID of server object under the configuration partition
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20
+          Distinguished Name of the computer object that represents the domain controller.
+            Example: CN=CORP-DC12,OU=Domain Controllers,DC=corp,DC=contoso,DC=com
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error.
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name of the NTDS Settings object.
+          -Identity "CN=NTDS Settings,CN=CORP-DC12,CN=Servers,CN=NA-CAN-QBC,CN=Sites,CN=Configuration,DC=corp,DC=contoso"
+        This example shows how to set this parameter to a domain controller object instance named "AD_DCInstance".
+          -Identity $AD_DCInstance
+    .PARAMETER AllowedList
+        Specifies the users, computers, groups, or other accounts to remove from the list of accounts allowed to replicate their passwords to this Read-only domain controller (RODC). You can specify more than one value by using a comma-separated list. To identify each user, computer, or group, use one of the following property values:
+          Distinguished name 
+              Example:  CN=SaraDavis,CN=employees,CN=Users,DC=contoso,DC=com
+          GUID  (objectGUID) 
+              Example:  599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security identifier (objectSid) 
+              Example:  S-1-5-21-3165297888-301567370-576410423-1103
+          SAM account name (sAMAccountName) 
+              Example:  saradavis
+        The following example shows how to specify a group and user by using a SAM account name and a distinguished name.
+          -AllowedList "SaraDavisGroup", "CN=SaraDavis,CN=employees,CN=Users,DC=contoso,DC=com"
+    .PARAMETER DeniedList
+        Specifies the users, computers, groups or other accounts to remove from the list of accounts denied to replicate their passwords to this Read-only domain controller (RODC). You can specify more than one value by using a comma-separated list. To identify each user, computer, group, or other account, use one of the following property values:
+          Distinguished name 
+              Example: CN=SaraDavis,CN=employees,CN=Users,DC=contoso,DC=com
+          GUID  (objectGUID) 
+              Example:  599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security identifier (objectSid) 
+              Example:  S-1-5-21-3165297888-301567370-576410423-1103
+          SAM account name  (sAMAccountName) 
+              Example:  saradavis
+        The following example shows how to specify a group and user by using a SAM account name and a distinguished name.
+          -DeniedList "SaraDavisGroup", "CN=SaraDavis,CN=employees,CN=Users,DC=contoso,DC=com"
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [Parameter(ParameterSetName='AllowedPRP')]
@@ -3605,6 +9002,64 @@ function Remove-ADDomainControllerPasswordReplicationPolicy {
 }
 
 function Remove-ADFineGrainedPasswordPolicy {
+    <#
+    .SYNOPSIS
+        Removes an Active Directory fine grained password policy.
+    .PARAMETER Identity
+        Specifies an Active Directory fine-grained password policy object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name (distinguishedName)
+            Example: CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Name (name) 
+            Example: PasswordPolicyLevel1
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a fine-grained password policy object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a fine-grained password policy object instance named "fineGrainedPasswordPolicyInstance".
+          -Identity $fineGrainedPasswordPolicyInstance
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -3626,6 +9081,96 @@ function Remove-ADFineGrainedPasswordPolicy {
 }
 
 function Remove-ADFineGrainedPasswordPolicySubject {
+    <#
+    .SYNOPSIS
+        Removes one or more users from a fine grained password policy.
+    .PARAMETER Identity
+        Specifies an Active Directory fine-grained password policy object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name (distinguishedName)
+            Example: CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Name (name) 
+            Example: PasswordPolicyLevel1
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a fine-grained password policy object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a fine-grained password policy object instance named "fineGrainedPasswordPolicyInstance".
+          -Identity $fineGrainedPasswordPolicyInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Subjects
+        Specifies one or more users or groups. To specify more than one user or group, use a comma-separated list. You can identify a user or group by one of the following property values.
+          Distinguished Name (DN)
+            Example: CN=SaraDavis,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID)
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid)
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        Note: The identifier in parentheses is the LDAP display name for the attribute.
+        You can also provide objects to this parameter directly.
+        The following example shows how to set this parameter to a list of users and groups by using a distinguished name and SAM account names.
+          -Subjects "CN=SaraDavis, CN=Users,DC=corp,DC=contoso,DC=com","donhall","saradavisreports"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(ParameterSetName='Identity')]
         [Parameter(Mandatory=$true, Position=0)]
@@ -3680,6 +9225,82 @@ function Remove-ADFineGrainedPasswordPolicySubject {
 }
 
 function Remove-ADGroup {
+    <#
+    .SYNOPSIS
+        Removes an Active Directory group.
+    .PARAMETER Identity
+        Specifies an Active Directory group object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager (SAM) Account Name (sAMAccountName) 
+            Example: saradavisreports
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a group object instance named "ADGroupInstance".
+          -Identity $ADGroupInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -3705,6 +9326,106 @@ function Remove-ADGroup {
 }
 
 function Remove-ADGroupMember {
+    <#
+    .SYNOPSIS
+        Removes one or more members from an Active Directory group.
+    .PARAMETER Identity
+        Specifies an Active Directory group object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager (SAM) Account Name (sAMAccountName) 
+            Example: saradavisreports
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a group object instance named "ADGroupInstance".
+          -Identity $ADGroupInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Members
+        Specifies a set of users, groups, and computers to remove from a group. You can identify users, groups, and computers by specifying one of the following values. Note: The identifier in parentheses is the LDAP display name.
+          Distinguished Name 
+            Example:  CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+           Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        You can also provide objects to this parameter directly.
+        The following examples show how to specify this parameter.
+        This example specifies a user and group to remove by specifying the distinguished name and the SAM Account Name property values.
+          -Members "CN=SaraDavis,CN=employees,CN=Users,DC=contoso,DC=com", "saradavisreports"
+        This example specifies a user and a group object that are defined in the current Windows PowerShell session as input for the parameter.  
+          -Members $userObject, $groupObject
+        The objects specified for this parameter are processed as Microsoft.ActiveDirectory.Management.ADPrincipal objects. Derived types, such as the following are also received by this parameter.
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+          Microsoft.ActiveDirectory.Management.ADGroup 
+        You cannot pass objects through the pipeline to this parameter.
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -3757,6 +9478,94 @@ function Remove-ADGroupMember {
 }
 
 function Remove-ADObject {
+    <#
+    .SYNOPSIS
+        Removes an Active Directory object.
+    .PARAMETER Identity
+        Specifies an Active Directory object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavis,OU=users,OU=asia,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        Derived types, such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADGroup
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+          Microsoft.ActiveDirectory.Management.ADFineGrainedPasswordPolicy
+          Microsoft.ActiveDirectory.Management.ADDomain
+        This example shows how to set this parameter to an ADObject object instance named "ADObjectInstance".
+          -Identity   $ADObjectInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Recursive
+        Specifies that the cmdlet should remove the object and any children it contains. 
+          
+        The following example shows how to specify this parameter.
+          -Recursive
+        Note: Specifying this parameter it will remove all child objects even if there are objects marked with ProtectedFromAccidentalDeletion.
+    .PARAMETER IncludeDeletedObjects
+        Specifies to retrieve deleted objects and the deactivated forward and backward links. When this parameter is specified, the cmdlet uses the following LDAP controls: 
+          Show Deleted Objects (1.2.840.113556.1.4.417)
+          Show Deactivated Links (1.2.840.113556.1.4.2065)
+        Note: If this parameter is not specified, the cmdlet will not return or operate on deleted objects.
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -3807,6 +9616,83 @@ function Remove-ADObject {
 }
 
 function Remove-ADOrganizationalUnit {
+    <#
+    .SYNOPSIS
+        Removes an Active Directory organizational unit.
+    .PARAMETER Identity
+        Specifies the identity of an Active Directory organizational unit object. The parameter accepts the following identity formats. The identifier in parentheses is the LDAP display name for the attribute that contains the identity.
+          Distinguished Name 
+            Example:  OU=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "OU=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an organizational unit object instance named "OUinstance".
+          -Identity   $OUInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Recursive
+        Specifies that the cmdlet remove the organizational unit and any child items it contains. You must specify this parameter to remove an organizational unit (OU) that is not empty.
+        Note: Specifying this parameter it will remove all child objects under an OU that has been marked with ProtectedFromAccidentalDeletion.
+        The following example shows how to specify this parameter.
+          -Recursive
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -3848,6 +9734,102 @@ function Remove-ADOrganizationalUnit {
 }
 
 function Remove-ADPrincipalGroupMembership {
+    <#
+    .SYNOPSIS
+        Removes a member from one or more Active Directory groups.
+    .PARAMETER Identity
+        Specifies an Active Directory principal object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=SaraDavis,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        Derived types, such as the following are also accepted:
+          - Microsoft.ActiveDirectory.Management.ADGroup
+          - Microsoft.ActiveDirectory.Management.ADUser
+          - Microsoft.ActiveDirectory.Management.ADComputer
+          - Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a principal object instance named "principalInstance".
+          -Identity $principalInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER MemberOf
+        Specifies the Active Directory groups to add a user, computer, or group to as a member. You can identify a group by providing one of the following values. Note: The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavisreports,CN=europe,CN=users,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager (SAM) Account Name (sAMAccountName) 
+            Example: saradavisreports
+        If you are specifying more than one group, use commas to separate the groups in the list.
+        The following example shows how to specify this parameter by using SAM account name values.
+          -MemberOf "SaraDavisGroup", "JohnSmithGroup"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -3900,6 +9882,83 @@ function Remove-ADPrincipalGroupMembership {
 }
 
 function Remove-ADServiceAccount {
+    <#
+    .SYNOPSIS
+        Remove an Active Directory service account.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: WebAccount$
+          
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+         This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "AccountInstance".
+          -Identity   $AccountInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -3925,6 +9984,82 @@ function Remove-ADServiceAccount {
 }
 
 function Remove-ADUser {
+    <#
+    .SYNOPSIS
+        Removes an Active Directory user.
+    .PARAMETER Identity
+        Specifies an Active Directory user object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM account name  (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a user object instance named "userInstance".
+          -Identity   $userInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -3950,6 +10085,89 @@ function Remove-ADUser {
 }
 
 function Rename-ADObject {
+    <#
+    .SYNOPSIS
+        Changes the name of an Active Directory object.
+    .PARAMETER NewName
+        Specifies the new name of the object. This parameter sets the Name property of the Active Directory object. The LDAP Display Name (ldapDisplayName) of this property is "name".
+        The following example shows how to set this parameter to a name string.
+          -NewName "SaraDavis"
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Identity
+        Specifies an Active Directory object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavis,OU=users,OU=asia,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        Derived types, such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADGroup
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+          Microsoft.ActiveDirectory.Management.ADFineGrainedPasswordPolicy
+          Microsoft.ActiveDirectory.Management.ADDomain
+        This example shows how to set this parameter to an ADObject object instance named "ADObjectInstance".
+          -Identity   $ADObjectInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(Mandatory=$true, Position=1)]
         [ValidateNotNullOrEmpty()]
@@ -3983,6 +10201,39 @@ function Rename-ADObject {
 }
 
 function Reset-ADServiceAccountPassword {
+    <#
+    .SYNOPSIS
+        Resets the service account password for a computer.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: WebAccount$
+          
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+         This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "AccountInstance".
+          -Identity   $AccountInstance
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -3995,6 +10246,93 @@ function Reset-ADServiceAccountPassword {
 }
 
 function Restore-ADObject {
+    <#
+    .SYNOPSIS
+        Restores an Active Directory object.
+    .PARAMETER Identity
+        Specifies an Active Directory object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavis,OU=users,OU=asia,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        Derived types, such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADGroup
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+          Microsoft.ActiveDirectory.Management.ADFineGrainedPasswordPolicy
+          Microsoft.ActiveDirectory.Management.ADDomain
+        This example shows how to set this parameter to an ADObject object instance named "ADObjectInstance".
+          -Identity   $ADObjectInstance
+    .PARAMETER NewName
+        Specifies the new name of the object. This parameter sets the Name property of the Active Directory object. The LDAP Display Name (ldapDisplayName) of this property is "name".
+        The following example shows how to set this parameter to a name string.
+          -NewName "SaraDavis"
+    .PARAMETER TargetPath
+        Specifies the new location for the object. This location must be the path to a container or organizational unit.
+        The following example shows how to specify a target path by providing the distinguished name.
+          -TargetPath "ou=sales,dc=corp,dc=contoso,dc=com"
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -4031,6 +10369,156 @@ function Restore-ADObject {
 }
 
 function Search-ADAccount {
+    <#
+    .SYNOPSIS
+        Gets Active Directory user, computer, or service accounts.
+    .PARAMETER SearchBase
+        Specifies an Active Directory path to search under. 
+        When you run a cmdlet from an Active Directory provider drive, the default value of this parameter is the current path of the drive.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD DS target, the default value of this parameter is the default naming context of the target domain.
+        When you run a cmdlet outside of an Active Directory provider drive against an AD LDS target, the default value is the default naming context of the target LDS instance if one has been specified by setting the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.  If no default naming context has been specified for the target AD LDS instance, then this parameter has no default value.
+        The following example shows how to set this parameter to search under an OU.
+          -SearchBase "ou=mfg,dc=noam,dc=corp,dc=contoso,dc=com" 
+        When the value of the SearchBase parameter is set to an empty string and you are connected to a GC port, all partitions will be searched. If the value of the SearchBase parameter is set to an empty string and you are not connected to a GC port, an error will be thrown.
+        The following example shows how to set this parameter to an empty string.   -SearchBase ""
+    .PARAMETER SearchScope
+        Specifies the scope of an Active Directory search. Possible values for this parameter are:
+          Base or 0
+          OneLevel or 1
+          Subtree or 2
+        A Base query searches only the current path or object. A OneLevel query searches the immediate children of that path or object. A Subtree query searches the current path or object and all children of that path or object.
+        The following example shows how to set this parameter to a subtree search.
+          -SearchScope Subtree
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER ResultPageSize
+        Specifies the number of objects to include in one page for an Active Directory Domain Services query. 
+        The default is 256 objects per page. 
+        The following example shows how to set this parameter.
+          -ResultPageSize 500
+    .PARAMETER ResultSetSize
+        Specifies the maximum number of objects to return for an Active Directory Domain Services query. If you want to receive all of the objects, set this parameter to $null (null value). You can use Ctrl+c to stop the query and return of objects. 
+        The default is $null. 
+        The following example shows how to set this parameter so that you receive all of the returned objects.
+          -ResultSetSize $null
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER AccountDisabled
+        Specifies a search for accounts that are disabled. An account is disabled when the ADAccount Enabled property is set to false. 
+        The following example shows how to specify the AccountDisabled parameter.
+          -AccountDisabled
+    .PARAMETER AccountExpired
+        Specifies a search for accounts that are expired. An account is expired when the ADAccount AccountExpirationDate property is set to a time in the past. The LDAP Display Name (ldapDisplayName) for the AccountExpirationDate property is accountExpires.
+        The following example shows how to specify the AccountExpired parameter.
+          -AccountExpired
+    .PARAMETER AccountExpiring
+        Specifies a search for accounts that are expiring in a given time period or by a specified time. To specify a time period, use the AccountExpiring parameter with the TimeSpan parameter. To specify a specific time, use the AccountExpiring parameter with the DateTime parameter. 
+        The following example shows how to specify a search for accounts that expire in the next 10 days.
+          -AccountExpiring -TimeSpan 10
+        The following example shows how to specify a search for accounts that expire before June 18, 2012 at 2:00 AM.
+          -AccountExpiring -DateTime "6/18/2012 2:00:00 AM"
+    .PARAMETER AccountInactive
+        Specifies to search for accounts that have not logged in within a given time period or since a specified time. To specify a time period, use the TimeSpan parameter. To specify a specific time, use the DateTime parameter. Note that this attribute is only used when the domain is in Windows Server 2003 Domain Functional Level, so this parameter will only work in that mode.
+        The following example shows how to set this parameter to search for accounts that have been inactive for the past 10 days.
+          -AccountInactive -TimeSpan 10
+        The following example shows how to set this parameter to search for accounts that have been inactive since July 16, 2008 at 12:00 AM.
+          -AccountInactive  -DateTime "7/16/2008"
+    .PARAMETER ComputersOnly
+        Specifies a search of only computer accounts.
+        The following example shows how to specify this parameter.
+          -ComputersOnly
+    .PARAMETER DateTime
+        Specifies a distinct time value for Search-ADAccount parameters such as AccountExpiring, AccountInactive, and PasswordExpiring.
+        Time is assumed to be local time unless otherwise specified. When a time value is not specified, the time is assumed to midnight local time. When a date is not specified, the date is assumed to be the current date. The following examples show commonly-used syntax to specify a DateTime object.
+          "4/17/2006"
+          "Monday, April 17, 2006"
+          "2:22:45 PM"
+          "Monday, April 17, 2006 2:22:45 PM"
+        These examples specify the same date and the time without the seconds.
+          "4/17/2006 2:22 PM"
+          "Monday, April 17, 2006 2:22 PM"
+          "2:22 PM"
+        The following example shows how to specify a date and time by using the RFC1123 standard. This example defines time by using Greenwich Mean Time (GMT).
+          "Mon, 17 Apr 2006 21:22:48 GMT"
+        The following example shows how to specify a value as Coordinated Universal Time (UTC). This example represents Monday, April 17, 2006 at 2:22:48 PM UTC.
+          "2000-04-17T14:22:48.0000000" 
+        The following example shows how to set the AccountExpiring parameter to a DateTime value of June 18, 2012 at 2:00:00 AM.
+          -AccountExpiring -DateTime "6/18/2012 2:00:00 AM"
+    .PARAMETER LockedOut
+        Specifies a search for accounts that are locked out.
+        The following example shows how to specify a search for accounts that are locked out.
+          -LockedOut
+    .PARAMETER PasswordExpired
+        Specifies a search for accounts that have an expired password. 
+        The following example shows how to specify this parameter.
+          -PasswordExpired
+    .PARAMETER PasswordNeverExpires
+        Specifies a search for accounts that have a password that does not expire.
+        The following example shows how to specify the PasswordNeverExpires parameter.
+           -PasswordNeverExpires
+    .PARAMETER TimeSpan
+        Sets a time interval. This parameter is used to specify a time value for Search-ADAccount parameters such as AccountExpiring.
+        Specify the time interval in the following format.
+           [-]D.H:M:S.F
+            where:
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        Note: Time values must be between the following values: -10675199:02:48:05.4775808 and 10675199:02:48:05.4775807.
+        The following examples show how to set this parameter.
+          Set the time to 2 days
+            -TimeSpan "2"
+          Set the time span to the previous 2 days
+           -TimeSpan "-2"
+          Set the time to 4 hours
+            -TimeSpan "4:00"
+        For example, to search for all accounts that are expiring in 10 days, specify the AccountExpiring and TimeSpan parameters as follows.
+          -AccountExpiring -TimeSpan "10"
+    .PARAMETER UsersOnly
+        Specifies a search for user accounts only. 
+        The following example shows how to specify this parameter.
+          -UsersOnly
+    #>
+    
+    [CmdletBinding()]
     param (
         [ValidateNotNull()]
         [string]
@@ -4193,6 +10681,162 @@ function Search-ADAccount {
 }
 
 function Set-ADAccountControl {
+    <#
+    .SYNOPSIS
+        Modifies user account control (UAC) values for an Active Directory account.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavis ,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an account object instance. 
+        Derived types such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "accountInstance".
+          -Identity $accountInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER AllowReversiblePasswordEncryption
+        Specifies whether reversible password encryption is allowed for the account. This parameter sets the AllowReversiblePasswordEncryption property of the account. This parameter also sets the ADS_UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter to true.
+          -AllowReversiblePasswordEncryption $true
+    .PARAMETER TrustedForDelegation
+        Specifies whether an account is trusted for Kerberos delegation. A service that runs under an account that is trusted for Kerberos delegation can assume the identity of a client requesting the service. This parameter sets the TrustedForDelegation property of an account object. This value also sets the ADS_UF_TRUSTED_FOR_DELEGATION flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0
+          $true or 1
+        The following example shows how to specify that an account is trusted for Kerberos delegation.
+          -TrustedForDelegation $true
+    .PARAMETER PasswordNeverExpires
+        Specifies whether the password of an account can expire. This parameter sets the PasswordNeverExpires property of an account object. This parameter also sets the ADS_UF_DONT_EXPIRE_PASSWD flag of the Active Directory User Account Control attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        Note: This parameter cannot be set to $true or 1 for an account that also has the ChangePasswordAtLogon property set to true.
+        The following example shows how to set this parameter so that the password can expire.
+          -PasswordNeverExpires $false
+    .PARAMETER AccountNotDelegated
+        Specifies whether the security context of the user is delegated to a service. When this parameter is set to true, the security context of the account is not delegated to a service even when the service account is set as trusted for Kerberos delegation. This parameter sets the AccountNotDelegated property for an Active Directory account. This parameter also sets the ADS_UF_NOT_DELEGATED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include 
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that the security context of the account is not delegated to a service.
+          -AccountNotDelegated $true
+    .PARAMETER DoesNotRequirePreAuth
+        Specifies whether Kerberos pre-authentication is required to logon using the user or computer account. This parameter sets the ADS_UF_DONT_REQUIRE_PREAUTH flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter so that Kerberos pre-authentication is required to logon to the account.
+          -DoesNotRequirePreAuth $false
+    .PARAMETER TrustedToAuthForDelegation
+        Specifies whether an account is enabled for delegation. When this parameter is set to true, a service running under such an account can impersonate a client on other remote servers on the network. This parameter sets the ADS_UF_TRUSTED_TO_AUTHENTICATE_FOR_DELEGATION flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter so that the account is enabled for delegation.
+          -TrustedToAuthForDelegation $true
+    .PARAMETER UseDESKeyOnly
+        Specifies whether an account is restricted to use only Data Encryption Standard (DES) encryption types for keys. This parameter sets the 
+        ADS_UF_USE_DES_KEY_ONLY flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0
+          $true or 1 
+         
+        The following example shows how to set this parameter so that an account must use DES encryption types for keys.
+          -UseDESKeyOnly $true
+    .PARAMETER PasswordNotRequired
+        Specifies whether the account requires a password. This parameter sets the PasswordNotRequired property of an account, such as a user or computer account. This parameter also sets the ADS_UF_PASSWD_NOTREQD flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0 
+          $true or 1 
+        The following example shows how to set this parameter so that as password is not required for the account.
+          -PasswordNotRequired $true
+    .PARAMETER CannotChangePassword
+        Modifies the ability of an account to change its password. To disallow password change by the account set this to $true.. This parameter changes the Boolean value of the CannotChangePassword property of an account.
+        The following example shows how to specify the PasswordCannotChange parameter.
+          -CannotChangePassword $false
+    .PARAMETER Enabled
+        Specifies if an account is enabled. An enabled account requires a password. This parameter sets the Enabled property for an account object. This parameter also sets the ADS_UF_ACCOUNTDISABLE flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to enable the account.
+          -Enabled $true
+    .PARAMETER HomedirRequired
+        Specifies whether a home directory is required for the account. This parameter sets the ADS_UF_HOMEDIR_REQUIRED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that a home directory is not required for the account.
+          -HomedirRequired $false
+    .PARAMETER MNSLogonAccount
+        Specifies whether the account is a Majority Node Set (MNS) logon account. This parameter also sets the ADS_UF_MNS_LOGON_ACCOUNT flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        You can use MNS logon accounts to configure a multi-node cluster without using a shared disk drive.
+        The following example shows how to set this parameter to identify this account as an MNS account.
+          -MSNLogonAccount $true
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -4338,6 +10982,127 @@ function Set-ADAccountControl {
 }
 
 function Set-ADAccountExpiration {
+    <#
+    .SYNOPSIS
+        Sets the expiration date for an Active Directory account.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavis ,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an account object instance. 
+        Derived types such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "accountInstance".
+          -Identity $accountInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER TimeSpan
+        Specifies a time interval that begins at the current time. The account expires at the end of the time interval.
+        Specify the time interval in the following format.
+           [-]D.H:M:S.F
+            where:
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        Note: Time values must be between the following values: 
+        -10675199:02:48:05.4775808 and 10675199:02:48:05.4775807.
+        The following examples show how to set this parameter.
+         Set the time to 2 days
+              -TimeSpan "2"
+        Set the time to 4 hours
+              -TimeSpan "4:00"
+         Set the time to 5 minutes
+              -TimeSpan "0:5"
+         Set the time to 45 seconds
+              -TimeSpan "0:0:45"
+        For example, to set an account to expire in 10 days, specify the TimeSpan parameter as follows.
+           -TimeSpan "10"
+    .PARAMETER DateTime
+        Species the expiration time for the account by using a DateTime value. The following examples show commonly-used syntax to specify a DateTime value. Time is assumed to be local time unless otherwise specified. When a time value is not specified, the time is assumed to 12:00:00 AM local time. When a date is not specified, the date is assumed to be the current date.
+          "4/17/2006"
+          "Monday, April 17, 2006"
+          "2:22:45 PM"
+          "Monday, April 17, 2006 2:22:45 PM"
+        These examples specify the same date and the time without the seconds.
+          "4/17/2006 2:22 PM"
+          "Monday, April 17, 2006 2:22 PM"
+          "2:22 PM"
+        The following example shows how to specify a date and time by using the RFC1123 standard. This example defines time by using Greenwich Mean Time (GMT).
+          "Mon, 17 Apr 2006 21:22:48 GMT"
+        The following example shows how to specify a round-trip value as Coordinated Universal Time (UTC). This example represents Monday, April 17, 2006 at 2:22:48 PM UTC.
+          "2000-04-17T14:22:48.0000000" 
+        The following example shows how to set the DateTime parameter to June 18, 2012 at 2:00:00 AM.
+          -DateTime "6/18/2012 2:00:00 AM"
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -4397,6 +11162,96 @@ function Set-ADAccountExpiration {
 }
 
 function Set-ADAccountPassword {
+    <#
+    .SYNOPSIS
+        Modifies the password of an Active Directory account.
+    .PARAMETER Identity
+        Specifies an Active Directory user object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM account name  (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a user object instance named "userInstance".
+          -Identity   $userInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Reset
+        Specifies to reset the password on an account. When you use this parameter, you must set the NewPassword parameter. You do not need to specify the OldPassword parameter.
+        The following example shows how to use this parameter to set a new password. This command will prompt you then wait for a password.
+          -Reset -NewPassword (Read-Host -AsSecureString "New Password")
+    .PARAMETER OldPassword
+        Specifies the most recent password value. This value is processed as a encrypted string.
+        The following example shows how to set this parameter. This command will prompt you and wait for a password.
+         -OldPassword  (Read-Host -AsSecureString "Old Password")
+    .PARAMETER NewPassword
+        Specifies a new password value. This value is stored as an encrypted string.
+        The following example shows how to set this parameter. This command will prompt you and wait for a password.
+          -NewPassword (Read-Host -AsSecureString "New Password")
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -4461,6 +11316,297 @@ function Set-ADAccountPassword {
 }
 
 function Set-ADComputer {
+    <#
+    .SYNOPSIS
+        Modifies an Active Directory computer object.
+    .PARAMETER Add
+        Specifies values to add to an object property. Use this parameter to add one or more values to a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can specify multiple values to a property by specifying a comma-separated list of values and more than one property by separating them using a semicolon.. The format for this parameter is 
+           -Add @{Attribute1LDAPDisplayName=value1, value2, ...;   Attribute2LDAPDisplayName=value1, value2, ...; AttributeNLDAPDisplayName=value1, value2, ...}
+        For example, if you want to remove the value "555-222-2222" and add the values "555-222-1111" and "555-222-3333" to Phone-Office-Other attribute (LDAP display name 'otherTelephone'), and add the value "555-222-9999" to Phone-Mobile-Other (LDAP display name 'otherMobile'), set the Add and Remove parameters as follows.
+          -Add @{otherTelephone='555-222-1111', '555-222-3333'; otherMobile='555-222-9999' } -Remove @{otherTelephone='555-222-2222'}
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+    .PARAMETER Remove
+        Specifies that the cmdlet remove values of an object property. Use this parameter to remove one or more values of a property that cannot be modified using a cmdlet parameter. To remove an object property, you must use the LDAP display name. You can remove more than one property by specifying a semicolon-separated list. The format for this parameter is 
+          -Remove @{Attribute1LDAPDisplayName=value[];   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to add the values blue and green and remove the value pink from a property with a LDAP display name of FavColors, set the Add and Remove parameters as follows.
+          -Add @{FavColors=Blue,Green} -Remove {FavColors=Pink}
+        When you use the Add, Remove, Replace and Clear parameters together, the parameters will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Replace
+        Specifies values for an object property that will replace the current values. Use this parameter to replace one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Replace @{Attribute1LDAPDisplayName=value[],   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to replace the value "555-222-2222" with the values "555-222-1111" for Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Replace parameter as follows.
+          -Replace @{otherTelephone='555-222-2222', '555-222-1111'}
+        When you use the Add, Remove, Replace  and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Clear
+        Specifies an array of object properties that will be cleared in the directory. Use this parameter to clear one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Clear Attribute1LDAPDisplayName, Attribute2LDAPDisplayName
+        For example, if you want to clear the value for the Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Clear parameter as follows.
+          -Clear otherTelephone
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Instance
+        Specifies a modified copy of a computer object to use to update the actual Active Directory computer object. When this parameter is used, any modifications made to the modified copy of the object are also made to the corresponding Active Directory object. The cmdlet only updates the object properties that have changed.
+        The Instance parameter can only update computer objects that have been retrieved by using the Get-ADComputer cmdlet. When you specify the Instance parameter, you cannot specify other parameters that set properties on the object.
+        The following is an example of how to use the Get-ADComputer cmdlet to retrieve an instance of the ADComputer object. The object is modified by using the Windows PowerShell command line. Then the Set-ADComputer cmdlet saves the changes to the Active Directory object.
+        Step 1: Retrieve a local instance of the object.
+            $computerInstance = Get-ADComputer  -Identity saraDavisDesktop
+        Step 2: Modify one or more properties of the object instance.
+            $computerInstance.Description = "Sara Davis Computer"
+        Step3: Save your changes to saraDavisDesktop.
+            Set-ADComputer -Instance $computerInstance
+    .PARAMETER Identity
+        Specifies an Active Directory computer object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID  (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager Account Name (sAMAccountName) 
+            Example: SaraDavisDesktop
+        The cmdlet searches the default naming context or partition to find the object. If the identifier given is a DN, the partition to search will be computed from that DN. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a computer object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saraDavisDesktop,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a computer object instance named "computerInstance".
+          -Identity   $computerInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER AccountExpirationDate
+        Specifies the expiration date for an account. When you set this parameter to 0, the account never expires. This parameter sets the AccountExpirationDate property of an account object. The LDAP Display name (ldapDisplayName) for this property is accountExpires.
+        Use the DateTime syntax when you specify this parameter. Time is assumed to be local time unless otherwise specified. When a time value is not specified, the time is assumed to 12:00:00 AM local time. When a date is not specified, the date is assumed to be the current date. The following examples show commonly-used syntax to specify a DateTime object.
+          "4/17/2006"
+          "Monday, April 17, 2006"
+          "2:22:45 PM"
+          "Monday, April 17, 2006 2:22:45 PM"
+        These examples specify the same date and the time without the seconds.
+          "4/17/2006 2:22 PM"
+          "Monday, April 17, 2006 2:22 PM"
+          "2:22 PM"
+        The following example shows how to specify a date and time by using the RFC1123 standard. This example defines time by using Greenwich Mean Time (GMT).
+          "Mon, 17 Apr 2006 21:22:48 GMT"
+        The following example shows how to specify a round-trip value as Coordinated Universal Time (UTC). This example represents Monday, April 17, 2006 at 2:22:48 PM UTC. 
+          "2006-04-17T14:22:48.0000000" 
+        The following example shows how to set this parameter to the date May 1, 2012 at 5 PM. 
+          -AccountExpirationDate "05/01/2012 5:00:00 PM"
+    .PARAMETER AccountNotDelegated
+        Specifies whether the security context of the user is delegated to a service. When this parameter is set to true, the security context of the account is not delegated to a service even when the service account is set as trusted for Kerberos delegation. This parameter sets the AccountNotDelegated property for an Active Directory account. This parameter also sets the ADS_UF_NOT_DELEGATED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include 
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that the security context of the account is not delegated to a service.
+          -AccountNotDelegated $true
+    .PARAMETER AllowReversiblePasswordEncryption
+        Specifies whether reversible password encryption is allowed for the account. This parameter sets the AllowReversiblePasswordEncryption property of the account. This parameter also sets the ADS_UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter to true.
+          -AllowReversiblePasswordEncryption $true
+    .PARAMETER CannotChangePassword
+        Specifies whether the account password can be changed. This parameter sets the CannotChangePassword property of an account. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that the account password can be changed.
+          -CannotChangePassword $false
+    .PARAMETER Certificates
+        Modifies the DER-encoded X.509v3 certificates of the account. These certificates include the public key certificates issued to this account by the Microsoft Certificate Service. This parameter sets the Certificates property of the account object. The LDAP Display Name (ldapDisplayName) for this property is "userCertificate".
+        Syntax:
+        To add values:
+          -Certificates @{Add=value1,value2,...}
+        To remove values:
+          -Certificates @{Remove=value3,value4,...}
+        To replace values:
+          -Certificates @{Replace=value1,value2,...}
+        To clear all values:
+          -Certificates $null
+        You can specify more than one operation by using a list separated by semicolons. For example, use the following syntax to add and remove Certificate values 
+          -Certificates @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to create a certificate by using the New-Object cmdlet, and then add it to a user account. When this cmdlet is run, <certificate password> is replaced by the password used to add the certificate.
+        $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate certificate1.cer  <certificate password>
+        Set-ADUser saradavis  -Certificates @{Add=$cert}
+        The following example shows how to add a certificate that is specified as a byte array.
+            Set-ADUser saradavis  -Certificates @{Add= [Byte[]](0xC5,0xEE,0x53,...)}
+    .PARAMETER ChangePasswordAtLogon
+        Specifies whether a password must be changed during the next logon attempt. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        This parameter cannot be set to $true or 1 for an account that also has the PasswordNeverExpires property set to true.
+        The following example shows how to set this parameter so that the password must be changed at logon.
+          -ChangePasswordAtLogon $true
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER DNSHostName
+        Specifies the fully qualified domain name (FQDN) of the computer. This parameter sets the DNSHostName property for a computer object. The LDAP Display Name for this property is "dNSHostName". 
+        The following example shows how to set this parameter to a FQDN.
+          -DNSHostName "corp.contoso.com"
+    .PARAMETER Enabled
+        Specifies if an account is enabled. An enabled account requires a password. This parameter sets the Enabled property for an account object. This parameter also sets the ADS_UF_ACCOUNTDISABLE flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to enable the account.
+          -Enabled $true
+    .PARAMETER HomePage
+        Specifies the URL of the home page of the object. This parameter sets the homePage property of an Active Directory object. The LDAP Display Name (ldapDisplayName) for this property is "wWWHomePage".
+        The following example shows how to set this parameter to a URL.
+          -HomePage "http://employees.contoso.com/sdavis"
+    .PARAMETER Location
+        Specifies the location of the computer, such as an office number. This parameter sets the Location property of a computer. The LDAP display name (ldapDisplayName) of this property is "location". 
+        The following example shows how to set this parameter.
+          -Location  "Test Lab A"
+    .PARAMETER ManagedBy
+        Specifies the user or group that manages the object by providing one of the following property values. Note: The identifier in parentheses is the LDAP display name for the property.
+          Distinguished Name 
+            Example:  CN=SaraDavis,OU=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        This parameter sets the Active Directory attribute with an LDAP Display Name of "managedBy". 
+        The following example shows how to specify this parameter.
+          -ManagedBy ContosoAdmins
+    .PARAMETER OperatingSystem
+        Specifies an operating system name. This parameter sets the OperatingSystem property of the computer object. The LDAP Display Name (ldapDisplayName) for this property is "operatingSystem". 
+        The following example shows how to set this parameter.
+           -OperatingSystem "Windows Server 2008 Enterprise"
+    .PARAMETER OperatingSystemHotfix
+        Specifies an operating system hotfix name. This parameter sets the operatingSystemHotfix property of the computer object. The LDAP display name for this property is "operatingSystemHotfix".
+        The following example shows how to specify this parameter.
+           -operatingSystemHotfix "523466"
+    .PARAMETER OperatingSystemServicePack
+        Specifies the name of an operating system service pack. This parameter sets the OperatingSystemServicePack property of the computer object. The LDAP display name (ldapDisplayName) for this property is "operatingSystemServicePack". 
+        The following example shows how to specify this parameter.
+           -OperatingSystemServicePack "Service Pack 2"
+    .PARAMETER OperatingSystemVersion
+        Specifies an operating system version. This parameter sets the OperatingSystemVersion property of the computer object. The LDAP display name (ldapDisplayName) for this property is "operatingSystemVersion". 
+        The following example shows how to specify this parameter.
+           -OperatingSystemVersion "6.0 (6001)"
+    .PARAMETER PasswordNeverExpires
+        Specifies whether the password of an account can expire. This parameter sets the PasswordNeverExpires property of an account object. This parameter also sets the ADS_UF_DONT_EXPIRE_PASSWD flag of the Active Directory User Account Control attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        Note: This parameter cannot be set to $true or 1 for an account that also has the ChangePasswordAtLogon property set to true.
+        The following example shows how to set this parameter so that the password can expire.
+          -PasswordNeverExpires $false
+    .PARAMETER PasswordNotRequired
+        Specifies whether the account requires a password. This parameter sets the PasswordNotRequired property of an account, such as a user or computer account. This parameter also sets the ADS_UF_PASSWD_NOTREQD flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0 
+          $true or 1 
+        The following example shows how to set this parameter so that as password is not required for the account.
+          -PasswordNotRequired $true
+    .PARAMETER SAMAccountName
+        Specifies the Security Account Manager (SAM) account name of the user, group, computer, or service account. The maximum length of the description is 256 characters. To be compatible with older operating systems, create a SAM account name that is 20 characters or less. This parameter sets the SAMAccountName for an account object. The LDAP display name (ldapDisplayName) for this property is "sAMAccountName".
+        The following example shows how to specify this parameter.
+          -SAMAccountName "saradavis"
+        Note: If the string value provided is not terminated with a '$' character, the system adds one if needed.
+    .PARAMETER ServicePrincipalNames
+        Specifies the service principal names for the account. This parameter sets the ServicePrincipalNames property of the account. The LDAP display name (ldapDisplayName) for this property is servicePrincipalName. This parameter uses the following syntax to add remove, replace or clear service principal name values. 
+        Syntax:
+        To add values:
+          -ServicePrincipalNames @{Add=value1,value2,...}
+        To remove values:
+          -ServicePrincipalNames @{Remove=value3,value4,...}
+        To replace values:
+          -ServicePrincipalNames @{Replace=value1,value2,...}
+        To clear all values:
+          -ServicePrincipalNames $null
+        You can specify more than one change by using a list separated by semicolons. For example, use the following syntax to add and remove service principal names. 
+          @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to add and remove service principal names.
+          -ServicePrincipalNames-@{Add="SQLservice\accounting.corp.contoso.com:1456"};{Remove="SQLservice\finance.corp.contoso.com:1456"}
+    .PARAMETER TrustedForDelegation
+        Specifies whether an account is trusted for Kerberos delegation. A service that runs under an account that is trusted for Kerberos delegation can assume the identity of a client requesting the service. This parameter sets the TrustedForDelegation property of an account object. This value also sets the ADS_UF_TRUSTED_FOR_DELEGATION flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0
+          $true or 1
+        The following example shows how to specify that an account is trusted for Kerberos delegation.
+          -TrustedForDelegation $true
+    .PARAMETER UserPrincipalName
+        Each user account has a user principal name (UPN) in the format <user>@<DNS-domain-name>. A UPN is a friendly name assigned by an administrator that is shorter than the LDAP distinguished name used by the system and easier to remember. The UPN is independent of the user object's DN, so a user object can be moved or renamed without affecting the user logon name. When logging on using a UPN, users no longer have to choose a domain from a list on the logon dialog box.
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity')]
         [ValidateNotNullOrEmpty()]
@@ -4753,6 +11899,186 @@ function Set-ADComputer {
 }
 
 function Set-ADDefaultDomainPasswordPolicy {
+    <#
+    .SYNOPSIS
+        Modifies the default password policy for an Active Directory domain.
+    .PARAMETER Identity
+        Specifies an Active Directory domain object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute. All values are for the domainDNS object that represents the domain. 
+          Distinguished Name
+            Example: DC=redmond,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID)
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid)
+            Example: S-1-5-21-3165297888-301567370-
+          DNS domain name 
+            Example: redmond.corp.contoso.com
+          NetBIOS domain name 
+            Example: redmond
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a domain object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "DC=redmond,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a domain object instance named "domainInstance".
+          -Identity   $domainInstance
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER ComplexityEnabled
+        Specifies whether password complexity is enabled for the password policy. If enabled, the password must contain two of the following three character types: 
+          Uppercase characters (A, B, C, D, E, ...)
+          Lowercase characters (a, b, c, d, e, ...)
+          Numerals (0, 1, 2, 3, ...) 
+        This parameter sets the ComplexityEnabled property of a password policy. 
+        Possible values for this parameter include:
+          $false or 0 - Disables password complexity
+          $true or 1 - Enables password complexity
+        The following example shows how to set this parameter to true.
+          -ComplexityEnabled $true
+    .PARAMETER LockoutDuration
+        Specifies the length of time that an account is locked after the number of failed login attempts exceeds the lockout threshold. You cannot login to an account that is locked until the lockout duration time period has expired. This parameter sets the lockoutDuration property of a password policy object. The LDAP display name (ldapDisplayName) of this property is "msDS-LockoutDuration".
+        The lockout duration must be greater than or equal to the lockout observation time for a password policy. Use the LockOutObservationWindow parameter to set the lockout observation time. 
+        Specify the lockout duration time interval in the following format.
+            [-]D.H:M:S.F
+            where:
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        The following examples show how to set this parameter.
+          Set the time to 2 days
+            -LockoutDuration "2"
+          Set the time to 4 hours
+            -LockoutDuration "4:00"
+          Set the time to 5 minutes
+            -LockoutDuration "0:5"
+          Set the time to 45 seconds
+            LockoutDuration "0:0:45"
+    .PARAMETER LockoutObservationWindow
+        Specifies the maximum time interval between two unsuccessful login attempts before the number of unsuccessful login attempts is reset to 0. An account is locked when the number of unsuccessful login attempts exceeds the password policy lockout threshold. This parameter sets the lockoutObservationWindow property of a password policy object. The LDAP Display Name (ldapDisplayName) of this property is "msDS-lockoutObservationWindow".
+        The lockout observation window must be smaller than or equal to the lockout duration for a password policy. Use the LockoutDuration parameter to set the lockout duration time.
+        Specify the time interval in the following format.
+           [-]D:H:M:S.F 
+            where:
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        Note: Time values must be between the following values: 0:0:0:0.0 and 10675199:02:48:05.4775807.
+        The following examples show how to set this parameter.
+          Set the time to 2 days
+            -LockoutObservationWindow "2"
+          Set the time to 4 hours
+            -LockoutObservationWindow "4:00"
+          Set the time to 5 minutes
+            -LockoutObservationWindow "0:5"
+          Set the time to 45 seconds
+            -LockoutObservationWindow "0:0:45"
+    .PARAMETER LockoutThreshold
+        Specifies the number of unsuccessful login attempts that are permitted before an account is locked out. This number increases when the time between unsuccessful login attempts is less than the time specified for the lockout observation time window. This parameter sets the LockoutThreshold property of a password policy. 
+        The following example shows how to set the lockout threshold to 3 login attempts.
+          -LockoutThreshold 3
+    .PARAMETER MaxPasswordAge
+        Specifies the maximum length of time that you can have the same password. After this time period, the password expires and you must create a new one. 
+        This parameter sets the maxPasswordAge property of a password policy. The LDAP Display Name (ldapDisplayName) for this property is "maxPwdAge".
+        Specify the time interval in the following format.
+           [-]D.H:M:S.F
+            where:
+              [-] = Specifies a negative time interval
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        Note: Time values must be between the following values: -10675199:02:48:05.4775808 and 10675199:02:48:05.4775807.
+        The following examples show how to set this parameter.
+          Set the time span to 2 days
+            MaxPasswordAge "2"
+          Set the time span to the previous 2 days
+            MaxPasswordAge "-2"
+          Set the time span to 4 hours
+            MaxPasswordAge "4:00"
+          Set the time span to 5 minutes
+            MaxPasswordAge "0:5"
+          Set the time span to 45 seconds
+            MaxPasswordAge "0:0:45"
+    .PARAMETER MinPasswordAge
+        Specifies the minimum length of time before you can change a password.
+        This parameter sets the minPasswordAge property of a password policy. The LDAP Display Name (ldapDisplayName) for this property is "minPwdAge".
+        Specify the time interval in the following format.
+           [-]D.H:M:S.F
+            where:
+              [-] = Specifies a negative time interval
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        Note: Time values must be between the following values: -10675199:02:48:05.4775808 and 10675199:02:48:05.4775807.
+        The following examples show how to set this parameter.
+          Set the time span to 2 days
+            -MinPasswordAge "2"
+          Set the time span to 4 hours
+            -MinPasswordAge "4:00"
+          Set the time span to 5 minutes
+            -MinPasswordAge "0:5"
+          Set the time span to 45 seconds
+            -MinPasswordAge "0:0:45"
+    .PARAMETER MinPasswordLength
+        Specifies the minimum number of characters that a password must contain.  This parameter sets the MinPasswordLength property of the password policy. 
+        The following example shows how to set this parameter.
+          -MinPasswordLength 15
+    .PARAMETER PasswordHistoryCount
+        Specifies the number of previous passwords to save.  A user cannot reuse a password in the list of saved passwords. This parameter sets the PasswordHistoryCount property for a password policy. 
+        The following example shows how to set this parameter to save 10 previous passwords.
+          -PasswordHistoryCount 10
+    .PARAMETER ReversibleEncryptionEnabled
+        Specifies whether the directory must  store passwords using reversible encryption. This parameter sets the ReversibleEncryption property for a password policy. Possible values for this parameter include the following:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to true.
+          -ReversibleEncryptionEnabled $true
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -4875,6 +12201,155 @@ function Set-ADDefaultDomainPasswordPolicy {
 }
 
 function Set-ADDomain {
+    <#
+    .SYNOPSIS
+        Modifies an Active Directory domain.
+    .PARAMETER Add
+        Specifies values to add to an object property. Use this parameter to add one or more values to a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can specify multiple values to a property by specifying a comma-separated list of values and more than one property by separating them using a semicolon.. The format for this parameter is 
+           -Add @{Attribute1LDAPDisplayName=value1, value2, ...;   Attribute2LDAPDisplayName=value1, value2, ...; AttributeNLDAPDisplayName=value1, value2, ...}
+        For example, if you want to remove the value "555-222-2222" and add the values "555-222-1111" and "555-222-3333" to Phone-Office-Other attribute (LDAP display name 'otherTelephone'), and add the value "555-222-9999" to Phone-Mobile-Other (LDAP display name 'otherMobile'), set the Add and Remove parameters as follows.
+          -Add @{otherTelephone='555-222-1111', '555-222-3333'; otherMobile='555-222-9999' } -Remove @{otherTelephone='555-222-2222'}
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+    .PARAMETER Remove
+        Specifies that the cmdlet remove values of an object property. Use this parameter to remove one or more values of a property that cannot be modified using a cmdlet parameter. To remove an object property, you must use the LDAP display name. You can remove more than one property by specifying a semicolon-separated list. The format for this parameter is 
+          -Remove @{Attribute1LDAPDisplayName=value[];   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to add the values blue and green and remove the value pink from a property with a LDAP display name of FavColors, set the Add and Remove parameters as follows.
+          -Add @{FavColors=Blue,Green} -Remove {FavColors=Pink}
+        When you use the Add, Remove, Replace and Clear parameters together, the parameters will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Replace
+        Specifies values for an object property that will replace the current values. Use this parameter to replace one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Replace @{Attribute1LDAPDisplayName=value[],   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to replace the value "555-222-2222" with the values "555-222-1111" for Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Replace parameter as follows.
+          -Replace @{otherTelephone='555-222-2222', '555-222-1111'}
+        When you use the Add, Remove, Replace  and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Clear
+        Specifies an array of object properties that will be cleared in the directory. Use this parameter to clear one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Clear Attribute1LDAPDisplayName, Attribute2LDAPDisplayName
+        For example, if you want to clear the value for the Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Clear parameter as follows.
+          -Clear otherTelephone
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Instance
+        Specifies a modified copy of a domain object to use to update the actual Active Directory domain object. When this parameter is used, any modifications made to the modified copy of the object are also made to the corresponding Active Directory object. The cmdlet only updates the object properties that have changed.
+        The Instance parameter can only update domain objects that have been retrieved by using the Get-ADDomain cmdlet. When you specify the Instance parameter, you cannot specify other parameters that set properties on the object.
+        The following is an example of how to use the Get-ADDomain cmdlet to retrieve an instance of the ADDomain object. The object is modified by using the Windows PowerShell command line. Then the Set-ADDomain cmdlet saves the changes to the Active Directory object.
+        Step 1: Retrieve a local instance of the object.
+            $domainInstance = Get-ADDomain -Identity "contosoDomain"
+        Step 2: Modify one or more properties of the object instance.
+            $domainInstance.ManagedBy = "saraDavisGroup"
+        Step3: Save your changes to contosoDomain.
+            Set-ADDomain -Instance $domainInstance
+    .PARAMETER Identity
+        Specifies an Active Directory domain object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute. All values are for the domainDNS object that represents the domain. 
+          Distinguished Name
+            Example: DC=redmond,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID)
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid)
+            Example: S-1-5-21-3165297888-301567370-
+          DNS domain name 
+            Example: redmond.corp.contoso.com
+          NetBIOS domain name 
+            Example: redmond
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a domain object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "DC=redmond,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a domain object instance named "domainInstance".
+          -Identity   $domainInstance
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER LastLogonReplicationInterval
+        Specifies the time, in days, within which the last logon time of an account must be replicated across all domain controllers in the domain. This parameter sets the LastLogonReplicationInterval property for a domain. The LDAP display name (ldapDisplayName) for this property is msDS-LogonTimeSyncInterval. The last logon replication interval must be at least one day. Setting the last logon replication interval to a low value can significantly increase domain-wide replication.
+        The following example shows how to set this parameter to 10 days.
+          -LastLogonReplicationInterval "10"
+        Note: This value does not apply when the domain mode is set to the value "Windows2000".
+    .PARAMETER AllowedDNSSuffixes
+        Modifies the list of domain name server (DNS) suffixes that are allowed in a domain. This parameter sets the value of the msDS-AllowedDNSSuffixes attribute of the domainDNS object. This parameter uses the following syntax to add, remove, replace, or clear DNS suffix values. 
+        To add values:
+          -AllowedDNSSuffixes @{Add=value1,value2,...}
+        To remove values:
+          -AllowedDNSSuffixes @{Remove=value3,value4,...}
+        To replace values:
+          -AllowedDNSSuffixes @{Replace=value1,value2,...}
+        To clear all values:
+          -AllowedDNSSuffixes $null
+        You can specify more than one change by using a list separated by semicolons. For example, use the following syntax to add and remove DNS suffix values: 
+          @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to add and remove DNS suffixes for a domain.
+          -AllowedDNSSuffixes@{Add= "corp.contoso.com,contoso.com"};@{Remove="corpnet.contoso.com"}
+    .PARAMETER ManagedBy
+        Specifies the user or group that manages the object by providing one of the following property values. Note: The identifier in parentheses is the LDAP display name for the property.
+          Distinguished Name 
+            Example:  CN=SaraDavis,OU=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        This parameter sets the Active Directory attribute with an LDAP Display Name of "managedBy". 
+        The following example shows how to specify this parameter.
+          -ManagedBy ContosoAdmins
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity')]
         [ValidateNotNullOrEmpty()]
@@ -4959,6 +12434,81 @@ function Set-ADDomain {
 }
 
 function Set-ADDomainMode {
+    <#
+    .SYNOPSIS
+        Sets the domain mode for an Active Directory domain.
+    .PARAMETER Identity
+        Specifies an Active Directory domain object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute. All values are for the domainDNS object that represents the domain. 
+          Distinguished Name
+            Example: DC=redmond,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID)
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid)
+            Example: S-1-5-21-3165297888-301567370-
+          DNS domain name 
+            Example: redmond.corp.contoso.com
+          NetBIOS domain name 
+            Example: redmond
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a domain object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "DC=redmond,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a domain object instance named "domainInstance".
+          -Identity   $domainInstance
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER DomainMode
+        Specifies the domain mode for an Active Directory domain. You can set the domain mode to one of the following values that are listed in order of functionality from least to most. 
+          Windows2000Domain or 0
+          Windows2003InterimDomain or 1  
+          Windows2003Domain or 2
+          Windows2008Domain or 3
+          Windows2008R2Domain or 4
+        The following example shows how to set this parameter to Windows 2008 R2.
+          -DomainMode Windows2008R2Domain
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -5002,6 +12552,253 @@ function Set-ADDomainMode {
 }
 
 function Set-ADFineGrainedPasswordPolicy {
+    <#
+    .SYNOPSIS
+        Modifies an Active Directory fine grained password policy.
+    .PARAMETER Add
+        Specifies values to add to an object property. Use this parameter to add one or more values to a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can specify multiple values to a property by specifying a comma-separated list of values and more than one property by separating them using a semicolon.. The format for this parameter is 
+           -Add @{Attribute1LDAPDisplayName=value1, value2, ...;   Attribute2LDAPDisplayName=value1, value2, ...; AttributeNLDAPDisplayName=value1, value2, ...}
+        For example, if you want to remove the value "555-222-2222" and add the values "555-222-1111" and "555-222-3333" to Phone-Office-Other attribute (LDAP display name 'otherTelephone'), and add the value "555-222-9999" to Phone-Mobile-Other (LDAP display name 'otherMobile'), set the Add and Remove parameters as follows.
+          -Add @{otherTelephone='555-222-1111', '555-222-3333'; otherMobile='555-222-9999' } -Remove @{otherTelephone='555-222-2222'}
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+    .PARAMETER Remove
+        Specifies that the cmdlet remove values of an object property. Use this parameter to remove one or more values of a property that cannot be modified using a cmdlet parameter. To remove an object property, you must use the LDAP display name. You can remove more than one property by specifying a semicolon-separated list. The format for this parameter is 
+          -Remove @{Attribute1LDAPDisplayName=value[];   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to add the values blue and green and remove the value pink from a property with a LDAP display name of FavColors, set the Add and Remove parameters as follows.
+          -Add @{FavColors=Blue,Green} -Remove {FavColors=Pink}
+        When you use the Add, Remove, Replace and Clear parameters together, the parameters will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Replace
+        Specifies values for an object property that will replace the current values. Use this parameter to replace one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Replace @{Attribute1LDAPDisplayName=value[],   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to replace the value "555-222-2222" with the values "555-222-1111" for Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Replace parameter as follows.
+          -Replace @{otherTelephone='555-222-2222', '555-222-1111'}
+        When you use the Add, Remove, Replace  and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Clear
+        Specifies an array of object properties that will be cleared in the directory. Use this parameter to clear one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Clear Attribute1LDAPDisplayName, Attribute2LDAPDisplayName
+        For example, if you want to clear the value for the Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Clear parameter as follows.
+          -Clear otherTelephone
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Instance
+        Specifies a modified copy of a fine-grained password policy object to use to update the actual Active Directory fine-grained password policy object. When this parameter is used, any modifications made to the modified copy of the object are also made to the corresponding Active Directory object. The cmdlet only updates the object properties that have changed.
+        The Instance parameter can only update fine-grained password policy objects that have been retrieved by using the Get-ADFineGrainedPasswordPolicy cmdlet. When you specify the Instance parameter, you cannot specify other parameters that set properties on the object.
+         
+        The following is an example of how to use the Get-ADFineGrainedPasswordPolicy cmdlet to retrieve an instance of the ADFineGrainedPasswordPolicy object. The object is modified by using the Windows PowerShell command line. Then the Set-ADFineGrainedPasswordPolicy cmdlet saves the changes to the Active Directory object.
+        Step 1: Retrieve a local instance of the object.
+            $fineGrainedPasswordPolicyInstance = Get-ADFineGrainedPasswordPolicy  -Identity PasswordPolicyLevel2
+        Step 2: Modify one or more properties of the object instance.
+            $fineGrainedPasswordPolicyInstance.Precedence = 250
+        Step3: Save your changes to PasswordPolicyLevel2.
+            Set-ADFineGrainedPasswordPolicy -Instance $fineGrainedPasswordPolicyInstance
+    .PARAMETER Identity
+        Specifies an Active Directory fine-grained password policy object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name (distinguishedName)
+            Example: CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Name (name) 
+            Example: PasswordPolicyLevel1
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a fine-grained password policy object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=Strict Password Policy,CN=Password Settings Container,CN=System,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a fine-grained password policy object instance named "fineGrainedPasswordPolicyInstance".
+          -Identity $fineGrainedPasswordPolicyInstance
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER ComplexityEnabled
+        Specifies whether password complexity is enabled for the password policy. If enabled, the password must contain two of the following three character types: 
+          Uppercase characters (A, B, C, D, E, ...)
+          Lowercase characters (a, b, c, d, e, ...)
+          Numerals (0, 1, 2, 3, ...) 
+        This parameter sets the ComplexityEnabled property of a password policy. 
+        Possible values for this parameter include:
+          $false or 0 - Disables password complexity
+          $true or 1 - Enables password complexity
+        The following example shows how to set this parameter to true.
+          -ComplexityEnabled $true
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER LockoutDuration
+        Specifies the length of time that an account is locked after the number of failed login attempts exceeds the lockout threshold. You cannot login to an account that is locked until the lockout duration time period has expired. This parameter sets the lockoutDuration property of a password policy object. The LDAP display name (ldapDisplayName) of this property is "msDS-LockoutDuration".
+        The lockout duration must be greater than or equal to the lockout observation time for a password policy. Use the LockOutObservationWindow parameter to set the lockout observation time. 
+        Specify the lockout duration time interval in the following format.
+            [-]D.H:M:S.F
+            where:
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        The following examples show how to set this parameter.
+          Set the time to 2 days
+            -LockoutDuration "2"
+          Set the time to 4 hours
+            -LockoutDuration "4:00"
+          Set the time to 5 minutes
+            -LockoutDuration "0:5"
+          Set the time to 45 seconds
+            LockoutDuration "0:0:45"
+    .PARAMETER LockoutObservationWindow
+        Specifies the maximum time interval between two unsuccessful login attempts before the number of unsuccessful login attempts is reset to 0. An account is locked when the number of unsuccessful login attempts exceeds the password policy lockout threshold. This parameter sets the lockoutObservationWindow property of a password policy object. The LDAP Display Name (ldapDisplayName) of this property is "msDS-lockoutObservationWindow".
+        The lockout observation window must be smaller than or equal to the lockout duration for a password policy. Use the LockoutDuration parameter to set the lockout duration time.
+        Specify the time interval in the following format.
+           [-]D:H:M:S.F 
+            where:
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        Note: Time values must be between the following values: 0:0:0:0.0 and 10675199:02:48:05.4775807.
+        The following examples show how to set this parameter.
+          Set the time to 2 days
+            -LockoutObservationWindow "2"
+          Set the time to 4 hours
+            -LockoutObservationWindow "4:00"
+          Set the time to 5 minutes
+            -LockoutObservationWindow "0:5"
+          Set the time to 45 seconds
+            -LockoutObservationWindow "0:0:45"
+    .PARAMETER LockoutThreshold
+        Specifies the number of unsuccessful login attempts that are permitted before an account is locked out. This number increases when the time between unsuccessful login attempts is less than the time specified for the lockout observation time window. This parameter sets the LockoutThreshold property of a password policy. 
+        The following example shows how to set the lockout threshold to 3 login attempts.
+          -LockoutThreshold 3
+    .PARAMETER MaxPasswordAge
+        Specifies the maximum length of time that you can have the same password. After this time period, the password expires and you must create a new one. 
+        This parameter sets the maxPasswordAge property of a password policy. The LDAP Display Name (ldapDisplayName) for this property is "maxPwdAge".
+        Specify the time interval in the following format.
+           [-]D.H:M:S.F
+            where:
+              [-] = Specifies a negative time interval
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        Note: Time values must be between the following values: -10675199:02:48:05.4775808 and 10675199:02:48:05.4775807.
+        The following examples show how to set this parameter.
+          Set the time span to 2 days
+            MaxPasswordAge "2"
+          Set the time span to the previous 2 days
+            MaxPasswordAge "-2"
+          Set the time span to 4 hours
+            MaxPasswordAge "4:00"
+          Set the time span to 5 minutes
+            MaxPasswordAge "0:5"
+          Set the time span to 45 seconds
+            MaxPasswordAge "0:0:45"
+    .PARAMETER MinPasswordAge
+        Specifies the minimum length of time before you can change a password.
+        This parameter sets the minPasswordAge property of a password policy. The LDAP Display Name (ldapDisplayName) for this property is "minPwdAge".
+        Specify the time interval in the following format.
+           [-]D.H:M:S.F
+            where:
+              [-] = Specifies a negative time interval
+              D = Days (0 to 10675199)
+              H = Hours (0 to 23)
+              M = Minutes (0 to 59)
+              S = Seconds (0 to 59)
+              F= Fractions of a second (0 to 9999999)
+        Note: Time values must be between the following values: -10675199:02:48:05.4775808 and 10675199:02:48:05.4775807.
+        The following examples show how to set this parameter.
+          Set the time span to 2 days
+            -MinPasswordAge "2"
+          Set the time span to 4 hours
+            -MinPasswordAge "4:00"
+          Set the time span to 5 minutes
+            -MinPasswordAge "0:5"
+          Set the time span to 45 seconds
+            -MinPasswordAge "0:0:45"
+    .PARAMETER MinPasswordLength
+        Specifies the minimum number of characters that a password must contain.  This parameter sets the MinPasswordLength property of the password policy. 
+        The following example shows how to set this parameter.
+          -MinPasswordLength 15
+    .PARAMETER PasswordHistoryCount
+        Specifies the number of previous passwords to save.  A user cannot reuse a password in the list of saved passwords. This parameter sets the PasswordHistoryCount property for a password policy. 
+        The following example shows how to set this parameter to save 10 previous passwords.
+          -PasswordHistoryCount 10
+    .PARAMETER Precedence
+        Specifies a value that defines the precedence of a fine-grained password policy among all fine-grained password policies. This parameter sets the Precedence property for a fine-grained password policy. The LDAP display name (ldapDisplayName) for this property is "msDS-PasswordSettingsPrecedence".
+        This value determines which password policy to use when more than one password policy applies to a user or group. When there is a conflict, the password policy that has the lower Precedence property value has higher priority. For example, if PasswordPolicy1 has a Precedence property value of 200 and PasswordPolicy2 has a Precedence property value of 100, PasswordPolicy2 is used. 
+        Typically, password policy precedence values are assigned in multiples of 10 or 100, making it easier to add policies at a later time. For example, if you set the initial precedence values for your policies to 100 and 200, you can add another policy that has precedence value of 150. 
+        If the specified Precedence parameter is already assigned to another password policy object, the cmdlet returns a terminating error.
+        The following example shows how to set this parameter.
+          -Precedence 100
+    .PARAMETER ProtectedFromAccidentalDeletion
+        Specifies whether to prevent the object from being deleted. When this property is set to true, you cannot delete the corresponding object without changing the value of the property. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to true.
+          -ProtectedFromAccidentalDeletion $true
+    .PARAMETER ReversibleEncryptionEnabled
+        Specifies whether the directory must  store passwords using reversible encryption. This parameter sets the ReversibleEncryption property for a password policy. Possible values for this parameter include the following:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to true.
+          -ReversibleEncryptionEnabled $true
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity')]
         [ValidateNotNullOrEmpty()]
@@ -5189,6 +12986,106 @@ function Set-ADFineGrainedPasswordPolicy {
 }
 
 function Set-ADForest {
+    <#
+    .SYNOPSIS
+        Modifies an Active Directory forest.
+    .PARAMETER Identity
+        Specifies an Active Directory forest object by providing one of the following attribute values. The identifier in parentheses is the LDAP display name for the attribute.
+          Fully qualified domain name
+            Example: corp.contoso.com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          DNS host name
+            Example: dnsServer.corp.contoso.com
+          NetBIOS name
+            Example: corp
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a forest object instance. 
+        This example shows how to set the parameter to a fully qualified domain name.
+          -Identity "corp.contoso.com"
+        This example shows how to set this parameter to a forest object instance named "forestInstance".
+          -Identity $forestInstance
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER SPNSuffixes
+        Modifies the list of service principal name (SPN) suffixes of the forest. This parameter sets the multi-valued msDS-SPNSuffixes property of the cross-reference container. This parameter uses the following syntax to add remove, replace, or clear SPN suffix values.
+        Syntax:
+        To add values:
+          -SPNSuffixes @{Add=value1,value2,...}
+        To remove values:
+          -SPNSuffixes @{Remove=value3,value4,...}
+        To replace values:
+          -SPNSuffixes @{Replace=value1,value2,...}
+        To clear all values:
+          -SPNSuffixes $null
+        You can specify more than one change by using a list separated by semicolons. For example, use the following syntax to add and remove SPN suffix values 
+          @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to add and remove SPNSuffixes for a forest.
+          -@{Add="ContosoEurope", "ContosoAsia"};@{Remove="Contoso"}
+    .PARAMETER UPNSuffixes
+        Modifies the list of user principal name (UPN) suffixes of the forest. This parameter sets the multi-valued msDS-UPNSuffixes property of the cross-reference container. This parameter uses the following syntax to add remove, replace, or clear UPN suffix values. 
+        Syntax:
+        To add values:
+          -UPNSuffixes  @{Add=value1,value2,...}
+        To remove values:
+          -UPNSuffixes @{Remove=value3,value4,...}
+        To replace values:
+          -UPNSuffixes @{Replace=value1,value2,...}
+        To clear all values:
+          -UPNSuffixes $null
+        You can specify more than one change by using a list separated by semicolons. For example, use the following syntax to add and remove UPN suffix values 
+          @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to add and remove UPN suffixes for a forest.
+          -UPNSuffixes @{Add="Fabrikam.Com", "Corp.Fabrikam.Com"}; @{Remove="NA.Fabrikam.Com","Europe.Fabrikam.Com"}
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -5239,6 +13136,79 @@ function Set-ADForest {
 }
 
 function Set-ADForestMode {
+    <#
+    .SYNOPSIS
+        Sets the forest mode for an Active Directory forest.
+    .PARAMETER Identity
+        Specifies an Active Directory forest object by providing one of the following attribute values. The identifier in parentheses is the LDAP display name for the attribute.
+          Fully qualified domain name
+            Example: corp.contoso.com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          DNS host name
+            Example: dnsServer.corp.contoso.com
+          NetBIOS name
+            Example: corp
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to a forest object instance. 
+        This example shows how to set the parameter to a fully qualified domain name.
+          -Identity "corp.contoso.com"
+        This example shows how to set this parameter to a forest object instance named "forestInstance".
+          -Identity $forestInstance
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER ForestMode
+        Specifies the forest mode for an Active Directory forest. The possible values for this parameter are:   Windows2000Forest or 0
+          Windows2003InterimForest or 1
+          Windows2003Forest or 2
+          Windows2008Forest or 3
+          Windows2008R2Forest or 4
+        The values are listed in order of functionality from least to most. 
+        The following example shows how to set this parameter.
+          -ForestMode Windows2008R2Forest
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='High')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]
@@ -5282,6 +13252,180 @@ function Set-ADForestMode {
 }
 
 function Set-ADGroup {
+    <#
+    .SYNOPSIS
+        Modifies an Active Directory group.
+    .PARAMETER Add
+        Specifies values to add to an object property. Use this parameter to add one or more values to a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can specify multiple values to a property by specifying a comma-separated list of values and more than one property by separating them using a semicolon.. The format for this parameter is 
+           -Add @{Attribute1LDAPDisplayName=value1, value2, ...;   Attribute2LDAPDisplayName=value1, value2, ...; AttributeNLDAPDisplayName=value1, value2, ...}
+        For example, if you want to remove the value "555-222-2222" and add the values "555-222-1111" and "555-222-3333" to Phone-Office-Other attribute (LDAP display name 'otherTelephone'), and add the value "555-222-9999" to Phone-Mobile-Other (LDAP display name 'otherMobile'), set the Add and Remove parameters as follows.
+          -Add @{otherTelephone='555-222-1111', '555-222-3333'; otherMobile='555-222-9999' } -Remove @{otherTelephone='555-222-2222'}
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+    .PARAMETER Remove
+        Specifies that the cmdlet remove values of an object property. Use this parameter to remove one or more values of a property that cannot be modified using a cmdlet parameter. To remove an object property, you must use the LDAP display name. You can remove more than one property by specifying a semicolon-separated list. The format for this parameter is 
+          -Remove @{Attribute1LDAPDisplayName=value[];   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to add the values blue and green and remove the value pink from a property with a LDAP display name of FavColors, set the Add and Remove parameters as follows.
+          -Add @{FavColors=Blue,Green} -Remove {FavColors=Pink}
+        When you use the Add, Remove, Replace and Clear parameters together, the parameters will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Replace
+        Specifies values for an object property that will replace the current values. Use this parameter to replace one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Replace @{Attribute1LDAPDisplayName=value[],   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to replace the value "555-222-2222" with the values "555-222-1111" for Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Replace parameter as follows.
+          -Replace @{otherTelephone='555-222-2222', '555-222-1111'}
+        When you use the Add, Remove, Replace  and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Clear
+        Specifies an array of object properties that will be cleared in the directory. Use this parameter to clear one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Clear Attribute1LDAPDisplayName, Attribute2LDAPDisplayName
+        For example, if you want to clear the value for the Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Clear parameter as follows.
+          -Clear otherTelephone
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Instance
+        Specifies a modified copy of a group object to use to update the actual Active Directory group object. When this parameter is used, any modifications made to the modified copy of the object are also made to the corresponding Active Directory object. The cmdlet only updates the object properties that have changed.
+        The Instance parameter can only update group objects that have been retrieved by using the Get-ADGroup cmdlet. When you specify the Instance parameter, you cannot specify other parameters that set properties on the object.
+        The following is an example of how to use the Get-ADGroup cmdlet to retrieve an instance of the ADGroup object. The object is modified by using the Windows PowerShell command line. Then the Set-ADGroup cmdlet saves the changes to the Active Directory object.
+        Step 1: Retrieve a local instance of the object.
+            $groupInstance = Get-ADGroup  -Identity "SaraDavisReports"
+        Step 2: Modify one or more properties of the object instance.
+            $groupInstance.GroupScope= "Global"  
+        Step3: Save your changes to "SaraDavisReports".
+            Set-ADGroup -Instance $groupInstance
+    .PARAMETER Identity
+        Specifies an Active Directory group object by providing one of the following values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          Security Accounts Manager (SAM) Account Name (sAMAccountName) 
+            Example: saradavisreports
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=saradavisreports,OU=europe,CN=users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a group object instance named "ADGroupInstance".
+          -Identity $ADGroupInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER GroupScope
+        Specifies the group scope of the group. Possible values of this parameter are:
+          DomainLocal or 0
+          Global or 1
+          Universal or 2
+        This parameter sets the GroupScope property of a group object to the specified value. The LDAP display name of this property is "groupType".
+        The following example shows two ways to set this parameter to DomainLocal.
+          -GroupScope DomainLocal
+          -GroupScope 0
+    .PARAMETER GroupCategory
+        Specifies the category of the group. Possible values of this parameter are:
+          Distribution or 0  
+          Security or 1 
+         
+        This parameter sets the GroupCategory property of the group. This parameter value combined with other group values sets the LDAP Display Name (ldapDisplayName) attribute named "groupType".
+        The following example shows how to specify that a group is a security group.
+          -GroupCategory security
+    .PARAMETER HomePage
+        Specifies the URL of the home page of the object. This parameter sets the homePage property of an Active Directory object. The LDAP Display Name (ldapDisplayName) for this property is "wWWHomePage".
+        The following example shows how to set this parameter to a URL.
+          -HomePage "http://employees.contoso.com/sdavis"
+    .PARAMETER ManagedBy
+        Specifies the user or group that manages the object by providing one of the following property values. Note: The identifier in parentheses is the LDAP display name for the property.
+          Distinguished Name 
+            Example:  CN=SaraDavis,OU=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        This parameter sets the Active Directory attribute with an LDAP Display Name of "managedBy". 
+        The following example shows how to specify this parameter.
+          -ManagedBy ContosoAdmins
+    .PARAMETER SamAccountName
+        Specifies the Security Account Manager (SAM) account name of the user, group, computer, or service account. The maximum length of the description is 256 characters. To be compatible with older operating systems, create a SAM account name that is 20 characters or less. This parameter sets the SAMAccountName for an account object. The LDAP display name (ldapDisplayName) for this property is "sAMAccountName".
+        The following example shows how to specify this parameter.
+          -SAMAccountName "saradavis"
+        Note: If the string value provided is not terminated with a '$' character, the system adds one if needed.
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity')]
         [ValidateNotNullOrEmpty()]
@@ -5420,6 +13564,148 @@ function Set-ADGroup {
 }
 
 function Set-ADObject {
+    <#
+    .SYNOPSIS
+        Modifies an Active Directory object.
+    .PARAMETER Add
+        Specifies values to add to an object property. Use this parameter to add one or more values to a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can specify multiple values to a property by specifying a comma-separated list of values and more than one property by separating them using a semicolon.. The format for this parameter is 
+           -Add @{Attribute1LDAPDisplayName=value1, value2, ...;   Attribute2LDAPDisplayName=value1, value2, ...; AttributeNLDAPDisplayName=value1, value2, ...}
+        For example, if you want to remove the value "555-222-2222" and add the values "555-222-1111" and "555-222-3333" to Phone-Office-Other attribute (LDAP display name 'otherTelephone'), and add the value "555-222-9999" to Phone-Mobile-Other (LDAP display name 'otherMobile'), set the Add and Remove parameters as follows.
+          -Add @{otherTelephone='555-222-1111', '555-222-3333'; otherMobile='555-222-9999' } -Remove @{otherTelephone='555-222-2222'}
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+    .PARAMETER Remove
+        Specifies that the cmdlet remove values of an object property. Use this parameter to remove one or more values of a property that cannot be modified using a cmdlet parameter. To remove an object property, you must use the LDAP display name. You can remove more than one property by specifying a semicolon-separated list. The format for this parameter is 
+          -Remove @{Attribute1LDAPDisplayName=value[];   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to add the values blue and green and remove the value pink from a property with a LDAP display name of FavColors, set the Add and Remove parameters as follows.
+          -Add @{FavColors=Blue,Green} -Remove {FavColors=Pink}
+        When you use the Add, Remove, Replace and Clear parameters together, the parameters will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Replace
+        Specifies values for an object property that will replace the current values. Use this parameter to replace one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Replace @{Attribute1LDAPDisplayName=value[],   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to replace the value "555-222-2222" with the values "555-222-1111" for Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Replace parameter as follows.
+          -Replace @{otherTelephone='555-222-2222', '555-222-1111'}
+        When you use the Add, Remove, Replace  and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Clear
+        Specifies an array of object properties that will be cleared in the directory. Use this parameter to clear one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Clear Attribute1LDAPDisplayName, Attribute2LDAPDisplayName
+        For example, if you want to clear the value for the Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Clear parameter as follows.
+          -Clear otherTelephone
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Instance
+        Specifies a modified copy of an Active Directory object to use to update the actual Active Directory object. When this parameter is used, any modifications made to the modified copy of the object are also made to the corresponding Active Directory object. The cmdlet only updates the object properties that have changed.
+        The Instance parameter can only update Active Directory objects that have been retrieved by using the Get-ADObject cmdlet.  When you specify the Instance parameter, you cannot specify other parameters that set properties on the object.
+        The following is an example of how to use the Get-ADObject cmdlet to retrieve an instance of the object. The object is modified by using the Windows PowerShell command line. Then the Set-ADObject cmdlet saves the changes to the Active Directory object.
+        Step 1: Retrieve a local instance of the object.
+            $objectInstance = Get-ADObject -Identity  "CN=someObject, DC=contoso,DC=com"
+        Step 2: Modify one or more properties of the object instance.
+            $objectInstance.Description = "New Description"
+        Step3: Save your changes to the object
+            Set-ADObject -Instance $objectInstance
+    .PARAMETER Identity
+        Specifies an Active Directory object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavis,OU=users,OU=asia,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        Derived types, such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADGroup
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+          Microsoft.ActiveDirectory.Management.ADFineGrainedPasswordPolicy
+          Microsoft.ActiveDirectory.Management.ADDomain
+        This example shows how to set this parameter to an ADObject object instance named "ADObjectInstance".
+          -Identity   $ADObjectInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER ProtectedFromAccidentalDeletion
+        Specifies whether to prevent the object from being deleted. When this property is set to true, you cannot delete the corresponding object without changing the value of the property. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to true.
+          -ProtectedFromAccidentalDeletion $true
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity')]
         [ValidateNotNullOrEmpty()]
@@ -5512,6 +13798,181 @@ function Set-ADObject {
 }
 
 function Set-ADOrganizationalUnit {
+    <#
+    .SYNOPSIS
+        Modifies an Active Directory organizational unit.
+    .PARAMETER Add
+        Specifies values to add to an object property. Use this parameter to add one or more values to a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can specify multiple values to a property by specifying a comma-separated list of values and more than one property by separating them using a semicolon.. The format for this parameter is 
+           -Add @{Attribute1LDAPDisplayName=value1, value2, ...;   Attribute2LDAPDisplayName=value1, value2, ...; AttributeNLDAPDisplayName=value1, value2, ...}
+        For example, if you want to remove the value "555-222-2222" and add the values "555-222-1111" and "555-222-3333" to Phone-Office-Other attribute (LDAP display name 'otherTelephone'), and add the value "555-222-9999" to Phone-Mobile-Other (LDAP display name 'otherMobile'), set the Add and Remove parameters as follows.
+          -Add @{otherTelephone='555-222-1111', '555-222-3333'; otherMobile='555-222-9999' } -Remove @{otherTelephone='555-222-2222'}
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+    .PARAMETER Remove
+        Specifies that the cmdlet remove values of an object property. Use this parameter to remove one or more values of a property that cannot be modified using a cmdlet parameter. To remove an object property, you must use the LDAP display name. You can remove more than one property by specifying a semicolon-separated list. The format for this parameter is 
+          -Remove @{Attribute1LDAPDisplayName=value[];   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to add the values blue and green and remove the value pink from a property with a LDAP display name of FavColors, set the Add and Remove parameters as follows.
+          -Add @{FavColors=Blue,Green} -Remove {FavColors=Pink}
+        When you use the Add, Remove, Replace and Clear parameters together, the parameters will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Replace
+        Specifies values for an object property that will replace the current values. Use this parameter to replace one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Replace @{Attribute1LDAPDisplayName=value[],   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to replace the value "555-222-2222" with the values "555-222-1111" for Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Replace parameter as follows.
+          -Replace @{otherTelephone='555-222-2222', '555-222-1111'}
+        When you use the Add, Remove, Replace  and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Clear
+        Specifies an array of object properties that will be cleared in the directory. Use this parameter to clear one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Clear Attribute1LDAPDisplayName, Attribute2LDAPDisplayName
+        For example, if you want to clear the value for the Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Clear parameter as follows.
+          -Clear otherTelephone
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Instance
+        Specifies a modified copy of an organizational unit object to use to update the actual Active Directory organizational unit object. When this parameter is used, any modifications made to the modified copy of the object are also made to the corresponding Active Directory object. The cmdlet only updates the object properties that have changed.
+        The Instance parameter can only update organizational unit objects that have been retrieved by using the Get-ADOrganizationalUnit cmdlet. When you specify the Instance parameter, you cannot specify other parameters that set properties on the object.
+        The following is an example of how to use the Get-ADOrganizationalUnit cmdlet to retrieve an instance of the ADOrganizationalUnit object. The object is modified by using the Windows PowerShell command line. Then the Set-ADOrganizationalUnit cmdlet saves the changes to the Active Directory object.
+        Step 1: Retrieve a local instance of the object.
+            $organizationalUnitInstance = Get-ADOrganizationalUnit  -Identity "OU=Accounting,DC=corp,DC=contoso,DC=com"
+        Step 2: Modify one or more properties of the object instance.
+            $organizationalUnitInstance.ManagedBy = "CN=SaraDavisGroup,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        Step3: Save your changes to Accounting.
+            Set-ADOrganizationalUnit -Instance $organizationalUnitInstance
+    .PARAMETER Identity
+        Specifies an Active Directory object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=saradavis,OU=users,OU=asia,DC=corp,DC=contoso,DC=com 
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        Derived types, such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADGroup
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+          Microsoft.ActiveDirectory.Management.ADFineGrainedPasswordPolicy
+          Microsoft.ActiveDirectory.Management.ADDomain
+        This example shows how to set this parameter to an ADObject object instance named "ADObjectInstance".
+          -Identity   $ADObjectInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER City
+        Specifies the user's town or city. This parameter sets the City property of a user. The LDAP display name (ldapDisplayName) of this property is "l".
+        The following example shows how set this parameter.
+          -City "Las Vegas"
+    .PARAMETER Country
+        Specifies the country or region code for the user's language of choice. This parameter sets the Country property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "c". This value is not used by Windows 2000.
+        The following example shows how set this parameter.
+          -Country "IN"
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER PostalCode
+        Specifies the user's postal code or zip code. This parameter sets the PostalCode property of a user. The LDAP Display Name (ldapDisplayName) of this property is "postalCode".
+        The following example shows how to set this parameter.
+          -PostalCode "28712"
+    .PARAMETER ProtectedFromAccidentalDeletion
+        Specifies whether to prevent the object from being deleted. When this property is set to true, you cannot delete the corresponding object without changing the value of the property. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to true.
+          -ProtectedFromAccidentalDeletion $true
+    .PARAMETER State
+        Specifies the user's or Organizational Unit's state or province. This parameter sets the State property of a User or Organizational Unit object. The LDAP display name (ldapDisplayName) of this property is "st".
+        The following example shows how set this parameter.
+          -State  "Nevada"
+    .PARAMETER StreetAddress
+        Specifies the organizational unit's street address. This parameter sets the StreetAddress property of a organizational unit object. The LDAP display name (ldapDisplayName) of this property is "street".
+        The following example shows how to set this parameter.
+          -StreetAddress  "1200 Main Street"
+    .PARAMETER ManagedBy
+        Specifies the user or group that manages the object by providing one of the following property values. Note: The identifier in parentheses is the LDAP display name for the property.
+          Distinguished Name 
+            Example:  CN=SaraDavis,OU=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        This parameter sets the Active Directory attribute with an LDAP Display Name of "managedBy". 
+        The following example shows how to specify this parameter.
+          -ManagedBy ContosoAdmins
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity')]
         [ValidateNotNullOrEmpty()]
@@ -5664,6 +14125,227 @@ function Set-ADOrganizationalUnit {
 }
 
 function Set-ADServiceAccount {
+    <#
+    .SYNOPSIS
+        Modifies an Active Directory service account.
+    .PARAMETER Add
+        Specifies values to add to an object property. Use this parameter to add one or more values to a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can specify multiple values to a property by specifying a comma-separated list of values and more than one property by separating them using a semicolon.. The format for this parameter is 
+           -Add @{Attribute1LDAPDisplayName=value1, value2, ...;   Attribute2LDAPDisplayName=value1, value2, ...; AttributeNLDAPDisplayName=value1, value2, ...}
+        For example, if you want to remove the value "555-222-2222" and add the values "555-222-1111" and "555-222-3333" to Phone-Office-Other attribute (LDAP display name 'otherTelephone'), and add the value "555-222-9999" to Phone-Mobile-Other (LDAP display name 'otherMobile'), set the Add and Remove parameters as follows.
+          -Add @{otherTelephone='555-222-1111', '555-222-3333'; otherMobile='555-222-9999' } -Remove @{otherTelephone='555-222-2222'}
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+    .PARAMETER Remove
+        Specifies that the cmdlet remove values of an object property. Use this parameter to remove one or more values of a property that cannot be modified using a cmdlet parameter. To remove an object property, you must use the LDAP display name. You can remove more than one property by specifying a semicolon-separated list. The format for this parameter is 
+          -Remove @{Attribute1LDAPDisplayName=value[];   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to add the values blue and green and remove the value pink from a property with a LDAP display name of FavColors, set the Add and Remove parameters as follows.
+          -Add @{FavColors=Blue,Green} -Remove {FavColors=Pink}
+        When you use the Add, Remove, Replace and Clear parameters together, the parameters will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Replace
+        Specifies values for an object property that will replace the current values. Use this parameter to replace one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Replace @{Attribute1LDAPDisplayName=value[],   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to replace the value "555-222-2222" with the values "555-222-1111" for Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Replace parameter as follows.
+          -Replace @{otherTelephone='555-222-2222', '555-222-1111'}
+        When you use the Add, Remove, Replace  and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Clear
+        Specifies an array of object properties that will be cleared in the directory. Use this parameter to clear one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Clear Attribute1LDAPDisplayName, Attribute2LDAPDisplayName
+        For example, if you want to clear the value for the Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Clear parameter as follows.
+          -Clear otherTelephone
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Instance
+        Specifies a modified copy of a service account object to use to update the actual Active Directory service account object. When this parameter is used, any modifications made to the modified copy of the object are also made to the corresponding Active Directory object. The cmdlet only updates the object properties that have changed. 
+        The Instance parameter can only update service account objects that have been retrieved by using the Get-ADServiceAccount cmdlet. When you specify the Instance parameter, you cannot specify other parameters that set properties on the object.
+        The following is an example of how to use the Get-ADServiceAccount cmdlet to retrieve an instance of the ADServiceAccount object. The object is modified by using the Windows PowerShell command line. Then the Set-ADServiceAccount cmdlet saves the changes to the Active Directory object.
+        Step 1: Retrieve a local instance of the object.
+            $serviceAccountInstance = Get-ADServiceAccount  -Identity ADServiceAdmin
+        Step 2: Modify one or more properties of the object instance.
+            $serviceAccountInstance.Description = "default"
+        Step3: Save your changes to ADServiceAdmin.
+            Set-ADServiceAccount -Instance $serviceAccountInstance
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: WebAccount$
+          
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+         This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "AccountInstance".
+          -Identity   $AccountInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER AccountExpirationDate
+        Specifies the expiration date for an account. When you set this parameter to 0, the account never expires. This parameter sets the AccountExpirationDate property of an account object. The LDAP Display name (ldapDisplayName) for this property is accountExpires.
+        Use the DateTime syntax when you specify this parameter. Time is assumed to be local time unless otherwise specified. When a time value is not specified, the time is assumed to 12:00:00 AM local time. When a date is not specified, the date is assumed to be the current date. The following examples show commonly-used syntax to specify a DateTime object.
+          "4/17/2006"
+          "Monday, April 17, 2006"
+          "2:22:45 PM"
+          "Monday, April 17, 2006 2:22:45 PM"
+        These examples specify the same date and the time without the seconds.
+          "4/17/2006 2:22 PM"
+          "Monday, April 17, 2006 2:22 PM"
+          "2:22 PM"
+        The following example shows how to specify a date and time by using the RFC1123 standard. This example defines time by using Greenwich Mean Time (GMT).
+          "Mon, 17 Apr 2006 21:22:48 GMT"
+        The following example shows how to specify a round-trip value as Coordinated Universal Time (UTC). This example represents Monday, April 17, 2006 at 2:22:48 PM UTC. 
+          "2006-04-17T14:22:48.0000000" 
+        The following example shows how to set this parameter to the date May 1, 2012 at 5 PM. 
+          -AccountExpirationDate "05/01/2012 5:00:00 PM"
+    .PARAMETER AccountNotDelegated
+        Specifies whether the security context of the user is delegated to a service. When this parameter is set to true, the security context of the account is not delegated to a service even when the service account is set as trusted for Kerberos delegation. This parameter sets the AccountNotDelegated property for an Active Directory account. This parameter also sets the ADS_UF_NOT_DELEGATED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include 
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that the security context of the account is not delegated to a service.
+          -AccountNotDelegated $true
+    .PARAMETER Certificates
+        Modifies the DER-encoded X.509v3 certificates of the account. These certificates include the public key certificates issued to this account by the Microsoft Certificate Service. This parameter sets the Certificates property of the account object. The LDAP Display Name (ldapDisplayName) for this property is "userCertificate".
+        Syntax:
+        To add values:
+          -Certificates @{Add=value1,value2,...}
+        To remove values:
+          -Certificates @{Remove=value3,value4,...}
+        To replace values:
+          -Certificates @{Replace=value1,value2,...}
+        To clear all values:
+          -Certificates $null
+        You can specify more than one operation by using a list separated by semicolons. For example, use the following syntax to add and remove Certificate values 
+          -Certificates @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to create a certificate by using the New-Object cmdlet, and then add it to a user account. When this cmdlet is run, <certificate password> is replaced by the password used to add the certificate.
+        $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate certificate1.cer  <certificate password>
+        Set-ADUser saradavis  -Certificates @{Add=$cert}
+        The following example shows how to add a certificate that is specified as a byte array.
+            Set-ADUser saradavis  -Certificates @{Add= [Byte[]](0xC5,0xEE,0x53,...)}
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER Enabled
+        Specifies if an account is enabled. An enabled account requires a password. This parameter sets the Enabled property for an account object. This parameter also sets the ADS_UF_ACCOUNTDISABLE flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to enable the account.
+          -Enabled $true
+    .PARAMETER HomePage
+        Specifies the URL of the home page of the object. This parameter sets the homePage property of an Active Directory object. The LDAP Display Name (ldapDisplayName) for this property is "wWWHomePage".
+        The following example shows how to set this parameter to a URL.
+          -HomePage "http://employees.contoso.com/sdavis"
+    .PARAMETER SamAccountName
+        Specifies the Security Account Manager (SAM) account name of the user, group, computer, or service account. The maximum length of the description is 256 characters. To be compatible with older operating systems, create a SAM account name that is 20 characters or less. This parameter sets the SAMAccountName for an account object. The LDAP display name (ldapDisplayName) for this property is "sAMAccountName".
+        The following example shows how to specify this parameter.
+          -SAMAccountName "saradavis"
+        Note: If the string value provided is not terminated with a '$' character, the system adds one if needed.
+    .PARAMETER ServicePrincipalNames
+        Specifies the service principal names for the account. This parameter sets the ServicePrincipalNames property of the account. The LDAP display name (ldapDisplayName) for this property is servicePrincipalName. This parameter uses the following syntax to add remove, replace or clear service principal name values. 
+        Syntax:
+        To add values:
+          -ServicePrincipalNames @{Add=value1,value2,...}
+        To remove values:
+          -ServicePrincipalNames @{Remove=value3,value4,...}
+        To replace values:
+          -ServicePrincipalNames @{Replace=value1,value2,...}
+        To clear all values:
+          -ServicePrincipalNames $null
+        You can specify more than one change by using a list separated by semicolons. For example, use the following syntax to add and remove service principal names. 
+          @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to add and remove service principal names.
+          -ServicePrincipalNames-@{Add="SQLservice\accounting.corp.contoso.com:1456"};{Remove="SQLservice\finance.corp.contoso.com:1456"}
+    .PARAMETER TrustedForDelegation
+        Specifies whether an account is trusted for Kerberos delegation. A service that runs under an account that is trusted for Kerberos delegation can assume the identity of a client requesting the service. This parameter sets the TrustedForDelegation property of an account object. This value also sets the ADS_UF_TRUSTED_FOR_DELEGATION flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0
+          $true or 1
+        The following example shows how to specify that an account is trusted for Kerberos delegation.
+          -TrustedForDelegation $true
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity')]
         [ValidateNotNullOrEmpty()]
@@ -5826,6 +14508,392 @@ function Set-ADServiceAccount {
 }
 
 function Set-ADUser {
+    <#
+    .SYNOPSIS
+        Modifies an Active Directory user.
+    .PARAMETER Add
+        Specifies values to add to an object property. Use this parameter to add one or more values to a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can specify multiple values to a property by specifying a comma-separated list of values and more than one property by separating them using a semicolon.. The format for this parameter is 
+           -Add @{Attribute1LDAPDisplayName=value1, value2, ...;   Attribute2LDAPDisplayName=value1, value2, ...; AttributeNLDAPDisplayName=value1, value2, ...}
+        For example, if you want to remove the value "555-222-2222" and add the values "555-222-1111" and "555-222-3333" to Phone-Office-Other attribute (LDAP display name 'otherTelephone'), and add the value "555-222-9999" to Phone-Mobile-Other (LDAP display name 'otherMobile'), set the Add and Remove parameters as follows.
+          -Add @{otherTelephone='555-222-1111', '555-222-3333'; otherMobile='555-222-9999' } -Remove @{otherTelephone='555-222-2222'}
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+    .PARAMETER Remove
+        Specifies that the cmdlet remove values of an object property. Use this parameter to remove one or more values of a property that cannot be modified using a cmdlet parameter. To remove an object property, you must use the LDAP display name. You can remove more than one property by specifying a semicolon-separated list. The format for this parameter is 
+          -Remove @{Attribute1LDAPDisplayName=value[];   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to add the values blue and green and remove the value pink from a property with a LDAP display name of FavColors, set the Add and Remove parameters as follows.
+          -Add @{FavColors=Blue,Green} -Remove {FavColors=Pink}
+        When you use the Add, Remove, Replace and Clear parameters together, the parameters will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Replace
+        Specifies values for an object property that will replace the current values. Use this parameter to replace one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Replace @{Attribute1LDAPDisplayName=value[],   Attribute2LDAPDisplayName=value[]}
+        For example, if you want to replace the value "555-222-2222" with the values "555-222-1111" for Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Replace parameter as follows.
+          -Replace @{otherTelephone='555-222-2222', '555-222-1111'}
+        When you use the Add, Remove, Replace  and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Clear
+        Specifies an array of object properties that will be cleared in the directory. Use this parameter to clear one or more values of a property that cannot be modified using a cmdlet parameter. To modify an object property, you must use the LDAP display name. You can modify more than one property by specifying a comma-separated list. The format for this parameter is 
+          -Clear Attribute1LDAPDisplayName, Attribute2LDAPDisplayName
+        For example, if you want to clear the value for the Phone-Office-Other attribute (LDAP display name 'otherTelephone') set the Clear parameter as follows.
+          -Clear otherTelephone
+        When you use the Add, Remove, Replace and Clear parameters together, the operations will be performed in the following order:
+        ..Remove
+        ..Add
+        ..Replace
+        ..Clear
+    .PARAMETER Instance
+        Specifies an ADUser object that identifies the Active Directory user object that should be modified and the set of changes that should be made to that object. When this parameter is used, any modifications made to the ADUser object are also made to the corresponding Active Directory object. The cmdlet only updates the object properties that have changed. 
+        The ADUser object specified as the value of the -Instance parameter must have been retrieved by using the Get-ADUser cmdlet. When you specify the Instance parameter, you cannot specify other parameters that set individual properties on the object.
+        The following is an example of how to use the Get-ADUser cmdlet to retrieve an instance of the ADUser object. The object is modified by using the Windows PowerShell command line. Then the Set-ADUser cmdlet saves the changes to the Active Directory object.
+        Step 1: Retrieve a local instance of the object.
+            $userInstance = Get-ADUser  -Identity saraDavis
+        Step 2: Modify one or more properties of the object instance.
+            $userInstance.EmailAddress = "saradavis@contoso.com"
+        Step3: Save your changes to saraDavis.
+            Set-ADUser -Instance $userInstance
+    .PARAMETER Identity
+        Specifies an Active Directory user object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM account name  (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to a user object instance named "userInstance".
+          -Identity   $userInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    .PARAMETER AccountExpirationDate
+        Specifies the expiration date for an account. When you set this parameter to 0, the account never expires. This parameter sets the AccountExpirationDate property of an account object. The LDAP Display name (ldapDisplayName) for this property is accountExpires.
+        Use the DateTime syntax when you specify this parameter. Time is assumed to be local time unless otherwise specified. When a time value is not specified, the time is assumed to 12:00:00 AM local time. When a date is not specified, the date is assumed to be the current date. The following examples show commonly-used syntax to specify a DateTime object.
+          "4/17/2006"
+          "Monday, April 17, 2006"
+          "2:22:45 PM"
+          "Monday, April 17, 2006 2:22:45 PM"
+        These examples specify the same date and the time without the seconds.
+          "4/17/2006 2:22 PM"
+          "Monday, April 17, 2006 2:22 PM"
+          "2:22 PM"
+        The following example shows how to specify a date and time by using the RFC1123 standard. This example defines time by using Greenwich Mean Time (GMT).
+          "Mon, 17 Apr 2006 21:22:48 GMT"
+        The following example shows how to specify a round-trip value as Coordinated Universal Time (UTC). This example represents Monday, April 17, 2006 at 2:22:48 PM UTC. 
+          "2006-04-17T14:22:48.0000000" 
+        The following example shows how to set this parameter to the date May 1, 2012 at 5 PM. 
+          -AccountExpirationDate "05/01/2012 5:00:00 PM"
+    .PARAMETER AccountNotDelegated
+        Specifies whether the security context of the user is delegated to a service. When this parameter is set to true, the security context of the account is not delegated to a service even when the service account is set as trusted for Kerberos delegation. This parameter sets the AccountNotDelegated property for an Active Directory account. This parameter also sets the ADS_UF_NOT_DELEGATED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include 
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that the security context of the account is not delegated to a service.
+          -AccountNotDelegated $true
+    .PARAMETER AllowReversiblePasswordEncryption
+        Specifies whether reversible password encryption is allowed for the account. This parameter sets the AllowReversiblePasswordEncryption property of the account. This parameter also sets the ADS_UF_ENCRYPTED_TEXT_PASSWORD_ALLOWED flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter to true.
+          -AllowReversiblePasswordEncryption $true
+    .PARAMETER CannotChangePassword
+        Specifies whether the account password can be changed. This parameter sets the CannotChangePassword property of an account. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        The following example shows how to set this parameter so that the account password can be changed.
+          -CannotChangePassword $false
+    .PARAMETER Certificates
+        Modifies the DER-encoded X.509v3 certificates of the account. These certificates include the public key certificates issued to this account by the Microsoft Certificate Service. This parameter sets the Certificates property of the account object. The LDAP Display Name (ldapDisplayName) for this property is "userCertificate".
+        Syntax:
+        To add values:
+          -Certificates @{Add=value1,value2,...}
+        To remove values:
+          -Certificates @{Remove=value3,value4,...}
+        To replace values:
+          -Certificates @{Replace=value1,value2,...}
+        To clear all values:
+          -Certificates $null
+        You can specify more than one operation by using a list separated by semicolons. For example, use the following syntax to add and remove Certificate values 
+          -Certificates @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to create a certificate by using the New-Object cmdlet, and then add it to a user account. When this cmdlet is run, <certificate password> is replaced by the password used to add the certificate.
+        $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate certificate1.cer  <certificate password>
+        Set-ADUser saradavis  -Certificates @{Add=$cert}
+        The following example shows how to add a certificate that is specified as a byte array.
+            Set-ADUser saradavis  -Certificates @{Add= [Byte[]](0xC5,0xEE,0x53,...)}
+    .PARAMETER ChangePasswordAtLogon
+        Specifies whether a password must be changed during the next logon attempt. Possible values for this parameter include:
+          $false or 0
+          $true or 1
+        This parameter cannot be set to $true or 1 for an account that also has the PasswordNeverExpires property set to true.
+        The following example shows how to set this parameter so that the password must be changed at logon.
+          -ChangePasswordAtLogon $true
+    .PARAMETER City
+        Specifies the user's town or city. This parameter sets the City property of a user. The LDAP display name (ldapDisplayName) of this property is "l".
+        The following example shows how set this parameter.
+          -City "Las Vegas"
+    .PARAMETER Company
+        Specifies the user's company. This parameter sets the Company property of a user object. The LDAP display name (ldapDisplayName) of this property is "company". 
+        The following example shows how to set this parameter.
+          -Company "Contoso"
+    .PARAMETER Country
+        Specifies the country or region code for the user's language of choice. This parameter sets the Country property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "c". This value is not used by Windows 2000.
+        The following example shows how set this parameter.
+          -Country "IN"
+    .PARAMETER Department
+        Specifies the user's department. This parameter sets the Department property of a user. The LDAP Display Name (ldapDisplayName) of this property is "department". 
+        The following example shows how to set this parameter.
+          -Department "Development"
+    .PARAMETER Description
+        Specifies a description of the object. This parameter sets the value of the Description property for the object. The LDAP Display Name (ldapDisplayName) for this property is "description". 
+        The following example shows how to set this parameter to a sample description.
+          -Description "Description of the object"
+    .PARAMETER DisplayName
+        Specifies the display name of the object. This parameter sets the DisplayName property of the object. The LDAP Display Name (ldapDisplayName) for this property is "displayName".
+        The following example shows how to set this parameter.
+          -DisplayName "Sara Davis Laptop"
+    .PARAMETER Division
+        Specifies the user's division. This parameter sets the Division property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "division". 
+        The following example shows how to set this parameter.
+          -Division "Software"
+    .PARAMETER EmailAddress
+        Specifies the user's e-mail address. This parameter sets the EmailAddress property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "mail". 
+        The following example shows how to set this parameter.
+          -EmailAddress "saradavis@contoso.com"
+    .PARAMETER EmployeeID
+        Specifies the user's employee ID. This parameter sets the EmployeeID property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "employeeID". 
+        The following example shows how to set this parameter.
+          -EmployeeID  "A123456"
+    .PARAMETER EmployeeNumber
+        Specifies the user's employee number. This parameter sets the EmployeeNumber property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "employeeNumber". 
+        The following example shows how set this parameter.
+          -EmployeeNumber "12345678"
+    .PARAMETER Enabled
+        Specifies if an account is enabled. An enabled account requires a password. This parameter sets the Enabled property for an account object. This parameter also sets the ADS_UF_ACCOUNTDISABLE flag of the Active Directory User Account Control (UAC) attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter to enable the account.
+          -Enabled $true
+    .PARAMETER Fax
+        Specifies the user's fax phone number. This parameter sets the Fax property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "facsimileTelephoneNumber". 
+        The following example shows how to set this parameter.
+          -Fax  "+1 (999) 555 1212"
+    .PARAMETER GivenName
+        Specifies the user's given name. This parameter sets the GivenName property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "givenName".
+        The following example shows how to set this parameter.
+          -givenName "Sanjay"
+    .PARAMETER HomeDirectory
+        Specifies a user's home directory. This parameter sets the HomeDirectory property of a user object. The LDAP Display Name (ldapDisplayName) for this property is "homeDirectory".
+        The following example shows how to set this parameter.
+           -HomeDirectory "\\users\saraDavisHomeDir"
+    .PARAMETER HomeDrive
+        Specifies a drive that is associated with the UNC path defined by the HomeDirectory property. The drive letter is specified as "<DriveLetter>:" where <DriveLetter> indicates the letter of the drive to associate. The <DriveLetter> must be a single, uppercase letter and the colon is required. This parameter sets the HomeDrive property of the user object. The LDAP Display Name (ldapDisplayName) for this property is "homeDrive". 
+        The following example shows how to set this parameter.
+           -HomeDrive "D:"
+    .PARAMETER HomePage
+        Specifies the URL of the home page of the object. This parameter sets the homePage property of an Active Directory object. The LDAP Display Name (ldapDisplayName) for this property is "wWWHomePage".
+        The following example shows how to set this parameter to a URL.
+          -HomePage "http://employees.contoso.com/sdavis"
+    .PARAMETER HomePhone
+        Specifies the user's home telephone number. This parameter sets the HomePhone property of a user. The LDAP Display Name (ldapDisplayName) of this property is "homePhone".
+        The following example shows how to set this parameter.
+          -HomePhone  "+1 (999) 555 1212"
+    .PARAMETER Initials
+        Specifies the initials that represent part of a user's name. You can use this value for the user's middle initial. This parameter sets the Initials property of a user. The LDAP Display Name (ldapDisplayName) of this property is "initials".
+        The following example shows how set this parameter.
+          -Initials "L"
+    .PARAMETER LogonWorkstations
+        Specifies the computers that the user can access. To specify more than one computer, create a single comma-separated list. You can identify a computer by using the Security Accounts Manager (SAM) account name (sAMAccountName) or the DNS host name of the computer. The SAM account name is the same as the NetBIOS name of the computer.
+        The LDAP display name (ldapDisplayName) for this property is "userWorkStations". 
+        The following example shows how to set this parameter by using SAMAccountName (NetBIOS name) and DNSHostName values.
+          -LogonWorkstations "saraDavisDesktop,saraDavisLapTop,projectA.corp.contoso.com"
+    .PARAMETER Manager
+        Specifies the user's manager. This parameter sets the Manager property of a user. This parameter is set by providing one of the following property values.  Note: The identifier in parentheses is the LDAP display name for the property.
+          Distinguished Name 
+            Example: CN=SaraDavis,CN=Europe,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The LDAP Display Name (ldapDisplayName) of this property is "manager".
+        The following example shows how to set this parameter.
+          -Manager saradavis
+    .PARAMETER MobilePhone
+        Specifies the user's mobile phone number. This parameter sets the MobilePhone property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "mobile".
+        The following example shows how to set this parameter.
+          -MobilePhone  "+1  (999 ) 555 1212"
+    .PARAMETER Office
+        Specifies the location of the user's office or place of business. This parameter sets the Office property of a user object. The LDAP display name (ldapDisplayName) of this property is "office".
+        The following example shows how to set this parameter.
+          -Office  "D1042"
+    .PARAMETER OfficePhone
+        Specifies the user's office telephone number. This parameter sets the OfficePhone property of a user object. The LDAP display name (ldapDisplayName) of this property is "telephoneNumber".
+        The following example shows how to set this parameter.
+          -OfficePhone  "+1 (999) 555 1212"
+    .PARAMETER Organization
+        Specifies the user's organization. This parameter sets the Organization property of a user object. The LDAP display name (ldapDisplayName) of this property is "o".
+        The following example shows how to set this parameter.
+          -Organization "Accounting"
+    .PARAMETER OtherName
+        Specifies a name in addition to a user's given name and surname, such as the user's middle name. This parameter sets the OtherName property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "middleName".
+        The following example shows how to set this parameter.
+          -OtherName  "Peter"
+    .PARAMETER PasswordNeverExpires
+        Specifies whether the password of an account can expire. This parameter sets the PasswordNeverExpires property of an account object. This parameter also sets the ADS_UF_DONT_EXPIRE_PASSWD flag of the Active Directory User Account Control attribute. Possible values for this parameter include:
+          $false or 0
+          $true or 1 
+        Note: This parameter cannot be set to $true or 1 for an account that also has the ChangePasswordAtLogon property set to true.
+        The following example shows how to set this parameter so that the password can expire.
+          -PasswordNeverExpires $false
+    .PARAMETER PasswordNotRequired
+        Specifies whether the account requires a password. This parameter sets the PasswordNotRequired property of an account, such as a user or computer account. This parameter also sets the ADS_UF_PASSWD_NOTREQD flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0 
+          $true or 1 
+        The following example shows how to set this parameter so that as password is not required for the account.
+          -PasswordNotRequired $true
+    .PARAMETER POBox
+        Specifies the user's post office box number. This parameter sets the POBox property of a user object. The LDAP Display Name (ldapDisplayName) of this property is "postOfficeBox".
+        The following example shows how to set this parameter.
+          -POBox  "25662"
+    .PARAMETER PostalCode
+        Specifies the user's postal code or zip code. This parameter sets the PostalCode property of a user. The LDAP Display Name (ldapDisplayName) of this property is "postalCode".
+        The following example shows how to set this parameter.
+          -PostalCode "28712"
+    .PARAMETER ProfilePath
+        Specifies a path to the user's profile. This value can be a local absolute path or a Universal Naming Convention (UNC) path. This parameter sets the ProfilePath property of the user object. The LDAP display name (ldapDisplayName) for this property is "profilePath".
+        The following examples show how to set this parameter to a local path and to a UNC path.    -ProfilePath "E:\users\profiles\saraDavis"
+           -ProfilePath "\\users\profiles\saraDavis"
+    .PARAMETER SamAccountName
+        Specifies the Security Account Manager (SAM) account name of the user, group, computer, or service account. The maximum length of the description is 256 characters. To be compatible with older operating systems, create a SAM account name that is 20 characters or less. This parameter sets the SAMAccountName for an account object. The LDAP display name (ldapDisplayName) for this property is "sAMAccountName".
+        The following example shows how to specify this parameter.
+          -SAMAccountName "saradavis"
+        Note: If the string value provided is not terminated with a '$' character, the system adds one if needed.
+    .PARAMETER ScriptPath
+        Specifies a path to the user's log on script. This value can be a local absolute path or a Universal Naming Convention (UNC) path. This parameter sets the ScriptPath property of the user. The LDAP display name (ldapDisplayName) for this property is "scriptPath". 
+        The following example shows how to set this parameter.
+           -ScriptPath "\\logonScripts\saradavisLogin"
+    .PARAMETER ServicePrincipalNames
+        Specifies the service principal names for the account. This parameter sets the ServicePrincipalNames property of the account. The LDAP display name (ldapDisplayName) for this property is servicePrincipalName. This parameter uses the following syntax to add remove, replace or clear service principal name values. 
+        Syntax:
+        To add values:
+          -ServicePrincipalNames @{Add=value1,value2,...}
+        To remove values:
+          -ServicePrincipalNames @{Remove=value3,value4,...}
+        To replace values:
+          -ServicePrincipalNames @{Replace=value1,value2,...}
+        To clear all values:
+          -ServicePrincipalNames $null
+        You can specify more than one change by using a list separated by semicolons. For example, use the following syntax to add and remove service principal names. 
+          @{Add=value1,value2,...};@{Remove=value3,value4,...}
+        The operators will be applied in the following sequence:
+        ..Remove
+        ..Add
+        ..Replace
+        The following example shows how to add and remove service principal names.
+          -ServicePrincipalNames-@{Add="SQLservice\accounting.corp.contoso.com:1456"};{Remove="SQLservice\finance.corp.contoso.com:1456"}
+    .PARAMETER SmartcardLogonRequired
+        Specifies whether a smart card is required to logon. This parameter sets the SmartCardLoginRequired property for a user. This parameter also sets the ADS_UF_SMARTCARD_REQUIRED flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0
+          $true or 1 
+        The following example shows how to set this parameter so that a smart card is required to logon to the account.
+          -SmartCardLogonRequired $true
+    .PARAMETER State
+        Specifies the user's or Organizational Unit's state or province. This parameter sets the State property of a User or Organizational Unit object. The LDAP display name (ldapDisplayName) of this property is "st".
+        The following example shows how set this parameter.
+          -State  "Nevada"
+    .PARAMETER StreetAddress
+        Specifies the user's street address. This parameter sets the StreetAddress property of a user object. The LDAP display name (ldapDisplayName) of this property is "streetAddress".
+        The following example shows how to set this parameter.
+          -StreetAddress  "1200 Main Street"
+    .PARAMETER Surname
+        Specifies the user's last name or surname. This parameter sets the Surname property of a user object. The LDAP display name (ldapDisplayName) of this property is "sn".
+        The following example shows how to set this parameter.
+          -Surname  "Patel"
+    .PARAMETER Title
+        Specifies the user's title. This parameter sets the Title property of a user object. The LDAP display name (ldapDisplayName) of this property is "title".
+        The following example shows how to set this parameter.
+          -Title  "Manager"
+    .PARAMETER TrustedForDelegation
+        Specifies whether an account is trusted for Kerberos delegation. A service that runs under an account that is trusted for Kerberos delegation can assume the identity of a client requesting the service. This parameter sets the TrustedForDelegation property of an account object. This value also sets the ADS_UF_TRUSTED_FOR_DELEGATION flag of the Active Directory User Account Control attribute. Possible values for this parameter are:
+          $false or 0
+          $true or 1
+        The following example shows how to specify that an account is trusted for Kerberos delegation.
+          -TrustedForDelegation $true
+    .PARAMETER UserPrincipalName
+        Each user account has a user principal name (UPN) in the format <user>@<DNS-domain-name>. A UPN is a friendly name assigned by an administrator that is shorter than the LDAP distinguished name used by the system and easier to remember. The UPN is independent of the user object's DN, so a user object can be moved or renamed without affecting the user logon name. When logging on using a UPN, users no longer have to choose a domain from a list on the logon dialog box.
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity')]
         [ValidateNotNullOrEmpty()]
@@ -6347,6 +15415,41 @@ function Set-ADUser {
 }
 
 function Uninstall-ADServiceAccount {
+    <#
+    .SYNOPSIS
+        Uninstalls an Active Directory service account from a computer.
+    .PARAMETER ForceRemoveLocal
+        The ForceRemoveLocal switch parameter allows you to remove the account from the local computer without failing the command if access to a writable DC is not available. This is required if you are uninstalling the managed service account from a server located in a segmented network or site (such as perimeter network or DMZ) with access only to a read-only domain controller (RODC). If you pass this parameter and the server has access to a writable DC, the account will also be un-linked from the computer account in Active Directory Domain Services. If this parameter is used, it is recommended that you run Remove-ADComputerServiceAccount cmdlet against a writable DC to reliably unlink the managed service account from the computer.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example:  CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: WebAccount$
+          
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+         This parameter can also get this object through the pipeline or you can set this parameter to an object instance. 
+        This example shows how to set the parameter to a distinguished name.
+          -Identity  "CN=WebAccount,CN=ManagedServiceAccounts,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "AccountInstance".
+          -Identity   $AccountInstance
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [switch]
         ${ForceRemoveLocal},
@@ -6362,6 +15465,88 @@ function Uninstall-ADServiceAccount {
 }
 
 function Unlock-ADAccount {
+    <#
+    .SYNOPSIS
+        Unlocks an Active Directory account.
+    .PARAMETER Identity
+        Specifies an Active Directory account object by providing one of the following property values. The identifier in parentheses is the LDAP display name for the attribute.
+          Distinguished Name 
+            Example: CN=SaraDavis ,CN=Users,DC=corp,DC=contoso,DC=com
+          GUID (objectGUID) 
+            Example: 599c3d2e-f72d-4d20-8a88-030d99495f20 
+          Security Identifier (objectSid) 
+            Example: S-1-5-21-3165297888-301567370-576410423-1103
+          SAM Account Name (sAMAccountName) 
+            Example: saradavis
+        The cmdlet searches the default naming context or partition to find the object. If two or more objects are found, the cmdlet returns a non-terminating error. 
+        This parameter can also get this object through the pipeline or you can set this parameter to an account object instance. 
+        Derived types such as the following are also accepted:
+          Microsoft.ActiveDirectory.Management.ADUser
+          Microsoft.ActiveDirectory.Management.ADComputer
+          Microsoft.ActiveDirectory.Management.ADServiceAccount
+        This example shows how to set the parameter to a distinguished name.
+          -Identity "CN=saradavis,CN=Users,DC=corp,DC=contoso,DC=com"
+        This example shows how to set this parameter to an account object instance named "accountInstance".
+          -Identity $accountInstance
+    .PARAMETER Partition
+        Specifies the distinguished name of an Active Directory partition. The distinguished name must be one of the naming contexts on the current directory server. The cmdlet searches this partition to find the object defined by the Identity parameter. 
+        The following two examples show how to specify a value for this parameter.
+          -Partition "CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+         
+          -Partition "CN=Schema,CN=Configuration,DC=EUROPE,DC=TEST,DC=CONTOSO,DC=COM"
+          
+        In many cases, a default value will be used for the Partition parameter if no value is specified.  The rules for determining the default value are given below.  Note that rules listed first are evaluated first and once a default value can be determined, no further rules will be evaluated.
+        In AD DS environments, a default value for Partition will be set in the following cases:  - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If none of the previous cases apply, the default value of Partition will be set to the default partition or naming context of the target domain.
+        In AD LDS environments, a default value for Partition will be set in the following cases: 
+         - If the Identity parameter is set to a distinguished name, the default value of Partition is automatically generated from this distinguished name. 
+          - If running cmdlets from an Active Directory provider drive, the default value of Partition is automatically generated from the current path in the drive.
+          - If the target AD LDS instance has a default naming context, the default value of Partition will be set to the default naming context.  To specify a default naming context for an AD LDS environment, set the msDS-defaultNamingContext property of the Active Directory directory service agent (DSA) object (nTDSDSA) for the AD LDS instance.
+          - If none of the previous cases apply, the Partition parameter will not take any default value.
+    .PARAMETER PassThru
+        Returns the new or modified object. By default (i.e. if -PassThru is not specified), this cmdlet does not generate any output.
+    .PARAMETER Server
+        Specifies the Active Directory Domain Services instance to connect to, by providing one of the following values for a corresponding domain name or directory server. The service may be any of the following:  Active Directory Lightweight Domain Services, Active Directory Domain Services or Active Directory Snapshot instance.
+        Domain name values:
+          Fully qualified domain name
+            Examples: corp.contoso.com
+          NetBIOS name
+            Example: CORP
+        Directory server values:
+          Fully qualified directory server name
+            Example: corp-DC12.corp.contoso.com
+          NetBIOS name
+            Example: corp-DC12
+          Fully qualified directory server name and port
+            Example: corp-DC12.corp.contoso.com:3268
+        The default value for the Server parameter is determined by one of the following methods in the order that they are listed:
+          -By using Server value from objects passed through the pipeline.
+          -By using the server information associated with the Active Directory PowerShell provider drive, when running under that drive.
+          -By using the domain of the computer running Powershell. 
+        The following example shows how to specify a full qualified domain name as the parameter value.
+          -Server "corp.contoso.com"
+    .PARAMETER Credential
+        Specifies the user account credentials to use to perform this task. The default credentials are the credentials of the currently logged on user unless the cmdlet is run from an Active Directory PowerShell provider drive. If the cmdlet is run from such a provider drive, the account associated with the drive is the default.
+        To specify this parameter, you can type a user name, such as "User1" or "Domain01\User01" or you can specify a PSCredential object. If you specify a user name for this parameter, the cmdlet prompts for a password. 
+        You can also create a PSCredential object by using a script or by using the Get-Credential cmdlet. You can then set the Credential parameter to the PSCredential object The following example shows how to create credentials.
+          $AdminCredentials = Get-Credential "Domain01\User01"
+        The following shows how to set the Credential parameter to these credentials.
+          -Credential $AdminCredentials
+        If the acting credentials do not have directory-level permission to perform the task, Active Directory PowerShell returns a terminating error.
+    .PARAMETER AuthType
+        Specifies the authentication method to use. Possible values for this parameter include:
+          Negotiate or 0
+          Basic or 1
+        The default authentication method is Negotiate.
+        A Secure Sockets Layer (SSL) connection is required for the Basic authentication method.
+        The following example shows how to set this parameter to Basic.
+          -AuthType Basic
+
+        The following lists the acceptable values for this parameter:
+    #>
+    
+    [CmdletBinding(SupportsShouldProcess=$true, ConfirmImpact='Medium')]
     param (
         [Parameter(ParameterSetName='Identity', Mandatory=$true, Position=0, ValueFromPipeline=$true)]
         [ValidateNotNull()]

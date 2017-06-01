@@ -12,7 +12,7 @@ Generates a class or enum definition.
 ## SYNTAX
 
 ```
-New-StubType [[-Type] <Type>] [[-IsPrimary] <Boolean>]
+New-StubType [[-Type] <Type>] [[-IsPrimary] <Boolean>] [-ExcludeAddType]
 ```
 
 ## DESCRIPTION
@@ -56,6 +56,21 @@ Required: False
 Position: 2
 Default value: True
 Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ExcludeAddType
+Exclude the Add-Type wrapper statements.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
