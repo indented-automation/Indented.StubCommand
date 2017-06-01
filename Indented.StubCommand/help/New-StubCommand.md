@@ -13,12 +13,12 @@ Create a new partial copy of a command.
 
 ### FromPipeline (Default)
 ```
-New-StubCommand [-CommandInfo <CommandInfo>]
+New-StubCommand [-CommandInfo <CommandInfo>] [-IncludeTypeDefinition]
 ```
 
 ### FromString
 ```
-New-StubCommand [-CommandName] <String>
+New-StubCommand [-CommandName] <String> [-IncludeTypeDefinition]
 ```
 
 ## DESCRIPTION
@@ -69,6 +69,21 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -IncludeTypeDefinition
+Request generation of type statements to satisfy parameter binding.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

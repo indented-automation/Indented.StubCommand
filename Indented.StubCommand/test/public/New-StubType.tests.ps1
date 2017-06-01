@@ -1,5 +1,27 @@
 InModuleScope Indented.StubCommand {
     Describe New-StubType {
+        BeforeAll {
+            function Test-TypeDefinition {
+                param (
+                    [String]$addTypeCommand
+                )
+
+                $typeDefinition = ($addTypeCommand -replace "Add-Type @'|'@").Trim()
+
+                $options = New-Object System.CodeDom.Compiler.CompilerParameters
+                $options.GenerateInMemory = $true
+
+                $provider = [System.CodeDom.Compiler.CodeDomProvider]::CreateProvider('CSharp')
+                $result = $provider.CompileAssemblyFromSource($options, $typeDefinition)
+
+                if ($result.NativeCompilerReturnValue -eq 0) {
+                    $true
+                } else {
+                    $false
+                }
+            }
+        }
+
         Context 'Enum' {
             BeforeAll {
                 function CreateEnum {
@@ -8,13 +30,13 @@ InModuleScope Indented.StubCommand {
                     )
 
                     [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
-                    Add-Type ('
-                        public enum {0} : {1}
-                        {{
+                    Add-Type "
+                        public enum $typeName : $UnderlyingType
+                        {
                             One = 1,
                             Two = 2
-                        }}
-                    ' -f $typeName, $UnderlyingType)
+                        }
+                    "
 
                     return $typeName
                 }
@@ -36,6 +58,7 @@ InModuleScope Indented.StubCommand {
 
                 $stub | Should -Match 'enum'
                 $stub | Should -Match 'One = 1,'
+                Test-TypeDefinition $stub | Should -Be $true
             }
 
             It 'Supports enums with underlying type <UnderlyingType>' -TestCases $testCases {
@@ -47,28 +70,126 @@ InModuleScope Indented.StubCommand {
                 $stub = New-StubType $typeName
 
                 $stub | Should -Match $UnderlyingType
+                Test-TypeDefinition $stub | Should -Be $true
             }
         }
 
         Context 'Enum attributes' {
             BeforeAll {
                 [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
-                Add-Type ('
+                Add-Type "
                     using System;
 
                     [Flags]
-                    public enum {0} : int
-                    {{
+                    public enum $typeName : int
+                    {
                         One = 1,
                         Two = 2
-                    }}
-                ' -f $typeName)
+                    }
+                "
 
                 $stub = New-StubType $typeName
             }
 
             It 'Supports the Flags attribute' {
-                $stub | Should -Match '\[Flags\]'
+                $stub | Should -Match '\[System\.Flags\]'
+            }
+
+            It 'Generates a stub which will compile' {
+                Test-TypeDefinition $stub | Should -Be $true
+            }
+        }
+
+        Context 'Nested types' {
+            It 'Creates stub types from nested enums' {
+                [String]$declaringTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                [String]$nestedTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                Add-Type "
+                    public class $declaringTypeName
+                    {
+                        public string Name;
+
+                        public enum $nestedTypeName : int
+                        {
+                            One = 1,
+                            Two = 2
+                        }
+                    }
+                "
+                
+                $stub = New-StubType -Type "$declaringTypeName+$nestedTypeName"
+                $stub | Should -Match "public class $declaringTypeName"
+                $stub | Should -Match "public enum $nestedTypeName"
+                Test-TypeDefinition $stub | Should -Be $true
+            }
+
+            It 'Creates stub types from nested classes' {
+                [String]$declaringTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                [String]$nestedTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                Add-Type "
+                    public class $declaringTypeName
+                    {
+                        public string Name;
+
+                        public class $nestedTypeName
+                        {
+                            public string Name;
+                        }
+                    }
+                "
+
+                $stub = New-StubType -Type "$declaringTypeName+$nestedTypeName"
+                $stub | Should -Match "public class $declaringTypeName"
+                $stub | Should -Match "public class $nestedTypeName"
+                Test-TypeDefinition $stub | Should -Be $true
+            }
+
+            It 'Generates a stub of a nested type with members from the declaring type' {
+                [String]$declaringTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                [String]$nestedTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                Add-Type "
+                    public class $declaringTypeName
+                    {
+                        public string DeclaringTypeField;
+
+                        public class $nestedTypeName
+                        {
+                            public string NestedTypeField;
+                        }
+                    }
+                "
+
+                $stub = New-StubType -Type "$declaringTypeName+$nestedTypeName"
+                $stub | Should -Match "public System\.String DeclaringTypeField"
+                $stub | Should -Match "public System\.String NestedTypeField"
+                Test-TypeDefinition $stub | Should -Be $true
+            }
+
+            It 'Merges nested types within the same declaring type into a single type definition' {
+                [String]$declaringTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                [String]$nestedTypeName1 = 'z' + ([Guid]::NewGuid() -replace '-')
+                [String]$nestedTypeName2 = 'z' + ([Guid]::NewGuid() -replace '-')
+                Add-Type "
+                    public class $declaringTypeName
+                    {
+                        public string Name;
+
+                        public class $nestedTypeName1
+                        {
+                            public string Name;
+                        }
+
+                        public class $nestedTypeName2
+                        {
+                            public string Name;
+                        }
+                    }
+                "
+
+                $stub = "$declaringTypeName+$nestedTypeName1", "$declaringTypeName+$nestedTypeName2" | New-StubType
+                $stub | Should -Match "public class $nestedTypeName1"
+                $stub | Should -Match "public class $nestedTypeName2"
+                Test-TypeDefinition $stub | Should -Be $true
             }
         }
 
@@ -118,6 +239,10 @@ InModuleScope Indented.StubCommand {
                 $stub | Should -Match 'PublicProperty'
                 $stub | Should -Not -Match 'PrivateProperty'
             }
+
+            It 'Generates a stub which will compile' {
+                Test-TypeDefinition $stub | Should -Be $true
+            }
         }
 
         Context 'All constructors require arguments' {
@@ -140,6 +265,10 @@ InModuleScope Indented.StubCommand {
 
             It 'Creates a private constructor which does not require arguments' {
                 $stub | Should -BeLike "*private $typeName() { }*"
+            }
+
+            It 'Generates a stub which will compile' {
+                Test-TypeDefinition $stub | Should -Be $true
             }
         }
 
@@ -164,6 +293,10 @@ InModuleScope Indented.StubCommand {
 
             It 'Creates a static method named CreateTypeInstance if all constructors require arguments' {
                 $stub | Should -BeLike "*public static $typeName Create(System.String name)*"
+            }
+
+            It 'Generates a stub which will compile' {
+                Test-TypeDefinition $stub | Should -Be $true
             }
         }
 
@@ -203,6 +336,48 @@ InModuleScope Indented.StubCommand {
 
             It 'Adds a single IsSecondaryStubType field' {
                 $stub | Should -Match 'public bool IsSecondaryStubType = true;'
+            }
+
+            It 'Generates a stub which will compile' {
+                Test-TypeDefinition $stub | Should -Be $true
+            }
+        }
+
+        Context 'Namespace handling' {
+            BeforeAll {
+                [String]$declaringTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                [String]$nestedTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                Add-Type "
+                    namespace Root.Child
+                    {
+                        public class $declaringTypeName
+                        {
+                            public string Name;
+
+                            public class $nestedTypeName
+                            {
+                                public string Name;
+                            }
+                        }
+                    }
+                "
+
+                $stub = New-StubType "Root.Child.$declaringTypeName"
+                $nestedStub = New-StubType "Root.Child.$declaringtypeName+$nestedTypeName"
+            }
+
+            It 'Includes namespace statements when a class is within a namespace' {
+                $stub | Should -Match 'namespace Root\.Child'
+                $stub | Should -Match $declaringTypeName
+            }
+
+            It 'Supports nested types within a namespace' {
+                $nestedStub | Should -Match $nestedTypeName
+            }
+            
+            It 'Generates a stub which will compile' {
+                Test-TypeDefinition $stub | Should -Be $true
+                Test-TypeDefinition $nestedStub | Should -Be $true
             }
         }
     }

@@ -16,14 +16,14 @@ InModuleScope Indented.StubCommand {
         Context 'Primary dependencies only' {
             BeforeAll {
                 [String]$primaryTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
-                Add-Type ('
-                    public class {0}
-                    {{
+                Add-Type "
+                    public class $primaryTypeName
+                    {
                         public string name;
 
-                        public {0}() {{ }}
-                    }}
-                ' -f $primaryTypeName)
+                        public $primaryTypeName() { }
+                    }
+                "
 
                 Invoke-Expression ('
                     function PrimaryDependencies {{
@@ -32,8 +32,7 @@ InModuleScope Indented.StubCommand {
 
                             [String]$Value
                         )
-                    }}
-                    ' -f $primaryTypeName
+                    }}' -f $primaryTypeName
                 )
 
                 $requiredTypes = GetRequiredType (Get-Command PrimaryDependencies)
@@ -53,21 +52,21 @@ InModuleScope Indented.StubCommand {
             BeforeAll {
                 [String]$primaryTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
                 [String]$secondaryTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
-                Add-Type ('
-                    public class {0}
-                    {{
-                        public {1} name;
+                Add-Type "
+                    public class $primaryTypeName
+                    {
+                        public $secondaryTypeName name;
 
-                        public {0}() {{ }}
-                    }}
+                        public $primaryTypeName() { }
+                    }
 
-                    public class {1}
-                    {{
+                    public class $secondaryTypeName
+                    {
                         public string name;
 
-                        public {1}() {{ }}
-                    }}
-                ' -f $primaryTypeName, $secondaryTypeName)
+                        public $secondaryTypeName() { }
+                    }
+                "
 
                 Invoke-Expression ('
                     function SecondaryDependencies {{
@@ -76,8 +75,7 @@ InModuleScope Indented.StubCommand {
 
                             [String]$Value
                         )
-                    }}
-                    ' -f $primaryTypeName
+                    }}' -f $primaryTypeName
                 )
 
                 $requiredTypes = GetRequiredType (Get-Command SecondaryDependencies)
@@ -105,29 +103,29 @@ InModuleScope Indented.StubCommand {
                 [String]$primaryTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
                 [String]$secondaryTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
                 [String]$tertiaryTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
-                Add-Type ('
-                    public class {0}
-                    {{
-                        public {1} name;
+                Add-Type "
+                    public class $primaryTypeName
+                    {
+                        public $secondaryTypeName name;
 
-                        public {0}() {{ }}
-                    }}
+                        public $primaryTypeName() { }
+                    }
 
-                    public class {1}
-                    {{
-                        public {2} name;
+                    public class $secondaryTypeName
+                    {
+                        public $tertiaryTypeName name;
 
-                        public {1}() {{ }}
-                    }}
+                        public $secondaryTypeName() { }
+                    }
 
-                    public class {2}
-                    {{
+                    public class $tertiaryTypeName
+                    {
                         public string name;
 
-                        public {2}() {{ }}
-                    }}
-                ' -f $primaryTypeName, $secondaryTypeName, $tertiaryTypeName)
-
+                        public $tertiaryTypeName() { }
+                    }
+                "
+                
                 Invoke-Expression ('
                     function TertiaryDependencies {{
                         param (
@@ -135,9 +133,9 @@ InModuleScope Indented.StubCommand {
 
                             [String]$Value
                         )
-                    }}
-                    ' -f $primaryTypeName
+                    }}' -f $primaryTypeName
                 )
+
                 $requiredTypes = GetRequiredType (Get-Command TertiaryDependencies)
             }
 
@@ -161,22 +159,21 @@ InModuleScope Indented.StubCommand {
         Context 'OutputType' {
             It 'Returns a single type flagged as primary from the OutputType attribute' {
                 [String]$primaryTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
-                Add-Type ('
-                    public class {0}
-                    {{
+                Add-Type "
+                    public class $primaryTypeName
+                    {
                         public string name;
 
-                        public {0}() {{ }}
-                    }}
-                ' -f $primaryTypeName)
+                        public $primaryTypeName() { }
+                    }
+                "
 
-                Invoke-Expression ('
-                    function OutputType {{
-                        [OutputType([{0}])]
+                Invoke-Expression "
+                    function OutputType {
+                        [OutputType([$primaryTypeName])]
                         param ( )
-                    }}
-                    ' -f $primaryTypeName
-                )
+                    }
+                "
 
                 $requiredTypes = GetRequiredType (Get-Command OutputType)
                 @($requiredTypes).Count | Should -Be 1
@@ -188,14 +185,14 @@ InModuleScope Indented.StubCommand {
         Context 'Array types (single type)' {
             It 'Returns a single type flagged as primary (discarding the array type)' {
                 [String]$primaryTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
-                Add-Type ('
-                    public class {0}
-                    {{
+                Add-Type "
+                    public class $primaryTypeName
+                    {
                         public string name;
 
-                        public {0}() {{ }}
-                    }}
-                ' -f $primaryTypeName)
+                        public $primaryTypename() { }
+                    }
+                "
 
                 Invoke-Expression ('
                     function ArrayTypes {{
@@ -219,21 +216,21 @@ InModuleScope Indented.StubCommand {
             BeforeAll {
                 [String]$primaryTypeName1 = 'z' + ([Guid]::NewGuid() -replace '-')
                 [String]$primaryTypeName2 = 'z' + ([Guid]::NewGuid() -replace '-')
-                Add-Type ('
-                    public class {0}
-                    {{
+                Add-Type "
+                    public class $primaryTypeName1
+                    {
                         public string name;
 
-                        public {0}() {{ }}
-                    }}
+                        public $primaryTypeName1() { }
+                    }
 
-                    public class {1}
-                    {{
+                    public class $primaryTypeName2
+                    {
                         public string name;
 
-                        public {1}() {{ }}
-                    }}
-                ' -f $primaryTypeName1, $primaryTypeName2)
+                        public $primaryTypeName2() { }
+                    }
+                "
 
                 Invoke-Expression ('
                     function ArrayTypes {{
@@ -271,25 +268,25 @@ InModuleScope Indented.StubCommand {
             BeforeAll {
                 [String]$primaryTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
                 [String]$secondaryTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
-                Add-Type ('
-                    public class {0}
-                    {{
-                        public {1} name;
+                Add-Type "
+                    public class $primaryTypeName
+                    {
+                        public $secondaryTypeName name;
 
-                        public {0}() {{ }}
+                        public $primaryTypeName() { }
 
-                        public static {0} Create({1} value) {{
-                            return new {0}();
-                        }}
-                    }}
+                        public static $primaryTypeName Create($secondaryTypeName value) {
+                            return new $primaryTypeName();
+                        }
+                    }
 
-                    public class {1}
-                    {{
+                    public class $secondaryTypeName
+                    {
                         public string name;
 
-                        public {1}() {{ }}
-                    }}
-                ' -f $primaryTypeName, $secondaryTypeName)
+                        public $secondaryTypeName() { }
+                    }
+                "
 
                 Invoke-Expression ('
                     function StaticMethod {{

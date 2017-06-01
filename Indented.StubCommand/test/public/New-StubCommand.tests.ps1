@@ -183,5 +183,34 @@ InModuleScope Indented.StubCommand {
                 $stub | Should -Match 'Value description'
             }
         }
+
+        Context 'Type definitions' {
+            BeforeAll {
+                Mock New-StubType {
+                    return $Type
+                }
+
+                [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                Add-Type -TypeDefinition "
+                    public class $typeName
+                    {
+                        public string Name; 
+                    }
+                "
+
+                Invoke-Expression "
+                    function Test-Function {
+                        param (
+                            [$typeName]`$Parameter
+                        )
+                    }
+                "
+            }
+
+            It 'Includes type names in generated stubs' {
+                $stub = New-StubCommand (Get-Command Test-Function) -IncludeTypeDefinition
+                $stub | Should -Match $typeName
+            }
+        }
     }
 }

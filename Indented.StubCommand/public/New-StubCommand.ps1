@@ -34,12 +34,15 @@ function New-StubCommand {
         
         # Generate a stub of the specified command.
         [Parameter(ValueFromPipeline, ParameterSetName = 'FromPipeline')]
-        [CommandInfo]$CommandInfo
+        [CommandInfo]$CommandInfo,
+
+        # Request generation of type statements to satisfy parameter binding.
+        [Switch]$IncludeTypeDefinition
     )
     
     begin {
         if ($pscmdlet.ParameterSetName -eq 'FromString') {
-            Get-Command $CommandName | New-StubCommand
+            Get-Command $CommandName | New-StubCommand -IncludeTypeDefinition:$IncludeTypeDefinition.ToBool()
         } else {
             $commonParameters = ([CommonParameters]).GetProperties().Name
             $shouldProcessParameters = ([ShouldProcessParameters]).GetProperties().Name
@@ -50,6 +53,10 @@ function New-StubCommand {
         if ($pscmdlet.ParameterSetName -eq 'FromPipeline') {
             try {
                 $script = New-Object ScriptBuilder
+
+                if ($IncludeTypeDefinition) {
+                    $null = $script.AppendLine((GetRequiredType -CommandInfo $CommandInfo | New-StubType))
+                }
 
                 $null = $script.AppendFormat('function {0} {{', $CommandInfo.Name).
                                 AppendLine()

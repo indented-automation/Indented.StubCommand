@@ -40,7 +40,7 @@ Aliases:
 Required: False
 Position: 1
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -70,6 +70,7 @@ Accept wildcard characters: False
 ## NOTES
 Change log:
     04/04/2017 - Chris Dent - Created.
+    31/05/2017 - Chris Dent - Nested type handling.
 
 ## RELATED LINKS
 
