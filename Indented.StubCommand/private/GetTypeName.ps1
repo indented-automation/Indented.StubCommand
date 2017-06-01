@@ -11,14 +11,18 @@ function GetTypeName {
     
     [OutputType([String])]
     param (
+        [Parameter(Mandatory, ValueFromPipeline)]
         [Type]$Type
     )
 
-    if ($Type.IsNestedPublic) {
-        $Type.FullName.Replace('+', '.')
-    } elseif ($Type.Name -eq 'Nullable`1') {
-        'System.Nullable<{0}>' -f $Type.GenericTypeArguments.FullName
-    } else {
-        $Type.FullName
+    process {
+        if ($Type.IsNestedPublic) {
+            $Type.FullName.Replace('+', '.')
+        } elseif ($Type.IsGenericType) {
+            $genericTypeName = $Type.GetGenericTypeDefinition().FullName -replace '`\d+'
+            '{0}<{1}>' -f $genericTypeName, (($Type.GenericTypeArguments | GetTypeName) -join ',')
+        } else {
+            $Type.FullName
+        }
     }
 }
