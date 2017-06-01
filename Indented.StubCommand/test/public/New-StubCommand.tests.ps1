@@ -191,20 +191,20 @@ InModuleScope Indented.StubCommand {
                 }
 
                 [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
-                Add-Type -TypeDefinition ('
-                    public class {0}
-                    {{
+                Add-Type -TypeDefinition "
+                    public class $typeName
+                    {
                         public string Name; 
-                    }}' -f $typeName
-                )
+                    }
+                "
 
-                . ([ScriptBlock]::Create('
-                    function Test-Function {{
+                Invoke-Expression "
+                    function Test-Function {
                         param (
-                            [{0}]$Parameter
+                            [$typeName]`$Parameter
                         )
-                    }}' -f $typeName
-                ))
+                    }
+                "
             }
 
             It 'Includes type names in generated stubs' {

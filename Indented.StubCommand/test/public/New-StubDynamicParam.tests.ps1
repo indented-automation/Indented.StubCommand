@@ -96,22 +96,23 @@ InModuleScope Indented.StubCommand {
                 $stubInfo.testAttribute.MaxLength | Should -Be 10
             }
 
-            # PowerShell 6+ only
-            #It 'Supports ValidateDrive' {
-            #    $Script:attributes = {
-            #        New-Object ValidateDrive('C')
-            #    }
-            #
-            #    $testAttribute.TypeId | Should -Be ([ValidateDrive])
-            #}
-            #
-            #It 'Supports ValidateUserDrive' {
-            #    $Script:attributes = {
-            #        New-Object ValidateUserDrive
-            #    }
-            #
-            #    $testAttribute.TypeId | Should -Be ([ValidateUserDrive])
-            #}
+            if ($psversiontable.PSVersion.Major -ge 6) {
+                It 'Supports ValidateDrive' {
+                    $Script:attributes = {
+                        New-Object ValidateDrive('C')
+                    }
+                
+                    $testAttribute.TypeId | Should -Be ([ValidateDrive])
+                }
+                
+                It 'Supports ValidateUserDrive' {
+                    $Script:attributes = {
+                        New-Object ValidateUserDrive
+                    }
+                
+                    $testAttribute.TypeId | Should -Be ([ValidateUserDrive])
+                }
+            }
 
             It 'Supports ValidateNotNull' {
                 $Script:attributes = {

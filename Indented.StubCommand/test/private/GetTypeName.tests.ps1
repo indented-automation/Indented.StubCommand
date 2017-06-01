@@ -2,31 +2,31 @@ InModuleScope Indented.StubCommand {
     Describe GetTypeName {
         BeforeAll {
             [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
-            Add-Type ('
+            Add-Type "
                 namespace namespaceName
-                {{
-                    public class {0}
-                    {{
+                {
+                    public class $typeName
+                    {
                         public string name;
 
-                        public {0}() {{ }}
-                    }}
-                }}
-            ' -f $typeName)
-
+                        public $typeName() { }
+                    }
+                }
+            "
+            
             [String]$declaringTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
             [String]$nestedTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
-            Add-Type ('
-                public class {0}
-                {{
+            Add-Type "
+                public class $declaringTypeName
+                {
                     public string name;
 
-                    public class {1}
-                    {{
+                    public class $nestedTypeName
+                    {
                         public string name;
-                    }}
-                }}
-            ' -f $declaringTypeName, $nestedTypeName)
+                    }
+                }
+            "
         }
 
         It 'Returns the full name of a given type' {

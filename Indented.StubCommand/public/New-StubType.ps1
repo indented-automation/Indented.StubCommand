@@ -24,7 +24,7 @@ function New-StubType {
     [OutputType([String])]
     param (
         # Generate a stub of the specified type.
-        [Parameter(ValueFromPipelineByPropertyName)]
+        [Parameter(ValueFromPipelineByPropertyName, ValueFromPipeline)]
         [Type]$Type,
 
         # If a type is flagged as secondary, member types are rewritten as object to end the type dependency chain.
@@ -56,9 +56,9 @@ function New-StubType {
                 
                 # "Open" the parent class to allow the nested class to be injected (nested types are not automatically fabricated).
                 if ($parentClassDefinition -like 'namespace *') {
-                    $parentClassDefinition = $parentClassDefinition -replace ' *\}\n\}'
+                    $parentClassDefinition = $parentClassDefinition -replace 'namespace \S+\s+?\{| *\}\s+?\}$'
                 } else {
-                    $parentClassDefinition = $parentClassDefinition -replace '\}'
+                    $parentClassDefinition = $parentClassDefinition -replace '\}$'
                 }
 
                 foreach ($line in $parentClassDefinition.Split("`n")) {
@@ -68,7 +68,7 @@ function New-StubType {
 
             if ($Type.BaseType -eq [Enum]) {
                 if ($Type.CustomAttributes.Count -gt 0 -and $Type.CustomAttributes.Where{ $_.AttributeType -eq [FlagsAttribute] }) {
-                    $null = $script.AppendLine('[Flags]')
+                    $null = $script.AppendLine('[System.Flags]')
                 }
 
                 $underlyingType = [Enum]::GetUnderlyingType($Type)
@@ -201,24 +201,25 @@ function New-StubType {
             }
 
             if ($Type.MemberType -eq 'NestedType') {
-                $definedTypes.($Type.DeclaringType) = $script.ToString()
+                $definedTypes.($Type.DeclaringType) = $script.ToString().Trim()
                 $definedTypes.$Type = $null
             } else {
-                $definedTypes.$Type = $script.ToString()
+                $definedTypes.$Type = $script.ToString().Trim()
             }
         }
     }
 
     end {
-        $null = $script.AppendLine("Add-Type @'")
-        $null = $script.AppendLine("'@")
-        
         if ($definedTypes.Count -gt 0) {
             $script = New-Object ScriptBuilder
 
-            $definedTypes.Keys | Sort-Object { $_.Type.FullName } | ForEach-Object {
+            $null = $script.AppendLine("Add-Type @'")
+
+            $definedTypes.Keys | Sort-Object { $_.Type.FullName } | Where-Object { $definedTypes[$_] } | ForEach-Object {
                 $null = $script.AppendLine($definedTypes[$_])
             }
+
+            $null = $script.AppendLine("'@")
 
             return $script.ToString()
         }
