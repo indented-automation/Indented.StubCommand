@@ -16,6 +16,8 @@ function GetTypeName {
 
     if ($Type.IsNestedPublic) {
         $Type.FullName.Replace('+', '.')
+    } elseif ($Type.Name -eq 'Nullable`1') {
+        'System.Nullable<{0}>' -f $Type.GenericTypeArguments.FullName
     } else {
         $Type.FullName
     }

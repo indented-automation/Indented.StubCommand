@@ -1,6 +1,6 @@
 ﻿# Name: ActiveDirectory
 # Version: 1.0.0.0
-# CreatedOn: 2017-06-01 12:43:27Z
+# CreatedOn: 2017-06-01 12:53:26Z
 
 Add-Type @'
 namespace Microsoft.ActiveDirectory.Management
@@ -22,7 +22,7 @@ namespace Microsoft.ActiveDirectory.Management
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -53,7 +53,7 @@ namespace Microsoft.ActiveDirectory.Management
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -69,15 +69,15 @@ namespace Microsoft.ActiveDirectory.Management
         public ADDefaultDomainPasswordPolicy(Microsoft.ActiveDirectory.Management.ADEntity adentity) { }
         
         // Property
-        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutDuration { get; set; }
-        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutObservationWindow { get; set; }
-        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutThreshold { get; set; }
-        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MaxPasswordAge { get; set; }
-        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MinPasswordAge { get; set; }
-        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MinPasswordLength { get; set; }
-        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] PasswordHistoryCount { get; set; }
-        public System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ComplexityEnabled { get; set; }
-        public System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ReversibleEncryptionEnabled { get; set; }
+        public System.Nullable<System.TimeSpan> LockoutDuration { get; set; }
+        public System.Nullable<System.TimeSpan> LockoutObservationWindow { get; set; }
+        public System.Nullable<System.Int32> LockoutThreshold { get; set; }
+        public System.Nullable<System.TimeSpan> MaxPasswordAge { get; set; }
+        public System.Nullable<System.TimeSpan> MinPasswordAge { get; set; }
+        public System.Nullable<System.Int32> MinPasswordLength { get; set; }
+        public System.Nullable<System.Int32> PasswordHistoryCount { get; set; }
+        public System.Nullable<System.Boolean> ComplexityEnabled { get; set; }
+        public System.Nullable<System.Boolean> ReversibleEncryptionEnabled { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -115,8 +115,8 @@ namespace Microsoft.ActiveDirectory.Management
         // Property
         public System.Security.Principal.SecurityIdentifier DomainSID { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection AllowedDNSSuffixes { get; set; }
-        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LastLogonReplicationInterval { get; set; }
-        public System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADDomainMode, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] DomainMode { get; set; }
+        public System.Nullable<System.TimeSpan> LastLogonReplicationInterval { get; set; }
+        public System.Nullable<Microsoft.ActiveDirectory.Management.ADDomainMode> DomainMode { get; set; }
         public System.String ManagedBy { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection LinkedGroupPolicyObjects { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection ChildDomains { get; set; }
@@ -141,7 +141,7 @@ namespace Microsoft.ActiveDirectory.Management
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -207,21 +207,21 @@ namespace Microsoft.ActiveDirectory.Management
         public ADFineGrainedPasswordPolicy(Microsoft.ActiveDirectory.Management.ADObject adobject) { }
         
         // Property
-        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutDuration { get; set; }
-        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutObservationWindow { get; set; }
-        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] LockoutThreshold { get; set; }
-        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MaxPasswordAge { get; set; }
-        public System.Nullable`1[[System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MinPasswordAge { get; set; }
-        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] MinPasswordLength { get; set; }
-        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] PasswordHistoryCount { get; set; }
-        public System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ComplexityEnabled { get; set; }
-        public System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ReversibleEncryptionEnabled { get; set; }
-        public System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] Precedence { get; set; }
+        public System.Nullable<System.TimeSpan> LockoutDuration { get; set; }
+        public System.Nullable<System.TimeSpan> LockoutObservationWindow { get; set; }
+        public System.Nullable<System.Int32> LockoutThreshold { get; set; }
+        public System.Nullable<System.TimeSpan> MaxPasswordAge { get; set; }
+        public System.Nullable<System.TimeSpan> MinPasswordAge { get; set; }
+        public System.Nullable<System.Int32> MinPasswordLength { get; set; }
+        public System.Nullable<System.Int32> PasswordHistoryCount { get; set; }
+        public System.Nullable<System.Boolean> ComplexityEnabled { get; set; }
+        public System.Nullable<System.Boolean> ReversibleEncryptionEnabled { get; set; }
+        public System.Nullable<System.Int32> Precedence { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection AppliesTo { get; set; }
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -241,7 +241,7 @@ namespace Microsoft.ActiveDirectory.Management
         public System.String Name { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection UPNSuffixes { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection SPNSuffixes { get; set; }
-        public System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADForestMode, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] ForestMode { get; set; }
+        public System.Nullable<Microsoft.ActiveDirectory.Management.ADForestMode> ForestMode { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection ApplicationPartitions { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection CrossForestReferences { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Domains { get; set; }
@@ -276,14 +276,14 @@ namespace Microsoft.ActiveDirectory.Management
         public ADGroup(Microsoft.ActiveDirectory.Management.ADObject identity) { }
         
         // Property
-        public System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADGroupScope, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] GroupScope { get; set; }
-        public System.Nullable`1[[Microsoft.ActiveDirectory.Management.ADGroupCategory, Microsoft.ActiveDirectory.Management, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35]] GroupCategory { get; set; }
+        public System.Nullable<Microsoft.ActiveDirectory.Management.ADGroupScope> GroupScope { get; set; }
+        public System.Nullable<Microsoft.ActiveDirectory.Management.ADGroupCategory> GroupCategory { get; set; }
         public System.String SamAccountName { get; set; }
         public System.Security.Principal.SecurityIdentifier SID { get; set; }
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -308,13 +308,13 @@ namespace Microsoft.ActiveDirectory.Management
         // Constructor
         public ADObject() { }
         public ADObject(System.String identity) { }
-        public ADObject(System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] objectGuid) { }
+        public ADObject(System.Nullable<System.Guid> objectGuid) { }
         
         // Property
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -339,7 +339,7 @@ namespace Microsoft.ActiveDirectory.Management
         public ADOptionalFeature(Microsoft.ActiveDirectory.Management.ADObject adobject) { }
         
         // Property
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] FeatureGUID { get; set; }
+        public System.Nullable<System.Guid> FeatureGUID { get; set; }
         public Microsoft.ActiveDirectory.Management.ADDomainMode RequiredDomainMode { get; set; }
         public Microsoft.ActiveDirectory.Management.ADForestMode RequiredForestMode { get; set; }
         public System.Boolean IsDisableable { get; set; }
@@ -347,7 +347,7 @@ namespace Microsoft.ActiveDirectory.Management
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -379,7 +379,7 @@ namespace Microsoft.ActiveDirectory.Management
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -401,7 +401,7 @@ namespace Microsoft.ActiveDirectory.Management
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -440,7 +440,7 @@ namespace Microsoft.ActiveDirectory.Management
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -459,7 +459,7 @@ namespace Microsoft.ActiveDirectory.Management
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }
@@ -485,7 +485,7 @@ namespace Microsoft.ActiveDirectory.Management
         public System.String DistinguishedName { get; set; }
         public System.String Name { get; set; }
         public System.String ObjectClass { get; set; }
-        public System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] ObjectGuid { get; set; }
+        public System.Nullable<System.Guid> ObjectGuid { get; set; }
         public System.Collections.ICollection PropertyNames { get; set; }
         public System.Int32 PropertyCount { get; set; }
         public Microsoft.ActiveDirectory.Management.ADPropertyValueCollection Item { get; set; }

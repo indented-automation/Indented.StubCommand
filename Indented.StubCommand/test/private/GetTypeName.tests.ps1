@@ -20,6 +20,7 @@ InModuleScope Indented.StubCommand {
                 public class $declaringTypeName
                 {
                     public string name;
+                    public System.Nullable<System.Guid> guid;
 
                     public class $nestedTypeName
                     {
@@ -35,6 +36,11 @@ InModuleScope Indented.StubCommand {
 
         It 'Returns the full name of a nested class' {
             GetTypeName "$declaringTypeName+$nestedTypeName" | Should -Be "$declaringTypeName.$nestedTypeName"
+        }
+
+        It 'Returns the full name of a nullable type' {
+            $type = ([Type]$declaringTypeName).GetFields()[1].FieldType
+            GetTypeName $type | Should -Be 'System.Nullable<System.Guid>'
         }
     }
 }
