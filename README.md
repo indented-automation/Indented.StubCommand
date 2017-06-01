@@ -34,10 +34,6 @@ The dynamic param block is re-built to expose the parameter names (along with at
 
 If a command defines a parameter to be of a fixed .NET type, and the .NET type is not ordinarily available a stub type is created.
 
-Enumerations are recreated entirely.
-
-Other .NET types are re-defined by as simple class with a single constructor accepting an argument of type object.
-
 A list of known assemblies is included with this module. If a type is defined within a known, widely available, assembly it is not recreated.
 
 ## Stub modules
@@ -50,7 +46,7 @@ The following command can be used to create a stub of the Test-Path command.
 ```powershell
 New-StubCommand (Get-Command Test-Path)
 ```
-The generated stub is shown below.
+The generated stub is shown (without help content) below.
 ```powershell
 function Test-Path {
     [OutputType([System.Boolean])]
@@ -121,37 +117,58 @@ New-StubType "Microsoft.PowerShell.Commands.TestPathType"
 ```
 With the generated enum:
 ```powershell
-if (-not ("Microsoft.PowerShell.Commands.TestPathType" -as [Type])) {
-    Add-Type '
-    namespace Microsoft.PowerShell.Commands
+Add-Type @'
+namespace Microsoft.PowerShell.Commands
+{
+    public enum TestPathType : int
     {
-        public enum TestPathType : int
-        {
-            Any = 0,
-            Container = 1,
-            Leaf = 2
-        }
+        Any = 0,
+        Container = 1,
+        Leaf = 2
     }
-    '
 }
+'@
 ```
 Stub types are created using the same command.
 ```powershell
-New-StubType [IPAddress]
+New-StubType IPAddress
 ```
-The result is an empty class.
+The result is a class which presents the constructors, fields, properties, and Create or Parse static methods.
 ```powershell
-if (-not ("System.Net.IPAddress" -as [Type])) {
-    Add-Type '
-    namespace System.Net
+namespace System.Net
+{
+    public class IPAddress
     {
-        public class IPAddress
+        // Constructor
+        public IPAddress(System.Int64 newAddress) { }
+        public IPAddress(System.Byte[] address, System.Int64 scopeid) { }
+        public IPAddress(System.Byte[] address) { }
+
+        // Property
+        public System.Int64 Address { get; set; }
+        public System.Net.Sockets.AddressFamily AddressFamily { get; set; }
+        public System.Int64 ScopeId { get; set; }
+        public System.Boolean IsIPv6Multicast { get; set; }
+        public System.Boolean IsIPv6LinkLocal { get; set; }
+        public System.Boolean IsIPv6SiteLocal { get; set; }
+        public System.Boolean IsIPv6Teredo { get; set; }
+        public System.Boolean IsIPv4MappedToIPv6 { get; set; }
+
+        // Static methods
+        public static System.Net.IPAddress Parse(System.String ipString)
         {
-            public IPAddress(object value) { }
+            return new IPAddress();
+        }
+
+        // Fabricated constructor
+        private IPAddress() { }
+        public static IPAddress CreateTypeInstance()
+        {
+            return new IPAddress();
         }
     }
-    '
 }
+'@
 ```
 
 ## Module examples
