@@ -40,7 +40,7 @@ function New-StubType {
     }
 
     process {
-        if (-not $definedStubTypes.Contains($Type)) {
+        if ($Type -and -not $definedStubTypes.Contains($Type)) {
             $stubType = [PSCustomObject]@{
                 Type       = $Type
                 Namespace  = $Type.Namespace
