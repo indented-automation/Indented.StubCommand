@@ -37,12 +37,21 @@ function New-StubCommand {
         [CommandInfo]$CommandInfo,
 
         # Request generation of type statements to satisfy parameter binding.
-        [Switch]$IncludeTypeDefinition
+        [Switch]$IncludeTypeDefinition,
+
+        # Allow population of generated stub command with a custom function body.
+        [ValidateScript({
+            if ($null -ne $_.Ast.ParamBlock -or $null -ne $_.Ast.DynamicParamBlock) {
+                throw (New-Object ArgumentException ("FunctionBody scriptblock cannot contain Param or DynamicParam blocks"))
+            } else {$true}
+        })]
+        [scriptblock]$FunctionBody
     )
     
     begin {
         if ($pscmdlet.ParameterSetName -eq 'FromString') {
-            Get-Command $CommandName | New-StubCommand -IncludeTypeDefinition:$IncludeTypeDefinition.ToBool()
+            $null = $PSBoundParameters.Remove('CommandName')
+            Get-Command $CommandName | New-StubCommand @PSBoundParameters
         } else {
             $commonParameters = ([CommonParameters]).GetProperties().Name
             $shouldProcessParameters = ([ShouldProcessParameters]).GetProperties().Name
@@ -124,6 +133,30 @@ function New-StubCommand {
                 if ($dynamicParams = New-StubDynamicParam $CommandInfo) {
                     $null = $script.AppendScript($dynamicParams)
                 }
+
+                # Insert function body, if specified
+                if ($null -ne $FunctionBody) {
+                    if ($null -ne $FunctionBody.Ast.BeginBlock) {
+                        $null = $script.AppendLine(($FunctionBody.Ast.BeginBlock))
+                    }
+
+                    if ($null -ne $FunctionBody.Ast.ProcessBlock) {
+                        $null = $script.AppendLine(($FunctionBody.Ast.ProcessBlock))
+                    }
+
+                    if ($null -ne $FunctionBody.Ast.EndBlock) {
+                        if ($FunctionBody.Ast.EndBlock -imatch '\s*end\s*{') {
+                            $null = $script.AppendLine(($FunctionBody.Ast.EndBlock))
+                        } else {
+                            # Simple scriptblock does not explicitly specify that code is in end block, so we add the block decoration
+                            $null = $script.AppendLine('end {')
+                            $null = $script.AppendLine(($FunctionBody.Ast.EndBlock))
+                            $null = $script.AppendLine('}')
+                        }
+                    }
+                }
+
+                # Close the function
 
                 $null = $script.AppendLine('}')
                 

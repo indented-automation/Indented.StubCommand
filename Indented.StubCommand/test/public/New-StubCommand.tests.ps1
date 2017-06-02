@@ -212,5 +212,27 @@ InModuleScope Indented.StubCommand {
                 $stub | Should -Match $typeName
             }
         }
+
+        Context 'Function body' {
+            It 'Includes simple body as an end block' {
+                $Definition = 'Write-Output $MyInvocation'
+                $Pattern = [regex]::Escape($Definition)
+                $stub = New-StubCommand (Get-Command Test-Function) -FunctionBody ([scriptblock]::Create($Definition))
+                $Stub | Should -Match "end {\s*$Pattern\s*}\s*}\s*$"
+            }
+
+            It 'Includes begin, process and end blocks' {
+                $BeginDefinition = 'Write-Output "In begin block"'
+                $ProcessDefinition = 'Write-Output "Processing..."'
+                $EndDefinition = 'Write-Output "In End block"'
+                $Definition = "begin {$BeginDefinition} process {$ProcessDefinition} end {$EndDefinition}"
+                $BeginPattern = [regex]::Escape($BeginDefinition)
+                $ProcessPattern = [regex]::Escape($ProcessDefinition)
+                $EndPattern = [regex]::Escape($EndDefinition)
+                $stub = New-StubCommand (Get-Command Test-Function) -FunctionBody ([scriptblock]::Create($Definition))
+                $Stub | Should -Match "begin {\s*$BeginPattern\s*}\s*}\s*process {\s*$ProcessPattern\s*}\s*}\s*end {\s*$EndPattern\s*}\s*}\s*$"
+
+            }
+        }
     }
 }

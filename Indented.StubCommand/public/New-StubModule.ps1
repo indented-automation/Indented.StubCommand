@@ -28,7 +28,15 @@ function New-StubModule {
         [String]$FromModule,
 
         # Save the new definition in the specified directory.
-        [String]$Path
+        [String]$Path,
+
+        # Allow population of generated stub command with a custom function body. Every function in the module will have the same body.
+        [ValidateScript({
+            if ($null -ne $_.Ast.ParamBlock -or $null -ne $_.Ast.DynamicParamBlock) {
+                throw (New-Object ArgumentException ("FunctionBody scriptblock cannot contain Param or DynamicParam blocks"))
+            } else {$true}
+        })]
+        [scriptblock]$FunctionBody
     )
 
     try {
@@ -57,10 +65,14 @@ function New-StubModule {
             
             # Types
 
-            $_.Group | GetRequiredType | New-StubType
+            #$_.Group | GetRequiredType | New-StubType
 
             # Commands
-            $_.Group | New-StubCommand
+            $StubCommandSplat = @{}
+            if ($psboundparameters.ContainsKey('FunctionBody')) {
+                $StubCommandSplat = @{FunctionBody = $FunctionBody}
+            }
+            $_.Group | New-StubCommand @StubCommandSplat
         } | ForEach-Object {
             if ($psboundparameters.ContainsKey('Path')) {
                 $_ | Out-File $filePath -Encoding UTF8 -Append
