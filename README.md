@@ -25,6 +25,8 @@ The stub command includes the following:
 2. OutputType attribute declaration
 3. Param block
 4. Dynamic param block
+5. (optional) custom function body
+
 
 The param block is fabricated using the ProxyCommand class.
 
@@ -176,3 +178,37 @@ namespace System.Net
 Examples of stub modules created using the commands in this module are available:
 
 https://github.com/indented-automation/Indented.StubCommand/tree/master/examples
+
+## Custom function body
+
+You can inject any function body, as a scriptblock, into the generated commands.
+
+The scriptblock cannot contain a Param or DynamicParam block, but it can contain begin-process-end blocks.
+
+If specifying a function body to New-StubModule, all generated functions will have an identical body.
+
+Example of creating a wrapper function for Write-Debug which directs debug output to a log file if a global variable is present:
+```powershell
+$CustomBody = {
+    if ($Global:LOGFILE) {
+        $Message | Out-File $Global:LOGFILE -Append
+    } else {
+        Microsoft.PowerShell.Utility\Write-Debug $Message
+    }
+}
+
+New-StubCommand (Get-Command Write-Debug) -FunctionBody $CustomBody | Invoke-Expression
+```
+
+Example of creating a wrapper function that executes commands through an API:
+```powershell
+$CustomBody = {
+    Invoke-RestMethod 'https://scriptrunner.contoso.com/invoke/' -Headers @{
+        scriptname = $MyInvocation.MyCommand.Name
+        scriptparameters = $PSBoundParameters
+        auth_token = $(Get-CorpToken)
+    }
+}
+
+New-StubModule CorpScriptLibrary -FunctionBody $CustomBody
+```
