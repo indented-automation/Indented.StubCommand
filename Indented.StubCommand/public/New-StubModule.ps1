@@ -65,7 +65,7 @@ function New-StubModule {
             
             # Types
 
-            #$_.Group | GetRequiredType | New-StubType
+            $_.Group | GetRequiredType | New-StubType
 
             # Commands
             $StubCommandSplat = @{}

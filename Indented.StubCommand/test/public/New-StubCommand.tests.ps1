@@ -230,7 +230,7 @@ InModuleScope Indented.StubCommand {
                 $ProcessPattern = [regex]::Escape($ProcessDefinition)
                 $EndPattern = [regex]::Escape($EndDefinition)
                 $stub = New-StubCommand (Get-Command Test-Function) -FunctionBody ([scriptblock]::Create($Definition))
-                $Stub | Should -Match "begin {\s*$BeginPattern\s*}\s*}\s*process {\s*$ProcessPattern\s*}\s*}\s*end {\s*$EndPattern\s*}\s*}\s*$"
+                $Stub | Should -Match "begin {\s*$BeginPattern\s*}\s*process {\s*$ProcessPattern\s*}\s*end {\s*$EndPattern\s*}\s*}\s*$"
 
             }
         }
