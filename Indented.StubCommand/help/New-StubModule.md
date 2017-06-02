@@ -12,7 +12,7 @@ Create a new stub module.
 ## SYNTAX
 
 ```
-New-StubModule [-FromModule] <String> [[-Path] <String>]
+New-StubModule [-FromModule] <String> [[-Path] <String>] [[-FunctionBody] <ScriptBlock>]
 ```
 
 ## DESCRIPTION
@@ -58,6 +58,22 @@ Aliases:
 
 Required: False
 Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FunctionBody
+Allow population of generated stub command with a custom function body.
+Every function in the module will have the same body.
+
+```yaml
+Type: ScriptBlock
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

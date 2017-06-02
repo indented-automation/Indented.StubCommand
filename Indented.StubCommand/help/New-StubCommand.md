@@ -13,12 +13,12 @@ Create a new partial copy of a command.
 
 ### FromPipeline (Default)
 ```
-New-StubCommand [-CommandInfo <CommandInfo>] [-IncludeTypeDefinition]
+New-StubCommand [-CommandInfo <CommandInfo>] [-IncludeTypeDefinition] [-FunctionBody <ScriptBlock>]
 ```
 
 ### FromString
 ```
-New-StubCommand [-CommandName] <String> [-IncludeTypeDefinition]
+New-StubCommand [-CommandName] <String> [-IncludeTypeDefinition] [-FunctionBody <ScriptBlock>]
 ```
 
 ## DESCRIPTION
@@ -83,6 +83,21 @@ Aliases:
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FunctionBody
+Allow population of generated stub command with a custom function body.
+
+```yaml
+Type: ScriptBlock
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
