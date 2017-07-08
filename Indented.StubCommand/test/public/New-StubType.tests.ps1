@@ -6,7 +6,7 @@ InModuleScope Indented.StubCommand {
                     [String]$addTypeCommand
                 )
 
-                $typeDefinition = ($addTypeCommand -replace "Add-Type @'|'@").Trim()
+                $typeDefinition = ($addTypeCommand -replace "Add-Type.+?@'|'@").Trim()
 
                 $options = New-Object System.CodeDom.Compiler.CompilerParameters
                 $options.GenerateInMemory = $true
