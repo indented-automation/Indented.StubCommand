@@ -219,7 +219,7 @@ function New-StubType {
             $script = New-Object ScriptBuilder
 
             if (-not $ExcludeAddType) {
-                $null = $script.AppendLine("Add-Type @'")
+                $null = $script.AppendLine("Add-Type -IgnoreWarnings -TypeDefinition @'")
             }
 
             $definedStubTypes.Values | Group-Object Namespace | Sort-Object Name | ForEach-Object {
