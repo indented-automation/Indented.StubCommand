@@ -90,6 +90,8 @@ function GetRequiredType {
         } | ForEach-Object {
             if ($_.BaseType -eq [Array]) {
                 $_.GetElementType()
+            } elseif ($_.IsGenericType) {
+                $_.GenericTypeArguments
             } else {
                 $_
             }
