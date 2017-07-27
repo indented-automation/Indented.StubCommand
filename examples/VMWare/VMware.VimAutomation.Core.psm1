@@ -2,6 +2,8 @@
 # Version: 6.5.1.5374329
 # CreatedOn: 2017-07-27 15:31:17Z
 
+Add-Type -AssemblyName System.Drawing
+
 Add-Type @'
 namespace VMware.Vim
 {
