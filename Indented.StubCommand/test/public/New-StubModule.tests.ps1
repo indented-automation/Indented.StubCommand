@@ -88,7 +88,7 @@ InModuleScope Indented.StubCommand {
             }
 
             It 'Creates a header in the file' {
-                'TestDrive:\Stub\TestModule.psm1' | Should -Contain 'Name: TestModule'
+                'TestDrive:\Stub\TestModule.psm1' | Should -FileContentMatch 'Name: TestModule'
             }
         }
     }
