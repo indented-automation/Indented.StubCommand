@@ -90,9 +90,16 @@ function New-StubType {
                                 AppendLine().
                                 AppendLine('{')
 
-                $values = [Enum]::GetValues($Type)
-                for ($i = 0; $i -lt $values.Count; $i++) {
-                    $null = $script.AppendFormat('{0} = {1}', $values[$i].ToString(), [Convert]::ChangeType($values[$i], $underlyingType))
+                $names = [Enum]::GetNames($Type)
+                for ($i = 0; $i -lt $names.Count; $i++) {
+                    $null = $script.AppendFormat(
+                        '{0} = {1}',
+                        $names[$i],
+                        [Convert]::ChangeType(
+                            [Enum]::Parse($Type, $names[$i]),
+                            $underlyingType
+                        )
+                    )
                     if ($i -ne $values.Count - 1) {
                         $null = $script.Append(',')
                     }

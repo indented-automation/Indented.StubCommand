@@ -102,6 +102,38 @@ InModuleScope Indented.StubCommand {
             }
         }
 
+        Context 'Enum repeated names' {
+            BeforeAll {
+                function CreateEnum {
+                    param (
+                        [String]$UnderlyingType
+                    )
+
+                    [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                    Add-Type "
+                        public enum $typeName : $UnderlyingType
+                        {
+                            NameOne = 1,
+                            NameTwo = 1
+                        }
+                    "
+
+                    return $typeName
+                }
+            }
+
+            It 'Supports enums with repeated names for a value' {
+                $typeName = CreateEnum 'int'
+                $stub = New-StubType $typeName
+
+                $stub | Should -Match 'enum'
+                $stub | Should -Match 'NameOne = 1,'
+                $stub | Should -Match 'NameTwo = 1'
+
+                Test-TypeDefinition $stub | Should -Be $true
+            }
+        }
+
         Context 'Nested types' {
             It 'Creates stub types from nested enums' {
                 [String]$declaringTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
