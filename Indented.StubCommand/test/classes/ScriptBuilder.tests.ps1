@@ -69,7 +69,7 @@ InModuleScope Indented.StubCommand {
 
             It 'AppendLine can be called with one argument' {
                 { $script.AppendLine('nothing') } | Should -Not -Throw
-            }            
+            }
         }
 
         Context 'Auto-indent' {

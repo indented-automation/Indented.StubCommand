@@ -1,7 +1,7 @@
 using namespace System.Management.Automation
 using namespace System.Reflection
 
-function GetRequiredType {
+function Get-StubRequiredType {
     <#
     .SYNOPSIS
         Gets the list of types required by a set of commands.
@@ -24,7 +24,7 @@ function GetRequiredType {
     [OutputType('StubTypeInfo')]
     param (
         # Resolve the list of types required by the specified command.
-        [Parameter(ValueFromPipeline)]
+        [Parameter(Mandatory, Position = 1, ValueFromPipeline)]
         [CommandInfo]$CommandInfo
     )
 

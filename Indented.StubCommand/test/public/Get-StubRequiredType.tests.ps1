@@ -1,5 +1,5 @@
 InModuleScope Indented.StubCommand {
-    Describe GetRequiredType {
+    Describe Get-StubRequiredType {
         Context 'No dependencies' {
             It 'Returns nothing if there are no non-native types' {
                 function NoTypeDependencies {
@@ -9,7 +9,7 @@ InModuleScope Indented.StubCommand {
                     )
                 }
 
-                GetRequiredType (Get-Command NoTypeDependencies) | Should -BeNullOrEmpty
+                Get-StubRequiredType (Get-Command NoTypeDependencies) | Should -BeNullOrEmpty
             }
         }
 
@@ -35,7 +35,7 @@ InModuleScope Indented.StubCommand {
                     }}' -f $primaryTypeName
                 )
 
-                $requiredTypes = GetRequiredType (Get-Command PrimaryDependencies)
+                $requiredTypes = Get-StubRequiredType (Get-Command PrimaryDependencies)
             }
 
             It 'Returns a single item' {
@@ -78,7 +78,7 @@ InModuleScope Indented.StubCommand {
                     }}' -f $primaryTypeName
                 )
 
-                $requiredTypes = GetRequiredType (Get-Command SecondaryDependencies)
+                $requiredTypes = Get-StubRequiredType (Get-Command SecondaryDependencies)
             }
 
             It 'Returns two items' {
@@ -125,7 +125,7 @@ InModuleScope Indented.StubCommand {
                         public $tertiaryTypeName() { }
                     }
                 "
-                
+
                 Invoke-Expression ('
                     function TertiaryDependencies {{
                         param (
@@ -136,7 +136,7 @@ InModuleScope Indented.StubCommand {
                     }}' -f $primaryTypeName
                 )
 
-                $requiredTypes = GetRequiredType (Get-Command TertiaryDependencies)
+                $requiredTypes = Get-StubRequiredType (Get-Command TertiaryDependencies)
             }
 
             It 'Returns two items' {
@@ -175,13 +175,13 @@ InModuleScope Indented.StubCommand {
                     }
                 "
 
-                $requiredTypes = GetRequiredType (Get-Command OutputType)
+                $requiredTypes = Get-StubRequiredType (Get-Command OutputType)
                 @($requiredTypes).Count | Should -Be 1
                 $requiredTypes.Type.Name | Should -Be $primaryTypeName
                 $requiredTypes.IsPrimary | Should -Be $true
             }
         }
-        
+
         Context 'Array types (single type)' {
             It 'Returns a single type flagged as primary (discarding the array type)' {
                 [String]$primaryTypeName = 'z' + ([Guid]::NewGuid() -replace '-')
@@ -205,7 +205,7 @@ InModuleScope Indented.StubCommand {
                     ' -f $primaryTypeName
                 )
 
-                $requiredTypes = GetRequiredType (Get-Command ArrayTypes)
+                $requiredTypes = Get-StubRequiredType (Get-Command ArrayTypes)
                 @($requiredTypes).Count | Should -Be 1
                 $requiredTypes.Type.Name | Should -Be $primaryTypeName
                 $requiredTypes.IsPrimary | Should -Be $true
@@ -243,7 +243,7 @@ InModuleScope Indented.StubCommand {
                     ' -f $primaryTypeName1, $primaryTypeName2
                 )
 
-                $requiredTypes = GetRequiredType (Get-Command ArrayTypes)
+                $requiredTypes = Get-StubRequiredType (Get-Command ArrayTypes)
             }
 
             It 'Returns two items' {
@@ -299,7 +299,7 @@ InModuleScope Indented.StubCommand {
                     ' -f $primaryTypeName
                 )
 
-                $requiredTypes = GetRequiredType (Get-Command StaticMethod)
+                $requiredTypes = Get-StubRequiredType (Get-Command StaticMethod)
             }
 
             It 'Returns two items' {

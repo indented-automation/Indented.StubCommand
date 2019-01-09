@@ -36,7 +36,10 @@ function New-StubModule {
                 throw (New-Object ArgumentException ("FunctionBody scriptblock cannot contain Param or DynamicParam blocks"))
             } else {$true}
         })]
-        [scriptblock]$FunctionBody
+        [ScriptBLock]$FunctionBody,
+
+        # By default, New-StubModule uses the Module parameter of Get-Command to locate commands to stub. ForceSourceFilter makes command discovery dependent on the Source property of commands returned by Get-Command.
+        [Switch]$ForceSourceFilter
     )
 
     try {
@@ -48,7 +51,11 @@ function New-StubModule {
         }
 
         # Support wildcards in the FromModule parameter.
-        Get-Command -Module $FromModule | Group-Object Source | ForEach-Object {
+        $GetCommandSplat = @{}
+        if (-not $ForceSourceFilter) {
+            $GetCommandSplat.Add('Module', $FromModule)
+        }
+        Get-Command @GetCommandSplat | Where-Object { -not $ForceSourceFilter -or ($ForceSourceFilter -and $_.Source -eq $FromModule) } | Group-Object Source | ForEach-Object {
             $moduleName = $_.Name
 
             if ($psboundparameters.ContainsKey('Path')) {
@@ -57,15 +64,15 @@ function New-StubModule {
             }
 
             # Header
-
             '# Name: {0}' -f $moduleName
-            '# Version: {0}' -f (Get-Module $moduleName).Version
+            if (-not $ForceSourceFilter) {
+                '# Version: {0}' -f (Get-Module $moduleName).Version
+            }
             '# CreatedOn: {0}' -f (Get-Date -Format 'u')
             ''
-            
-            # Types
 
-            $_.Group | GetRequiredType | New-StubType
+            # Types
+            $_.Group | Get-StubRequiredType | New-StubType
 
             # Commands
             $StubCommandSplat = @{}

@@ -150,7 +150,7 @@ InModuleScope Indented.StubCommand {
                         }
                     }
                 "
-                
+
                 $stub = New-StubType -Type "$declaringTypeName+$nestedTypeName"
                 $stub | Should -Match "public class $declaringTypeName"
                 $stub | Should -Match "public enum $nestedTypeName"
@@ -235,7 +235,7 @@ InModuleScope Indented.StubCommand {
                     {
                         public string publicField;
                         private string privateField;
-                        
+
                         public $typeName() { }
                         public $typeName(string one, int two) { }
 
@@ -342,7 +342,7 @@ InModuleScope Indented.StubCommand {
                     {
                         public string publicField;
                         private string privateField;
-                        
+
                         public $typeName() { }
                         public $typeName(string one, int two) { }
 
@@ -361,7 +361,7 @@ InModuleScope Indented.StubCommand {
                 "
                 $stub = New-StubType $typeName -IsPrimary $false
             }
-            
+
             It 'Creates a truncated class' {
                 $stub | Should -Not -Match 'publicField'
                 $stub | Should -Not -Match 'PublicProperty'
@@ -408,7 +408,7 @@ InModuleScope Indented.StubCommand {
             It 'Supports nested types within a namespace' {
                 $nestedStub | Should -Match $nestedTypeName
             }
-            
+
             It 'Generates a stub which will compile' {
                 Test-TypeDefinition $stub | Should -Be $true
                 Test-TypeDefinition $nestedStub | Should -Be $true

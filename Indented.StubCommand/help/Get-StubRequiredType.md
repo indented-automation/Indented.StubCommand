@@ -5,35 +5,40 @@ online version:
 schema: 2.0.0
 ---
 
-# New-StubDynamicParam
+# Get-StubRequiredType
 
 ## SYNOPSIS
-Creates a new script representation of a set of dynamic parameters.
+Gets the list of types required by a set of commands.
 
 ## SYNTAX
 
 ```
-New-StubDynamicParam [-CommandInfo] <CommandInfo> [<CommonParameters>]
+Get-StubRequiredType [-CommandInfo] <CommandInfo> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates a new script representation of a set of dynamic parameters.
+The list of required types includes:
 
-The dynamic parameter set includes any attributes bound to individual parameters.
+    Types defined for parameters attached to PowerShell commands.
+    Types required to satisfy exposed public properties.
+    Types required to satisfy Create or Parse methods.
+
+Type list expansion is limited to two levels.
+The second level of classes (not directly required by a parameter) will have type names assigned to members rewritten.
 
 ## EXAMPLES
 
-### EXAMPLE 1
-```
-Get-Command Get-Item | New-StubDynamicParam
+### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
 ```
 
-Creates a copy of the dynamic param block used by Get-Item.
+{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -CommandInfo
-Generate a dynamic param block for the specified command.
+Resolve the list of types required by the specified command.
 
 ```yaml
 Type: CommandInfo
@@ -41,7 +46,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: 2
 Default value: None
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
@@ -56,9 +61,9 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ### System.Management.Automation.CommandInfo
 ## OUTPUTS
 
-### System.String
+### StubTypeInfo
 ## NOTES
 Change log:
-    04/04/2017 - Chris Dent - Created.
+    11/05/2017 - Chris Dent - Created.
 
 ## RELATED LINKS

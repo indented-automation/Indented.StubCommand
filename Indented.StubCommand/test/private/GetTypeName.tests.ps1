@@ -13,7 +13,7 @@ InModuleScope Indented.StubCommand {
                             public $typeName() { }
                         }
                     }
-                "                
+                "
             }
 
             It 'Returns the full name of a given type' {
@@ -55,7 +55,7 @@ InModuleScope Indented.StubCommand {
 
                         public $typeName() { }
                     }
-                "                
+                "
             }
 
             It 'Returns the full name of a nullable type' {
