@@ -43,7 +43,7 @@ InModuleScope Indented.StubCommand {
 
             $script.ToString() | Out-File 'TestDrive:\TestModule.psm1'
 
-            Mock GetRequiredType {
+            Mock Get-StubRequiredType {
                 [PSCustomObject]@{
                     Type      = $Script:typeName -as [Type]
                     IsPrimary = $true
@@ -61,7 +61,7 @@ InModuleScope Indented.StubCommand {
             }
 
             It 'Gathers a list of types to create' {
-                Assert-MockCalled GetRequiredType -Scope It
+                Assert-MockCalled Get-StubRequiredType -Scope It
             }
 
             It 'Creates stub types for each class or enum' {
@@ -90,6 +90,10 @@ InModuleScope Indented.StubCommand {
             It 'Creates a header in the file' {
                 'TestDrive:\Stub\TestModule.psm1' | Should -FileContentMatch 'Name: TestModule'
             }
+        }
+
+        Context 'Snap-in support' {
+
         }
     }
 }

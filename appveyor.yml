@@ -1,6 +1,6 @@
-os: WMF 5
-
 version: 1.2.{build}
+
+image: Visual Studio 2017
 
 skip_commits:
   message: /updated readme.*|update readme.*s/
@@ -11,12 +11,11 @@ install:
   - ps: |
       $null = Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
       Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-      Install-Module Configuration, Pester, Indented.Build
+      Install-Module Configuration, Pester, InvokeBuild -Scope CurrentUser
       Set-Location $env:APPVEYOR_BUILD_FOLDER\$env:APPVEYOR_PROJECT_NAME
-      Get-BuildInfo -BuildType Build
 
 build_script:
-  - ps: Start-Build -BuildType Build
+  - ps: Invoke-Build -Task Setup, Build
 
 test_script:
-  - ps: Start-Build -BuildType Test
+  - ps: Invoke-Build -Task Setup, Test

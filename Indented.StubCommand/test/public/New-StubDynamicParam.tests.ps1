@@ -25,7 +25,7 @@ InModuleScope Indented.StubCommand {
                 return $stubInfo
             }
         }
-        
+
         Context 'No attributes' {
             It 'Creates an entry for a bare attribute' {
                 $Script:attributes = { @() }
@@ -101,15 +101,15 @@ InModuleScope Indented.StubCommand {
                     $Script:attributes = {
                         New-Object ValidateDrive('C')
                     }
-                
+
                     $testAttribute.TypeId | Should -Be ([ValidateDrive])
                 }
-                
+
                 It 'Supports ValidateUserDrive' {
                     $Script:attributes = {
                         New-Object ValidateUserDrive
                     }
-                
+
                     $testAttribute.TypeId | Should -Be ([ValidateUserDrive])
                 }
             }

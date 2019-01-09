@@ -37,7 +37,7 @@ InModuleScope Indented.StubCommand {
                 $stub | Should -Match 'param'
             }
         }
-    
+
         Context 'OutputType' {
             It 'Supports functions which declare an OutputType' {
                 function Test-Function {
@@ -194,7 +194,7 @@ InModuleScope Indented.StubCommand {
                 Add-Type -TypeDefinition "
                     public class $typeName
                     {
-                        public string Name; 
+                        public string Name;
                     }
                 "
 

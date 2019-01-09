@@ -1,6 +1,7 @@
 ---
 external help file: Indented.StubCommand-help.xml
-online version: 
+Module Name: Indented.StubCommand
+online version:
 schema: 2.0.0
 ---
 
@@ -14,11 +15,13 @@ Create a new partial copy of a command.
 ### FromPipeline (Default)
 ```
 New-StubCommand [-CommandInfo <CommandInfo>] [-IncludeTypeDefinition] [-FunctionBody <ScriptBlock>]
+ [<CommonParameters>]
 ```
 
 ### FromString
 ```
 New-StubCommand [-CommandName] <String> [-IncludeTypeDefinition] [-FunctionBody <ScriptBlock>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,14 +29,14 @@ New-StubCommand recreates a command as a function with param block and dynamic p
 
 ## EXAMPLES
 
-### -------------------------- EXAMPLE 1 --------------------------
+### EXAMPLE 1
 ```
 New-StubCommand Test-Path
 ```
 
 Create a stub of the Test-Path command.
 
-### -------------------------- EXAMPLE 2 --------------------------
+### EXAMPLE 2
 ```
 Get-Command -Module AppLocker | New-StubCommand
 ```
@@ -48,7 +51,7 @@ Generate a stub of the specified command name.
 ```yaml
 Type: String
 Parameter Sets: FromString
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1
@@ -63,7 +66,7 @@ Generate a stub of the specified command.
 ```yaml
 Type: CommandInfo
 Parameter Sets: FromPipeline
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -78,7 +81,7 @@ Request generation of type statements to satisfy parameter binding.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -93,7 +96,7 @@ Allow population of generated stub command with a custom function body.
 ```yaml
 Type: ScriptBlock
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -102,18 +105,19 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### System.Management.Automation.CommandInfo
-
 ## OUTPUTS
 
 ### System.String
-
 ## NOTES
 Change log:
     10/05/2017 - Chris Dent - Added automatic help insertion.
     03/04/2017 - Chris Dent - Created.
 
 ## RELATED LINKS
-

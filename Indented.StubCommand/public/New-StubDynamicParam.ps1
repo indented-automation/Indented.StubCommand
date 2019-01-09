@@ -67,7 +67,7 @@ function New-StubDynamicParam {
                         $null = $script.AppendFormat('({0})', $arguments -join ', ').
                                         AppendLine()
                     }
-                    
+
                     # Parameter named parameter handler
                     if ($attribute.TypeId.Name -eq 'ParameterAttribute') {
                         $default = New-Object Parameter
@@ -84,7 +84,7 @@ function New-StubDynamicParam {
                             }
                         }
                     }
-                    
+
                     # ValidatePattern named parameter handler
                     if ($attribute.TypeId.Name -eq 'ValidatePatternAttribute') {
                         if ($attribute.Options -ne 'IgnoreCase') {

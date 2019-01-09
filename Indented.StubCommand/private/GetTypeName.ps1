@@ -8,7 +8,7 @@ function GetTypeName {
         Change log:
             31/05/2017 - Chris Dent - Created.
     #>
-    
+
     [OutputType([String])]
     param (
         [Parameter(Mandatory, ValueFromPipeline)]

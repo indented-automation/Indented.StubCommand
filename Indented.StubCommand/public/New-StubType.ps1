@@ -44,9 +44,9 @@ function New-StubType {
             $stubType = [PSCustomObject]@{
                 Type       = $Type
                 Namespace  = $Type.Namespace
-                Definition = $null 
+                Definition = $null
             }
-            
+
             $script = New-Object ScriptBuilder
 
             #if ($Type.Namespace -ne 'System' -and $Type.Namespace) {
@@ -62,7 +62,7 @@ function New-StubType {
                 } else {
                     $parentClassDefinition = New-StubType $Type.DeclaringType -ExcludeAddType
                 }
-                
+
                 # "Open" the parent class to allow the nested class to be injected (nested types are not automatically fabricated).
                 $parentClassDefinition = $parentClassDefinition.Trim() -replace '\}$'
 
@@ -90,9 +90,16 @@ function New-StubType {
                                 AppendLine().
                                 AppendLine('{')
 
-                $values = [Enum]::GetValues($Type)
-                for ($i = 0; $i -lt $values.Count; $i++) {
-                    $null = $script.AppendFormat('{0} = {1}', $values[$i].ToString(), [Convert]::ChangeType($values[$i], $underlyingType))
+                $names = [Enum]::GetNames($Type)
+                for ($i = 0; $i -lt $names.Count; $i++) {
+                    $null = $script.AppendFormat(
+                        '{0} = {1}',
+                        $names[$i],
+                        [Convert]::ChangeType(
+                            [Enum]::Parse($Type, $names[$i]),
+                            $underlyingType
+                        )
+                    )
                     if ($i -ne $values.Count - 1) {
                         $null = $script.Append(',')
                     }
@@ -172,7 +179,7 @@ function New-StubType {
                         $null = $script.AppendLine()
                     }
 
-                    # If the type does not implement a constructor which does not require arguments 
+                    # If the type does not implement a constructor which does not require arguments
                     if (-not $Type.GetConstructor(@())) {
                         $null = $script.AppendLine('// Fabricated constructor').
                                         AppendFormat('private {0}() {{ }}', $Type.Name).
@@ -237,7 +244,7 @@ function New-StubType {
                                     AppendLine()
                 }
             }
-            
+
             if (-not $ExcludeAddType) {
                 $null = $script.AppendLine("'@")
             }

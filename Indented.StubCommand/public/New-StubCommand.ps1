@@ -31,7 +31,7 @@ function New-StubCommand {
         # Generate a stub of the specified command name.
         [Parameter(Position = 0, Mandatory, ParameterSetName = 'FromString')]
         [String]$CommandName,
-        
+
         # Generate a stub of the specified command.
         [Parameter(ValueFromPipeline, ParameterSetName = 'FromPipeline')]
         [CommandInfo]$CommandInfo,
@@ -47,7 +47,7 @@ function New-StubCommand {
         })]
         [scriptblock]$FunctionBody
     )
-    
+
     begin {
         if ($pscmdlet.ParameterSetName -eq 'FromString') {
             $null = $PSBoundParameters.Remove('CommandName')
@@ -64,12 +64,12 @@ function New-StubCommand {
                 $script = New-Object ScriptBuilder
 
                 if ($IncludeTypeDefinition) {
-                    $null = $script.AppendLine((GetRequiredType -CommandInfo $CommandInfo | New-StubType))
+                    $null = $script.AppendLine((Get-StubRequiredType -CommandInfo $CommandInfo | New-StubType))
                 }
 
                 $null = $script.AppendFormat('function {0} {{', $CommandInfo.Name).
                                 AppendLine()
-                
+
                 # Write help
                 $helpContent = Get-Help $CommandInfo.Name -Full
                 if ($helpContent.Synopsis) {
@@ -159,7 +159,7 @@ function New-StubCommand {
                 # Close the function
 
                 $null = $script.AppendLine('}')
-                
+
                 $script.ToString()
             } catch {
                 Write-Error -ErrorRecord $_
