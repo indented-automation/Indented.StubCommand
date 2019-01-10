@@ -1,7 +1,6 @@
 ---
 external help file: Indented.StubCommand-help.xml
-Module Name: Indented.StubCommand
-online version:
+online version: 
 schema: 2.0.0
 ---
 
@@ -13,7 +12,7 @@ Generates a class or enum definition.
 ## SYNTAX
 
 ```
-New-StubType [[-Type] <Type>] [[-IsPrimary] <Boolean>] [-ExcludeAddType] [<CommonParameters>]
+New-StubType [[-Type] <Type>] [[-IsPrimary] <Boolean>] [-ExcludeAddType]
 ```
 
 ## DESCRIPTION
@@ -21,7 +20,7 @@ Builds a type definition which represents a class or type which is used to const
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### -------------------------- EXAMPLE 1 --------------------------
 ```
 New-Stubtype ([IPAddress])
 ```
@@ -36,7 +35,7 @@ Generate a stub of the specified type.
 ```yaml
 Type: Type
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: False
 Position: 1
@@ -51,7 +50,7 @@ If a type is flagged as secondary, member types are rewritten as object to end t
 ```yaml
 Type: Boolean
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: False
 Position: 2
@@ -66,7 +65,7 @@ Exclude the Add-Type wrapper statements.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: False
 Position: Named
@@ -75,19 +74,18 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
-
 ## INPUTS
 
 ### System.Type
+
 ## OUTPUTS
 
 ### System.String
+
 ## NOTES
 Change log:
     04/04/2017 - Chris Dent - Created.
     31/05/2017 - Chris Dent - Nested type handling.
 
 ## RELATED LINKS
+

@@ -1,7 +1,6 @@
 ---
 external help file: Indented.StubCommand-help.xml
-Module Name: Indented.StubCommand
-online version:
+online version: 
 schema: 2.0.0
 ---
 
@@ -13,7 +12,7 @@ Gets the list of types required by a set of commands.
 ## SYNTAX
 
 ```
-Get-StubRequiredType [-CommandInfo] <CommandInfo> [<CommonParameters>]
+Get-StubRequiredType [-CommandInfo] <CommandInfo>
 ```
 
 ## DESCRIPTION
@@ -29,7 +28,7 @@ The second level of classes (not directly required by a parameter) will have typ
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 PS C:\> {{ Add example code here }}
 ```
 
@@ -43,7 +42,7 @@ Resolve the list of types required by the specified command.
 ```yaml
 Type: CommandInfo
 Parameter Sets: (All)
-Aliases:
+Aliases: 
 
 Required: True
 Position: 2
@@ -52,18 +51,17 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
-
 ## INPUTS
 
 ### System.Management.Automation.CommandInfo
+
 ## OUTPUTS
 
 ### StubTypeInfo
+
 ## NOTES
 Change log:
     11/05/2017 - Chris Dent - Created.
 
 ## RELATED LINKS
+

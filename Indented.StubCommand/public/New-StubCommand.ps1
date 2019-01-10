@@ -60,6 +60,8 @@ function New-StubCommand {
 
     process {
         if ($pscmdlet.ParameterSetName -eq 'FromPipeline') {
+            Write-Debug ('Generating stub for {0}' -f $CommandInfo.Name)
+
             try {
                 $script = New-Object ScriptBuilder
 
@@ -115,7 +117,7 @@ function New-StubCommand {
                 }
 
                 # Write param
-                if ($CommandInfo.CmdletBinding -or $CommandInfo.Parameters.Count -gt 0) {
+                if ($CommandInfo.CmdletBinding -or @($CommandInfo.Parameters).Count -gt 0) {
                     $null = $script.Append('param (')
 
                     if ($param = [ProxyCommand]::GetParamBlock($CommandInfo)) {

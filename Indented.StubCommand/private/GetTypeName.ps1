@@ -16,7 +16,9 @@ function GetTypeName {
     )
 
     process {
-        if ($Type.IsNestedPublic) {
+        if ($Type -eq [System.Void]) {
+            'void'
+        } elseif ($Type.IsNestedPublic) {
             $Type.FullName.Replace('+', '.')
         } elseif ($Type.IsGenericType) {
             $genericTypeName = $Type.GetGenericTypeDefinition().FullName -replace '`\d+'
