@@ -186,7 +186,44 @@ namespace System.Net
 
 ## Module examples
 
-Examples of stub modules created using the commands in this module are available:
+The following generates stubs for all commands and types in the module
+*ActiveDirectory*.
+
+```powershell
+New-StubModule -FromModule ActiveDirectory -Path C:\Temp
+```
+
+The following generates stubs with a function body for all commands.
+
+```powershell
+$functionBody = {
+    throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+New-StubModule -FromModule ActiveDirectory -Path C:\Temp -FunctionBody $functionBody
+```
+
+The following generates stubs and for all commands the types starting with
+`Microsoft.ActiveDirectory.Management` are replaced with `System.Object`.
+
+```powershell
+New-StubModule -FromModule ActiveDirectory -Path C:\Temp -ReplaceTypeDefinition @(
+    @{
+        ReplaceType = 'System\.Nullable`1\[Microsoft\.ActiveDirectory\.Management\.\w*\]'
+        WithType = 'System.Object'
+    },
+    @{
+        ReplaceType = 'Microsoft\.ActiveDirectory\.Management\.Commands\.\w*'
+        WithType = 'System.Object'
+    },
+    @{
+        ReplaceType = 'Microsoft\.ActiveDirectory\.Management\.\w*'
+        WithType = 'System.Object'
+    }
+)
+```
+
+Examples of already created stub modules using this module are available:
 
 <https://github.com/indented-automation/Indented.StubCommand/tree/master/examples>
 
