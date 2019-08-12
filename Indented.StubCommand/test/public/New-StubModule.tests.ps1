@@ -73,6 +73,25 @@ InModuleScope Indented.StubCommand {
             }
         }
 
+        Context 'Replace type definition' {
+            BeforeEach {
+                New-StubModule -FromModule 'TestDrive:\TestModule.psm1' -ReplaceTypeDefinition @(
+                    @{
+                        ReplaceType = 'Microsoft.*'
+                        WithType = 'System.Object'
+                    }
+                )
+            }
+
+            It 'Calls New-StubCommand with the correct parameter' {
+                Assert-MockCalled Get-StubRequiredType -Scope It
+
+                Assert-MockCalled -CommandName New-StubCommand -ParameterFilter {
+                    $PSBoundParameters.ContainsKey('ReplaceTypeDefinition')
+                }
+            }
+        }
+
         Context 'Save to file' {
             Mock New-StubCommand {
                 'function Test-Function { }'

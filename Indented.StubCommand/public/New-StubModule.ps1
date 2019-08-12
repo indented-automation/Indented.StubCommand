@@ -15,6 +15,7 @@ function New-StubModule {
         Create stub of the DnsClient module.
     .NOTES
         Change log:
+            10/08/2019 - Johan Ljunggren - Added parameter ReplaceTypeDefinition
             05/04/2017 - Chris Dent - Created.
     #>
 
@@ -39,7 +40,10 @@ function New-StubModule {
         [ScriptBLock]$FunctionBody,
 
         # By default, New-StubModule uses the Module parameter of Get-Command to locate commands to stub. ForceSourceFilter makes command discovery dependent on the Source property of commands returned by Get-Command.
-        [Switch]$ForceSourceFilter
+        [Switch]$ForceSourceFilter,
+
+        # Optional types to replace with the specified type.
+        [System.Collections.Hashtable[]]$ReplaceTypeDefinition
     )
 
     try {
@@ -79,6 +83,11 @@ function New-StubModule {
             if ($psboundparameters.ContainsKey('FunctionBody')) {
                 $StubCommandSplat = @{FunctionBody = $FunctionBody}
             }
+
+            if ($psboundparameters.ContainsKey('ReplaceTypeDefinition')) {
+                $StubCommandSplat['ReplaceTypeDefinition'] = $ReplaceTypeDefinition
+            }
+
             $_.Group | New-StubCommand @StubCommandSplat
         } | ForEach-Object {
             if ($psboundparameters.ContainsKey('Path')) {

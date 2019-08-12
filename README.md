@@ -2,7 +2,7 @@
 
 | [![Build status](https://ci.appveyor.com/api/projects/status/hivl80nvn7ms97xh?svg=true)](https://ci.appveyor.com/project/indented-automation/indented-stubcommand) | [![Stories in Ready](https://badge.waffle.io/indented-automation/Indented.StubCommand.png?label=ready&title=Ready)](https://waffle.io/indented-automation/Indented.StubCommand) |
 
-A stub command or module is intended for use with tools like Pester. 
+A stub command or module is intended for use with tools like Pester.
 
 When Pester to creates a mock the original command must be available. If a command or module is not available a function might be written to resemble the original command.
 
@@ -15,7 +15,7 @@ A stub might be used where:
 
 ## Installation
 ```
-Install-Module -Name Indented.StubCommand 
+Install-Module -Name Indented.StubCommand
 ```
 ## Stub commands
 
@@ -56,58 +56,58 @@ function Test-Path {
         [Parameter(ParameterSetName='Path', Mandatory=$true, Position=0, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
         [string[]]
         ${Path},
-        
+
         [Parameter(ParameterSetName='LiteralPath', Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
         [Alias('PSPath')]
         [string[]]
         ${LiteralPath},
-        
+
         [string]
         ${Filter},
-        
+
         [string[]]
         ${Include},
-        
+
         [string[]]
         ${Exclude},
-        
+
         [Alias('Type')]
         [Microsoft.PowerShell.Commands.TestPathType]
         ${PathType},
-        
+
         [switch]
         ${IsValid},
-        
+
         [Parameter(ValueFromPipelineByPropertyName=$true)]
         [pscredential]
         [System.Management.Automation.CredentialAttribute()]
         ${Credential}
     )
-    
+
     dynamicparam {
         $parameters = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
-        
+
         # OlderThan
         $attributes = New-Object System.Collections.Generic.List[Attribute]
-        
+
         $attribute = New-Object System.Management.Automation.ParameterAttribute
         $attributes.Add($attribute)
-        
+
         $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("OlderThan", [System.Nullable`1[System.DateTime]], $attributes)
         $parameters.Add("OlderThan", $parameter)
-        
+
         # NewerThan
         $attributes = New-Object System.Collections.Generic.List[Attribute]
-        
+
         $attribute = New-Object System.Management.Automation.ParameterAttribute
         $attributes.Add($attribute)
-        
+
         $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("NewerThan", [System.Nullable`1[System.DateTime]], $attributes)
         $parameters.Add("NewerThan", $parameter)
-        
+
         return $parameters
     }
-    
+
 }
 ```
 
@@ -175,7 +175,44 @@ namespace System.Net
 
 ## Module examples
 
-Examples of stub modules created using the commands in this module are available:
+The following generates stubs for all commands and types in the module
+*ActiveDirectory*.
+
+```powershell
+New-StubModule -FromModule ActiveDirectory -Path C:\Temp
+```
+
+The following generates stubs with a function body for all commands.
+
+```powershell
+$functionBody = {
+    throw '{0}: StubNotImplemented' -f $MyInvocation.MyCommand
+}
+
+New-StubModule -FromModule ActiveDirectory -Path C:\Temp -FunctionBody $functionBody
+```
+
+The following generates stubs and for all commands the types starting with
+`Microsoft.ActiveDirectory.Management` are replaced with `System.Object`.
+
+```powershell
+New-StubModule -FromModule ActiveDirectory -Path C:\Temp -ReplaceTypeDefinition @(
+    @{
+        ReplaceType = 'System\.Nullable`1\[Microsoft\.ActiveDirectory\.Management\.\w*\]'
+        WithType = 'System.Object'
+    },
+    @{
+        ReplaceType = 'Microsoft\.ActiveDirectory\.Management\.Commands\.\w*'
+        WithType = 'System.Object'
+    },
+    @{
+        ReplaceType = 'Microsoft\.ActiveDirectory\.Management\.\w*'
+        WithType = 'System.Object'
+    }
+)
+```
+
+Examples of already created stub modules using this module are available:
 
 https://github.com/indented-automation/Indented.StubCommand/tree/master/examples
 

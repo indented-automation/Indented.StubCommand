@@ -16,6 +16,7 @@ function New-StubDynamicParam {
         Creates a copy of the dynamic param block used by Get-Item.
     .NOTES
         Change log:
+            10/08/2019 - Johan Ljunggren - Added parameter ReplaceTypeDefinition
             04/04/2017 - Chris Dent - Created.
     #>
 
@@ -26,7 +27,9 @@ function New-StubDynamicParam {
     param (
         # Generate a dynamic param block for the specified command.
         [Parameter(Mandatory, ValueFromPipeline)]
-        [CommandInfo]$CommandInfo
+        [CommandInfo]$CommandInfo,
+
+        [System.Collections.Hashtable[]]$ReplaceTypeDefinition
     )
 
     process {
@@ -46,6 +49,26 @@ function New-StubDynamicParam {
                                 AppendLine()
 
                 foreach ($attribute in $dynamicParam.Attributes) {
+                    if ($PSBoundParameters.ContainsKey('ReplaceTypeDefinition')) {
+                        $skipAttribute = $false
+
+                        foreach ($type in $ReplaceTypeDefinition)
+                        {
+                            if ($attribute.TypeId.FullName -match $type.ReplaceType)
+                            {
+                                $skipAttribute = $true
+
+                                # There can only be one type, so continuing.
+                                continue
+                            }
+                        }
+
+                        if ($skipAttribute)
+                        {
+                            continue
+                        }
+                    }
+
                     $ctor = $attribute.TypeId.GetConstructors()[0]
 
                     $null = $script.AppendFormat('$attribute = New-Object {0}', $attribute.TypeId.FullName)
@@ -96,7 +119,23 @@ function New-StubDynamicParam {
                     $null = $script.AppendLine('$attributes.Add($attribute)').
                                     AppendLine()
                 }
-                $null = $script.AppendFormat('$parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("{0}", [{1}], $attributes)', $dynamicParam.Name, $dynamicParam.ParameterType.ToString()).
+
+                $parameterType = $dynamicParam.ParameterType.ToString()
+
+                if ($PSBoundParameters.ContainsKey('ReplaceTypeDefinition')) {
+                    foreach ($type in $ReplaceTypeDefinition)
+                    {
+                        if ($parameterType -match $type.ReplaceType)
+                        {
+                            $parameterType = $parameterType -replace $type.ReplaceType, $type.WithType
+
+                            # There can only be one type, so continuing.
+                            continue
+                        }
+                    }
+                }
+
+                $null = $script.AppendFormat('$parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("{0}", [{1}], $attributes)', $dynamicParam.Name, $parameterType).
                                 AppendLine().
                                 AppendFormat('$parameters.Add("{0}", $parameter)', $dynamicParam.Name).
                                 AppendLine().

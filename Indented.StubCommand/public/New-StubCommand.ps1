@@ -19,6 +19,7 @@ function New-StubCommand {
         Create a stub of all commands in the AppLocker module.
     .NOTES
         Change log:
+            10/08/2019 - Johan Ljunggren - Added parameter ReplaceTypeDefinition
             10/05/2017 - Chris Dent - Added automatic help insertion.
             03/04/2017 - Chris Dent - Created.
     #>
@@ -45,7 +46,9 @@ function New-StubCommand {
                 throw (New-Object ArgumentException ("FunctionBody scriptblock cannot contain Param or DynamicParam blocks"))
             } else {$true}
         })]
-        [scriptblock]$FunctionBody
+        [scriptblock]$FunctionBody,
+
+        [System.Collections.Hashtable[]]$ReplaceTypeDefinition
     )
 
     begin {
@@ -120,6 +123,16 @@ function New-StubCommand {
 
                     if ($param = [ProxyCommand]::GetParamBlock($CommandInfo)) {
                         foreach ($line in $param -split '\r?\n') {
+                            if ($PSBoundParameters.ContainsKey('ReplaceTypeDefinition')) {
+                                foreach ($type in $ReplaceTypeDefinition)
+                                {
+                                    if ($line -match ('\[{0}\]' -f $type.ReplaceType))
+                                    {
+                                        $line = $line -replace $type.ReplaceType, $type.WithType
+                                    }
+                                }
+                            }
+
                             $null = $script.AppendLine($line.Trim())
                         }
                     } else {
@@ -129,8 +142,16 @@ function New-StubCommand {
                     $null = $script.AppendLine(')')
                 }
 
-                # Write dynamic params
-                if ($dynamicParams = New-StubDynamicParam $CommandInfo) {
+                $newStubDynamicParamArguments = @{
+                    CommandInfo = $CommandInfo
+                }
+
+                if ($PSBoundParameters.ContainsKey('ReplaceTypeDefinition')) {
+                    $newStubDynamicParamArguments['ReplaceTypeDefinition'] = $ReplaceTypeDefinition
+                }
+
+                if ($dynamicParams = New-StubDynamicParam @newStubDynamicParamArguments) {
+                    # Write dynamic params
                     $null = $script.AppendScript($dynamicParams)
                 }
 
