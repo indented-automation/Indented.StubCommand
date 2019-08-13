@@ -13,6 +13,30 @@ function New-StubModule {
         New-StubModule -FromModule DnsClient
 
         Create stub of the DnsClient module.
+
+    .EXAMPLE
+        New-StubModule -FromModule ActiveDirectory -Path C:\Temp -ReplaceTypeDefinition @(
+            @{
+                ReplaceType = 'System\.Nullable`1\[Microsoft\.ActiveDirectory\.Management\.\w*\]'
+                WithType = 'System.Object'
+            },
+            @{
+                ReplaceType = 'Microsoft\.ActiveDirectory\.Management\.Commands\.\w*'
+                WithType = 'System.Object'
+            },
+            @{
+                ReplaceType = 'Microsoft\.ActiveDirectory\.Management\.\w*'
+                WithType = 'System.Object'
+            }
+        )
+
+        Creates a stub module of all the cmdlets and types in the module ActiveDirectory
+        replacing specific types with another type. ReplaceTypeDefinition takes an
+        array of hashtables. The hashtable must have two properties; the property
+        ReplaceType contain the type name that should be replaced with the type
+        name specified in the property WithType. The property ReplaceType supports
+        regular expression.
+
     .NOTES
         Change log:
             10/08/2019 - Johan Ljunggren - Added parameter ReplaceTypeDefinition
@@ -42,7 +66,7 @@ function New-StubModule {
         # By default, New-StubModule uses the Module parameter of Get-Command to locate commands to stub. ForceSourceFilter makes command discovery dependent on the Source property of commands returned by Get-Command.
         [Switch]$ForceSourceFilter,
 
-        # Optional types to replace with the specified type.
+        # Allow types on parameters to be replaced by another type.
         [System.Collections.Hashtable[]]$ReplaceTypeDefinition
     )
 

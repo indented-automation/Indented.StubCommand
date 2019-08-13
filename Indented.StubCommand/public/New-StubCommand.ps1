@@ -48,12 +48,13 @@ function New-StubCommand {
         })]
         [scriptblock]$FunctionBody,
 
+        # Allow types on parameters to be replaced by another type.
         [System.Collections.Hashtable[]]$ReplaceTypeDefinition
     )
 
     begin {
         if ($pscmdlet.ParameterSetName -eq 'FromString') {
-            $null = $PSBoundParameters.Remove('CommandName')
+            $null = $psboundparameters.Remove('CommandName')
             Get-Command $CommandName | New-StubCommand @PSBoundParameters
         } else {
             $commonParameters = ([CommonParameters]).GetProperties().Name
@@ -123,7 +124,7 @@ function New-StubCommand {
 
                     if ($param = [ProxyCommand]::GetParamBlock($CommandInfo)) {
                         foreach ($line in $param -split '\r?\n') {
-                            if ($PSBoundParameters.ContainsKey('ReplaceTypeDefinition')) {
+                            if ($psboundparameters.ContainsKey('ReplaceTypeDefinition')) {
                                 foreach ($type in $ReplaceTypeDefinition)
                                 {
                                     if ($line -match ('\[{0}\]' -f $type.ReplaceType))
@@ -146,7 +147,7 @@ function New-StubCommand {
                     CommandInfo = $CommandInfo
                 }
 
-                if ($PSBoundParameters.ContainsKey('ReplaceTypeDefinition')) {
+                if ($psboundparameters.ContainsKey('ReplaceTypeDefinition')) {
                     $newStubDynamicParamArguments['ReplaceTypeDefinition'] = $ReplaceTypeDefinition
                 }
 

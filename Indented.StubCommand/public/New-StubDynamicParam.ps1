@@ -29,6 +29,7 @@ function New-StubDynamicParam {
         [Parameter(Mandatory, ValueFromPipeline)]
         [CommandInfo]$CommandInfo,
 
+        # Allow types on parameters to be replaced by another type. Also removes any parameter attribute using the type.
         [System.Collections.Hashtable[]]$ReplaceTypeDefinition
     )
 
@@ -49,7 +50,7 @@ function New-StubDynamicParam {
                                 AppendLine()
 
                 foreach ($attribute in $dynamicParam.Attributes) {
-                    if ($PSBoundParameters.ContainsKey('ReplaceTypeDefinition')) {
+                    if ($psboundparameters.ContainsKey('ReplaceTypeDefinition')) {
                         $skipAttribute = $false
 
                         foreach ($type in $ReplaceTypeDefinition)
@@ -122,7 +123,7 @@ function New-StubDynamicParam {
 
                 $parameterType = $dynamicParam.ParameterType.ToString()
 
-                if ($PSBoundParameters.ContainsKey('ReplaceTypeDefinition')) {
+                if ($psboundparameters.ContainsKey('ReplaceTypeDefinition')) {
                     foreach ($type in $ReplaceTypeDefinition)
                     {
                         if ($parameterType -match $type.ReplaceType)
