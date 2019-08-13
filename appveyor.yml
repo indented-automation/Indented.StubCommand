@@ -21,9 +21,9 @@ install:
       Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
       Install-Module InvokeBuild, Indented.Build
       Set-Location $env:APPVEYOR_BUILD_FOLDER
-  - pwsh: |
-      Install-Module InvokeBuild, Indented.Build
-      Set-Location $env:APPVEYOR_BUILD_FOLDER
+  # - pwsh: |
+  #     Install-Module InvokeBuild, Indented.Build
+  #     Set-Location $env:APPVEYOR_BUILD_FOLDER
 
 build_script:
   - ps: |
@@ -32,7 +32,7 @@ build_script:
 
 test_script:
   - ps: Start-Build -BuildType Setup, Test
-  - pwsh: Start-Build -BuildType Setup, Test
+  # - pwsh: Start-Build -BuildType Setup, Test
 
 on_success:
   - ps: |
