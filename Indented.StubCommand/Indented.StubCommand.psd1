@@ -9,10 +9,10 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-# RootModule = ''
+RootModule = 'Indented.StubCommand.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.3.0'
+ModuleVersion = '1.4.0'
 
 # ID used to uniquely identify this module
 GUID = '29f00170-5593-4b4f-a9d6-fb2ba1752e3f'
