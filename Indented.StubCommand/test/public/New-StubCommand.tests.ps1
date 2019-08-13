@@ -251,7 +251,7 @@ InModuleScope Indented.StubCommand {
                     )
 
                     Assert-MockCalled -CommandName New-StubDynamicParam -ParameterFilter {
-                        $PSBoundParameters.ContainsKey('ReplaceTypeDefinition')
+                        $psboundparameters.ContainsKey('ReplaceTypeDefinition')
                     }
 
                     $stub | Should -Not -Match $typeName
