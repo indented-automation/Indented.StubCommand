@@ -1,8 +1,8 @@
 # Indented.StubCommand
 
-| [![Build status](https://ci.appveyor.com/api/projects/status/hivl80nvn7ms97xh?svg=true)](https://ci.appveyor.com/project/indented-automation/indented-stubcommand) | [![Stories in Ready](https://badge.waffle.io/indented-automation/Indented.StubCommand.png?label=ready&title=Ready)](https://waffle.io/indented-automation/Indented.StubCommand) |
+[![Build status](https://ci.appveyor.com/api/projects/status/hivl80nvn7ms97xh?svg=true)](https://ci.appveyor.com/project/indented-automation/indented-stubcommand)
 
-A stub command or module is intended for use with tools like Pester. 
+A stub command or module is intended for use with tools like Pester.
 
 When Pester to creates a mock the original command must be available. If a command or module is not available a function might be written to resemble the original command.
 
@@ -14,9 +14,11 @@ A stub might be used where:
 2. A build server cannot (or should not) install a command or module required.
 
 ## Installation
+
+```powershell
+Install-Module -Name Indented.StubCommand
 ```
-Install-Module -Name Indented.StubCommand 
-```
+
 ## Stub commands
 
 The stub command includes the following:
@@ -45,10 +47,13 @@ A stub module creates stub commands and types from the content of a module.
 ## Command example
 
 The following command can be used to create a stub of the Test-Path command.
+
 ```powershell
 New-StubCommand (Get-Command Test-Path)
 ```
+
 The generated stub is shown (without help content) below.
+
 ```powershell
 function Test-Path {
     [OutputType([System.Boolean])]
@@ -56,68 +61,71 @@ function Test-Path {
         [Parameter(ParameterSetName='Path', Mandatory=$true, Position=0, ValueFromPipeline=$true, ValueFromPipelineByPropertyName=$true)]
         [string[]]
         ${Path},
-        
+
         [Parameter(ParameterSetName='LiteralPath', Mandatory=$true, ValueFromPipelineByPropertyName=$true)]
         [Alias('PSPath')]
         [string[]]
         ${LiteralPath},
-        
+
         [string]
         ${Filter},
-        
+
         [string[]]
         ${Include},
-        
+
         [string[]]
         ${Exclude},
-        
+
         [Alias('Type')]
         [Microsoft.PowerShell.Commands.TestPathType]
         ${PathType},
-        
+
         [switch]
         ${IsValid},
-        
+
         [Parameter(ValueFromPipelineByPropertyName=$true)]
         [pscredential]
         [System.Management.Automation.CredentialAttribute()]
         ${Credential}
     )
-    
+
     dynamicparam {
         $parameters = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
-        
+
         # OlderThan
         $attributes = New-Object System.Collections.Generic.List[Attribute]
-        
+
         $attribute = New-Object System.Management.Automation.ParameterAttribute
         $attributes.Add($attribute)
-        
+
         $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("OlderThan", [System.Nullable`1[System.DateTime]], $attributes)
         $parameters.Add("OlderThan", $parameter)
-        
+
         # NewerThan
         $attributes = New-Object System.Collections.Generic.List[Attribute]
-        
+
         $attribute = New-Object System.Management.Automation.ParameterAttribute
         $attributes.Add($attribute)
-        
+
         $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter("NewerThan", [System.Nullable`1[System.DateTime]], $attributes)
         $parameters.Add("NewerThan", $parameter)
-        
+
         return $parameters
     }
-    
+
 }
 ```
 
 ## Type example
 
 The following command re-creates the TestPathType enumeration.
+
 ```powershell
 New-StubType "Microsoft.PowerShell.Commands.TestPathType"
 ```
+
 With the generated enum:
+
 ```powershell
 Add-Type @'
 namespace Microsoft.PowerShell.Commands
@@ -131,12 +139,16 @@ namespace Microsoft.PowerShell.Commands
 }
 '@
 ```
+
 Stub types are created using the same command.
+
 ```powershell
 New-StubType IPAddress
 ```
+
 The result is a class which presents the constructors, fields, properties, and Create or Parse static methods.
-```powershell
+
+```csharp
 namespace System.Net
 {
     public class IPAddress
@@ -170,14 +182,13 @@ namespace System.Net
         }
     }
 }
-'@
 ```
 
 ## Module examples
 
 Examples of stub modules created using the commands in this module are available:
 
-https://github.com/indented-automation/Indented.StubCommand/tree/master/examples
+<https://github.com/indented-automation/Indented.StubCommand/tree/master/examples>
 
 ## Custom function body
 
@@ -188,6 +199,7 @@ The scriptblock cannot contain a Param or DynamicParam block, but it can contain
 If specifying a function body to New-StubModule, all generated functions will have an identical body.
 
 Example of creating a wrapper function for Write-Debug which directs debug output to a log file if a global variable is present:
+
 ```powershell
 $CustomBody = {
     if ($Global:LOGFILE) {
@@ -201,6 +213,7 @@ New-StubCommand (Get-Command Write-Debug) -FunctionBody $CustomBody | Invoke-Exp
 ```
 
 Example of creating a wrapper function that executes commands through an API:
+
 ```powershell
 $CustomBody = {
     Invoke-RestMethod 'https://scriptrunner.contoso.com/invoke/' -Headers @{
