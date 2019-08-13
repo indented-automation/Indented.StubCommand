@@ -185,31 +185,78 @@ InModuleScope Indented.StubCommand {
         }
 
         Context 'Type definitions' {
-            BeforeAll {
-                Mock New-StubType {
-                    return $Type
+            Context 'When using parameter IncludeTypeDefinition' {
+                BeforeAll {
+                    Mock New-StubType {
+                        return $Type
+                    }
+
+                    [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
+                    Add-Type -TypeDefinition "
+                        public class $typeName
+                        {
+                            public string Name;
+                        }
+                    "
+
+                    Invoke-Expression "
+                        function Test-Function {
+                            param (
+                                [$typeName]`$Parameter
+                            )
+                        }
+                    "
                 }
 
-                [String]$typeName = 'z' + ([Guid]::NewGuid() -replace '-')
-                Add-Type -TypeDefinition "
-                    public class $typeName
-                    {
-                        public string Name;
-                    }
-                "
-
-                Invoke-Expression "
-                    function Test-Function {
-                        param (
-                            [$typeName]`$Parameter
-                        )
-                    }
-                "
+                It 'Includes type names in generated stubs' {
+                    $stub = New-StubCommand (Get-Command Test-Function) -IncludeTypeDefinition
+                    $stub | Should -Match $typeName
+                }
             }
 
-            It 'Includes type names in generated stubs' {
-                $stub = New-StubCommand (Get-Command Test-Function) -IncludeTypeDefinition
-                $stub | Should -Match $typeName
+            Context 'When using parameter ReplaceTypeDefinition' {
+                BeforeAll {
+                    [String]$namespaceName = 'Microsoft.ActiveDirectory.Management'
+                    [String]$className = 'ADObject'
+                    [String]$typeName = '{0}.{1}' -f $namespaceName, $className
+
+                    if (-not ($typeName -as [Type])) {
+                        Add-Type -TypeDefinition "
+                            namespace $namespaceName
+                            {
+                                public class $className
+                                {
+                                    public string Name;
+                                }
+                            }
+                        "
+                    }
+
+                    Invoke-Expression  "
+                        function Test-Function {
+                            param (
+                                [$typeName]`$Parameter
+                            )
+                        }
+                    "
+                }
+
+                It 'Should return a stub containing the replaced types, and have called New-StubDynamicParam' {
+                    $mockCommand = Get-Command Test-Function
+                    $stub = New-StubCommand $mockCommand -ReplaceTypeDefinition @(
+                        @{
+                            ReplaceType = [System.Text.RegularExpressions.Regex]::Escape($typeName)
+                            WithType = 'System.Object'
+                        }
+                    )
+
+                    Assert-MockCalled -CommandName New-StubDynamicParam -ParameterFilter {
+                        $psboundparameters.ContainsKey('ReplaceTypeDefinition')
+                    }
+
+                    $stub | Should -Not -Match $typeName
+                    $stub | Should -Match 'System.Object'
+                }
             }
         }
 

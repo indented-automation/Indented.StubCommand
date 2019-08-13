@@ -209,5 +209,66 @@ InModuleScope Indented.StubCommand {
                 $stubInfo.testAttribute.Options | Should -Be 'None'
             }
         }
+
+        Context 'When using parameter ReplaceTypeDefinition' {
+            BeforeAll {
+                [String]$namespaceName = 'Microsoft.ActiveDirectory.Management'
+                [String]$className = 'ADObject'
+                [String]$typeName = '{0}.{1}' -f $namespaceName, $className
+
+                if (-not ($typeName -as [Type])) {
+                    Add-Type -TypeDefinition "
+                        namespace $namespaceName
+                        {
+                            public class $className
+                            {
+                                public string Name;
+                            }
+                        }
+                    "
+                }
+
+                function Test-Function {
+                    dynamicparam {
+                        $parameters = New-Object System.Management.Automation.RuntimeDefinedParameterDictionary
+
+                        [Attribute[]]$attributes = $Script:attributes.Invoke()
+
+                        $parameter = New-Object System.Management.Automation.RuntimeDefinedParameter('TestParameter', [Microsoft.ActiveDirectory.Management.ADObject], $attributes)
+                        $parameters.Add('TestParameter', $parameter)
+
+                        return $parameters
+                    }
+                }
+            }
+
+            It 'Includes type names in generated stubs' {
+                $mockCommand = (Get-Command Test-Function)
+                $stub = New-StubDynamicParam $mockCommand -ReplaceTypeDefinition @(
+                    @{
+                        ReplaceType = [System.Text.RegularExpressions.Regex]::Escape('Microsoft.ActiveDirectory.Management.ADObject')
+                        WithType = 'System.Object'
+                    }
+                )
+
+                $stub | Should -Not -Match 'Microsoft.ActiveDirectory.Management.ADObject'
+                $stub | Should -Match 'System.Object'
+            }
+
+            Context 'When using regular expression to replace a type' {
+                It 'Includes type names in generated stubs' {
+                    $mockCommand = (Get-Command Test-Function)
+                    $stub = New-StubDynamicParam $mockCommand -ReplaceTypeDefinition @(
+                        @{
+                            ReplaceType = 'Microsoft.*'
+                            WithType = 'System.Object'
+                        }
+                    )
+
+                    $stub | Should -Not -Match 'Microsoft.ActiveDirectory.Management.ADObject'
+                    $stub | Should -Match 'System.Object'
+                }
+            }
+        }
     }
 }
